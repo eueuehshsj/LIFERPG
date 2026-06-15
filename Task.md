@@ -50,21 +50,21 @@ interface Reward {
 
 **목표**: Example과 동일한 의존성 환경 구축
 
-- [ ] `@pandacss/dev` 제거 및 관련 설정 파일 삭제 (`panda.config.ts`, `styled-system/` 등)
-- [ ] Tailwind CSS v4 설치
+- [x] `@pandacss/dev` 제거 및 관련 설정 파일 삭제 (`panda.config.ts`, `styled-system/` 등)
+- [x] Tailwind CSS v4 설치
   ```
   @tailwindcss/vite, tailwindcss, tw-animate-css
   ```
-- [ ] lucide-react 설치
-- [ ] `vite.config.ts`에 `tailwindcss()` 플러그인 등록, `@` 경로 alias 추가
-- [ ] `src/styles/` 디렉토리 생성 및 CSS 파일 작성
+- [x] lucide-react 설치
+- [x] `vite.config.ts`에 `tailwindcss()` 플러그인 등록, `@` 경로 alias 추가
+- [x] `src/styles/` 디렉토리 생성 및 CSS 파일 작성
   - `index.css` — fonts, tailwind, theme import
   - `tailwind.css` — `@import 'tailwindcss'` + `@source` + `@import 'tw-animate-css'`
   - `theme.css` — (Example의 theme.css 내용 참고)
   - `fonts.css` — (Example의 fonts.css 내용 참고)
-- [ ] `src/main.tsx`에서 `./styles/index.css` import
-- [ ] `package.json` scripts에서 `panda codegen` 제거, `dev`/`build` 단순화
-- [ ] 개발 서버 실행 확인
+- [x] `src/main.tsx`에서 `./styles/index.css` import
+- [x] `package.json` scripts에서 `panda codegen` 제거, `dev`/`build` 단순화
+- [x] 개발 서버 실행 확인
 
 ---
 
