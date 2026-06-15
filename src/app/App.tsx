@@ -176,6 +176,22 @@ export default function App() {
               `,
             }}
           />
+
+          {/* 게시판 내용 영역 */}
+          <div
+            className="relative h-full bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-auto"
+            style={{
+              boxShadow: `
+                inset 0 4px 12px rgba(0,0,0,0.25),
+                inset 0 -2px 8px rgba(255,255,255,0.3),
+                0 2px 8px rgba(0,0,0,0.2)
+              `,
+            }}
+          >
+            {tasks.length === 0 ? (
+              <p className="text-center text-amber-800/50 text-lg mt-8">할 일을 붙여보세요</p>
+            ) : null}
+          </div>
         </div>
       </div>
     </div>
