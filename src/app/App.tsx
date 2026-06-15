@@ -61,6 +61,24 @@ export default function App() {
 
   return (
     <div className="size-full flex flex-col bg-gradient-to-br from-stone-700 via-stone-600 to-stone-800">
+      {/* 상단 목판 제목 */}
+      <div className="flex justify-center py-6">
+        <div className="relative">
+          <div
+            className="relative px-16 py-6 rounded-lg border-4 border-amber-950"
+            style={{
+              background: 'linear-gradient(135deg, #8b4513 0%, #654321 50%, #4a2c0f 100%)',
+              boxShadow: `
+                inset 0 2px 4px rgba(255,255,255,0.1),
+                inset 0 -2px 4px rgba(0,0,0,0.5),
+                0 8px 16px rgba(0,0,0,0.6),
+                0 4px 8px rgba(0,0,0,0.4)
+              `,
+            }}
+          >
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
