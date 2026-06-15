@@ -72,9 +72,9 @@ interface Reward {
 
 **목표**: 메인 컴포넌트의 상태 구조 확립
 
-- [ ] `src/app/App.tsx` 생성
-- [ ] Task, Reward 인터페이스 정의
-- [ ] useState로 전체 상태 선언:
+- [x] `src/app/App.tsx` 생성
+- [x] Task, Reward 인터페이스 정의
+- [x] useState로 전체 상태 선언:
   - `tasks`, `completedTasks`, `rewards` — 데이터 배열
   - `spentPoints` — 소비한 포인트
   - `earnedPoints` (derived) — `completedTasks.reduce((sum, t) => sum + t.reward, 0)`
@@ -82,7 +82,7 @@ interface Reward {
   - `completeMode`, `deleteMode`, `editMode` — 인터랙션 모드 (토글)
   - `editingTask: Task | null` — 편집 중인 태스크
   - 모달 표시 상태 6개: `showAddModal`, `showAddRewardModal`, `showClaimModal`, `showRemoveRewardModal`, `showCompletedModal` + editingTask로 편집 모달 제어
-- [ ] 핸들러 함수 정의:
+- [x] 핸들러 함수 정의:
   - `handleAddTask` — tasks에 추가
   - `handleEditTask` — tasks 내 수정
   - `handleCompleteTask` — tasks에서 제거 → completedTasks에 추가
