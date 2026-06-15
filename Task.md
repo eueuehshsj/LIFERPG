@@ -95,13 +95,13 @@ interface Reward {
 
 **목표**: 상단 "투두퀘스트" 나무 목판 사인 구현
 
-- [ ] 전체 배경: `bg-gradient-to-br from-stone-700 via-stone-600 to-stone-800`
-- [ ] 목판 컨테이너: `px-16 py-6 rounded-lg border-4 border-amber-950`
+- [x] 전체 배경: `bg-gradient-to-br from-stone-700 via-stone-600 to-stone-800`
+- [x] 목판 컨테이너: `px-16 py-6 rounded-lg border-4 border-amber-950`
   - 배경: `linear-gradient(135deg, #8b4513 0%, #654321 50%, #4a2c0f 100%)`
   - 입체 그림자: inset + drop-shadow 조합
-- [ ] 나무 질감 오버레이 (absolute, opacity-30): `repeating-linear-gradient` 수직 줄무늬
-- [ ] 4 모서리 나무못 장식: `w-4 h-4 rounded-full bg-gradient-to-br from-stone-800 to-stone-950`
-- [ ] 제목 텍스트 "투두퀘스트": `text-4xl font-bold text-amber-100 tracking-wide`
+- [x] 나무 질감 오버레이 (absolute, opacity-30): `repeating-linear-gradient` 수직 줄무늬
+- [x] 4 모서리 나무못 장식: `w-4 h-4 rounded-full bg-gradient-to-br from-stone-800 to-stone-950`
+- [x] 제목 텍스트 "투두퀘스트": `text-4xl font-bold text-amber-100 tracking-wide`
 
 ---
 
