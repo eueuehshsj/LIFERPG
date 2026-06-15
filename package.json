@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "prepare": "panda codegen",
-    "dev": "panda codegen && vite",
-    "build": "panda codegen && vite build",
+    "dev": "vite",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -16,7 +15,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@pandacss/dev": "^1.11.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
