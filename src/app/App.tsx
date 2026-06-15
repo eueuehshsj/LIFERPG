@@ -76,6 +76,25 @@ export default function App() {
               `,
             }}
           >
+            {/* 나무 질감 오버레이 */}
+            <div
+              className="absolute inset-0 opacity-30 rounded-lg"
+              style={{
+                backgroundImage: `
+                  repeating-linear-gradient(90deg,
+                    rgba(139,69,19,0.5) 0px,
+                    rgba(101,67,33,0.5) 2px,
+                    rgba(74,44,15,0.5) 4px,
+                    rgba(101,67,33,0.5) 6px,
+                    rgba(139,69,19,0.5) 8px),
+                  repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 40px,
+                    rgba(0,0,0,0.1) 40px,
+                    rgba(0,0,0,0.1) 42px)
+                `,
+              }}
+            />
           </div>
         </div>
       </div>
