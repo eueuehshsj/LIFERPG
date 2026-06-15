@@ -188,6 +188,44 @@ export default function App() {
               `,
             }}
           >
+            {(completeMode || deleteMode || editMode) && tasks.length > 0 && (
+              <div
+                className="absolute inset-0 rounded-lg pointer-events-none z-10 flex items-start justify-center pt-4"
+                style={{
+                  background: completeMode
+                    ? 'rgba(220,38,38,0.04)'
+                    : deleteMode
+                    ? 'rgba(71,85,105,0.04)'
+                    : 'rgba(202,138,4,0.04)',
+                  border: `2px dashed ${
+                    completeMode
+                      ? 'rgba(220,38,38,0.3)'
+                      : deleteMode
+                      ? 'rgba(71,85,105,0.3)'
+                      : 'rgba(202,138,4,0.4)'
+                  }`,
+                }}
+              >
+                <div
+                  className="text-xs font-bold px-4 py-1.5 rounded-full tracking-widest shadow-lg"
+                  style={{
+                    fontFamily: 'serif',
+                    background: completeMode
+                      ? 'rgba(185,28,28,0.8)'
+                      : deleteMode
+                      ? 'rgba(51,65,85,0.8)'
+                      : 'rgba(161,110,5,0.85)',
+                    color: completeMode ? '#fef2f2' : deleteMode ? '#f1f5f9' : '#fefce8',
+                  }}
+                >
+                  {completeMode
+                    ? '완료할 일정을 클릭하세요'
+                    : deleteMode
+                    ? '삭제할 일정을 클릭하세요'
+                    : '편집할 일정을 클릭하세요'}
+                </div>
+              </div>
+            )}
             {tasks.length === 0 ? (
               <p className="text-center text-amber-800/50 text-lg mt-8">할 일을 붙여보세요</p>
             ) : null}
