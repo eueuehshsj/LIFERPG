@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Edit3, Trash2 } from 'lucide-react';
 
 interface Task {
   id: number;
@@ -228,7 +229,127 @@ export default function App() {
             )}
             {tasks.length === 0 ? (
               <p className="text-center text-amber-800/50 text-lg mt-8">할 일을 붙여보세요</p>
-            ) : null}
+            ) : (
+              <div className="flex flex-wrap gap-4">
+                {tasks.map((task, idx) => {
+                  const colors = {
+                    low: { bg: '#f0fdf4', border: '#86efac', text: '#15803d', badge: '#dcfce7' },
+                    medium: { bg: '#fffbeb', border: '#fcd34d', text: '#b45309', badge: '#fef3c7' },
+                    high: { bg: '#fef2f2', border: '#fca5a5', text: '#b91c1c', badge: '#fee2e2' },
+                  }[task.priority];
+                  const labels = { low: '보통', medium: '중요', high: '긴급' };
+                  const rotation = ((idx * 137) % 9) - 4;
+                  return (
+                    <div
+                      key={task.id}
+                      onClick={() => {
+                        if (completeMode) handleCompleteTask(task);
+                        else if (deleteMode) { setTasks((prev) => prev.filter((t) => t.id !== task.id)); setDeleteMode(false); }
+                        else if (editMode) setEditingTask(task);
+                      }}
+                      className="relative w-44 rounded border-2 p-3 shadow-lg select-none"
+                      style={{
+                        background: colors.bg,
+                        borderColor: completeMode ? '#b45309' : deleteMode ? '#64748b' : editMode ? '#ca8a04' : colors.border,
+                        boxShadow: completeMode
+                          ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 2px rgba(180,83,9,0.4)'
+                          : deleteMode
+                          ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 2px rgba(100,116,139,0.4)'
+                          : editMode
+                          ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 2px rgba(202,138,4,0.5)'
+                          : '4px 4px 10px rgba(0,0,0,0.2), 2px 2px 5px rgba(0,0,0,0.15), inset 0 1px 2px rgba(255,255,255,0.6)',
+                        transform: `rotate(${rotation}deg)`,
+                        cursor: (completeMode || deleteMode || editMode) ? 'pointer' : 'default',
+                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                      }}
+                    >
+                      {/* 핀 */}
+                      <div
+                        className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-red-900"
+                        style={{
+                          background: 'radial-gradient(circle at 35% 35%, #f87171, #991b1b)',
+                          boxShadow: '0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)',
+                        }}
+                      />
+                      {/* 편집 모드 hover 오버레이 */}
+                      {editMode && (
+                        <div className="absolute inset-0 rounded bg-yellow-400/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                          <div
+                            className="w-12 h-12 rounded-full flex items-center justify-center"
+                            style={{ background: 'rgba(202,138,4,0.15)', border: '3px solid rgba(202,138,4,0.6)' }}
+                          >
+                            <Edit3 className="w-5 h-5 text-yellow-600" />
+                          </div>
+                        </div>
+                      )}
+                      {/* 삭제 모드 hover 오버레이 */}
+                      {deleteMode && (
+                        <div className="absolute inset-0 rounded bg-slate-900/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                          <div
+                            className="w-12 h-12 rounded-full flex items-center justify-center"
+                            style={{ background: 'rgba(71,85,105,0.15)', border: '3px solid rgba(71,85,105,0.5)' }}
+                          >
+                            <Trash2 className="w-5 h-5 text-slate-600" />
+                          </div>
+                        </div>
+                      )}
+                      {/* 완료 모드 hover 오버레이 */}
+                      {completeMode && (
+                        <div className="absolute inset-0 rounded bg-amber-900/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                          <div
+                            className="w-14 h-14 rounded-full border-4 border-red-700 flex items-center justify-center -rotate-12"
+                            style={{ background: 'rgba(220,38,38,0.12)', boxShadow: '0 0 0 2px rgba(220,38,38,0.3)' }}
+                          >
+                            <span className="text-red-700 font-black text-[11px] tracking-widest" style={{ fontFamily: 'serif' }}>완료</span>
+                          </div>
+                        </div>
+                      )}
+                      {/* priority 뱃지 */}
+                      <div
+                        className="text-[10px] font-bold px-1.5 py-0.5 rounded-full inline-block mb-1.5 border"
+                        style={{ color: colors.text, background: colors.badge, borderColor: colors.border, fontFamily: 'serif' }}
+                      >
+                        {labels[task.priority]}
+                      </div>
+                      {/* 제목 */}
+                      <div
+                        className="font-bold text-stone-800 mb-1 leading-snug"
+                        style={{ fontFamily: 'serif', fontSize: '13px' }}
+                      >
+                        {task.title}
+                      </div>
+                      {/* 설명 */}
+                      {task.description && (
+                        <div
+                          className="text-stone-500 text-[11px] mb-2 leading-snug line-clamp-2"
+                          style={{ fontFamily: 'serif' }}
+                        >
+                          {task.description}
+                        </div>
+                      )}
+                      {/* 마감일 + 포인트 */}
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-stone-400 text-[10px]">{task.dueDate}</span>
+                        <span className="text-amber-700 font-black text-[11px]" style={{ fontFamily: 'serif' }}>
+                          +{task.reward}pt
+                        </span>
+                      </div>
+                      {/* 작성자 */}
+                      {task.author && (
+                        <div
+                          className="mt-2 pt-1.5 border-t flex justify-end"
+                          style={{ borderColor: 'rgba(139,90,43,0.2)' }}
+                        >
+                          <span className="text-stone-500 text-[10px] italic" style={{ fontFamily: 'serif', letterSpacing: '0.05em' }}>
+                            — {task.author}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
