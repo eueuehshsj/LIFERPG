@@ -152,6 +152,30 @@ export default function App() {
               `,
             }}
           />
+
+          {/* 게시판 핀 */}
+          <div
+            className="absolute top-4 left-1/4 w-5 h-5 rounded-full bg-gradient-to-br from-red-500 to-red-800 border-2 border-red-950"
+            style={{
+              boxShadow: `
+                inset -2px -2px 4px rgba(0,0,0,0.5),
+                inset 2px 2px 4px rgba(255,100,100,0.3),
+                0 4px 8px rgba(0,0,0,0.6),
+                0 2px 4px rgba(0,0,0,0.4)
+              `,
+            }}
+          />
+          <div
+            className="absolute top-4 right-1/4 w-5 h-5 rounded-full bg-gradient-to-br from-red-500 to-red-800 border-2 border-red-950"
+            style={{
+              boxShadow: `
+                inset -2px -2px 4px rgba(0,0,0,0.5),
+                inset 2px 2px 4px rgba(255,100,100,0.3),
+                0 4px 8px rgba(0,0,0,0.6),
+                0 2px 4px rgba(0,0,0,0.4)
+              `,
+            }}
+          />
         </div>
       </div>
     </div>
