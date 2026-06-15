@@ -116,6 +116,44 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* 메인 게시판 */}
+      <div className="flex-1 flex flex-col px-8 pb-4">
+        <div
+          className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950"
+          style={{
+            background: 'linear-gradient(145deg, #a0713a 0%, #8b5a2b 30%, #6d451f 60%, #5a3716 100%)',
+            boxShadow: `
+              inset 0 4px 8px rgba(0,0,0,0.4),
+              inset 0 -4px 8px rgba(255,255,255,0.05),
+              0 20px 40px rgba(0,0,0,0.5),
+              0 10px 20px rgba(0,0,0,0.3)
+            `,
+          }}
+        >
+          {/* 나무 질감 오버레이 */}
+          <div
+            className="absolute inset-0 opacity-40 rounded-xl"
+            style={{
+              backgroundImage: `
+                repeating-linear-gradient(90deg,
+                  rgba(139,90,43,0.8) 0px,
+                  rgba(101,67,33,0.6) 3px,
+                  rgba(74,44,15,0.7) 6px,
+                  rgba(101,67,33,0.6) 9px,
+                  rgba(139,90,43,0.8) 12px),
+                repeating-linear-gradient(0deg,
+                  transparent,
+                  transparent 60px,
+                  rgba(0,0,0,0.15) 60px,
+                  rgba(0,0,0,0.15) 63px),
+                radial-gradient(ellipse at 20% 30%, rgba(160,113,58,0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(90,55,22,0.3) 0%, transparent 50%)
+              `,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
