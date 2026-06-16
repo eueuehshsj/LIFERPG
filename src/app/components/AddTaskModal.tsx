@@ -134,7 +134,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                 ─── 투두퀘스트 ───
               </div>
               <div className="font-black text-2xl mt-1" style={{ fontFamily: 'serif', color: '#1c1917' }}>
-                {isEdit ? '일정 수정증' : '일정 접수증'}
+                {isEdit ? '퀘스트 수정증' : '퀘스트 접수증'}
               </div>
               <div style={{ fontFamily: 'monospace', fontSize: '10px', color: '#a8a29e', letterSpacing: '0.2em', marginTop: '2px' }}>
                 QUEST REGISTRATION FORM
@@ -150,7 +150,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                 <input
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  placeholder="할 일을 입력하세요"
+                  placeholder="퀘스트를 입력하세요"
                   className="w-full bg-transparent border-b-2 border-stone-300 focus:border-amber-700 outline-none pb-1 text-stone-800 placeholder-stone-300 transition-colors"
                   style={{ fontFamily: 'serif', fontSize: '15px' }}
                 />
