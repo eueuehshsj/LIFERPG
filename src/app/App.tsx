@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Edit3, Trash2 } from 'lucide-react';
+import { Edit3, PencilLine, Trash2 } from 'lucide-react';
 
 interface Task {
   id: number;
@@ -396,7 +396,112 @@ export default function App() {
           {/* 버튼 영역 */}
           <div className="absolute -top-20 left-0 right-0 flex justify-between items-end px-12">
             {/* 왼쪽 버튼 그룹 */}
-            <div className="flex gap-4 items-end" />
+            <div className="flex gap-4 items-end">
+              {/* ① 일정 추가 버튼 - 종이더미 + 연필 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowAddModal(true)}>
+                <div className="relative w-32 h-40 flex items-end justify-center">
+                  <div className="relative w-28 h-32">
+                    {/* 맨 아래 종이 */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 rotate-2 w-24 h-28 bg-gradient-to-br from-slate-100 to-slate-200 rounded-sm border border-slate-300"
+                         style={{ boxShadow: '0 6px 12px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.5)' }} />
+                    {/* 중간 종이 */}
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 -rotate-1 w-24 h-28 bg-gradient-to-br from-white to-slate-100 rounded-sm border border-slate-300"
+                         style={{ boxShadow: '0 8px 16px rgba(0,0,0,0.35), 0 4px 8px rgba(0,0,0,0.25), inset 0 1px 2px rgba(255,255,255,0.6)' }} />
+                    {/* 맨 위 종이 */}
+                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-28 bg-gradient-to-br from-white to-slate-50 rounded-sm border border-slate-300 relative"
+                         style={{ boxShadow: '0 10px 20px rgba(0,0,0,0.4), 0 6px 12px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.8)' }}>
+                      <div className="absolute top-6 left-3 right-3 h-px bg-blue-300/60" />
+                      <div className="absolute top-10 left-3 right-3 h-px bg-blue-300/60" />
+                      <div className="absolute top-14 left-3 right-3 h-px bg-blue-300/60" />
+                      <div className="absolute top-18 left-3 right-3 h-px bg-blue-300/60" />
+                      <div className="absolute bottom-3 left-0 right-0 flex justify-center">
+                        <span className="text-slate-700 font-bold text-xs" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>일정 추가</span>
+                      </div>
+                    </div>
+                    {/* 연필 */}
+                    <div className="absolute top-0 right-0 w-20 h-5 rotate-45 origin-center z-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-600 via-amber-500 to-yellow-700 rounded-full border border-amber-800"
+                           style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.5), inset 0 2px 4px rgba(255,200,100,0.4), inset 0 -2px 4px rgba(0,0,0,0.3)' }}>
+                        <div className="absolute inset-0 opacity-40 rounded-full"
+                             style={{ backgroundImage: 'repeating-linear-gradient(90deg, rgba(139,69,19,0.3) 0px, transparent 2px, rgba(0,0,0,0.2) 4px, transparent 6px)' }} />
+                      </div>
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-4 bg-gradient-to-r from-amber-800 to-stone-900"
+                           style={{ clipPath: 'polygon(0 0, 100% 50%, 0 100%)' }} />
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-3 h-full bg-gradient-to-br from-pink-400 to-pink-600 rounded-l-full border-l-2 border-pink-700"
+                           style={{ boxShadow: 'inset 0 2px 3px rgba(255,200,220,0.5), 0 2px 4px rgba(0,0,0,0.4)' }} />
+                      <div className="absolute left-2.5 top-1/2 -translate-y-1/2 w-1 h-full bg-gradient-to-r from-slate-300 via-slate-400 to-slate-500" />
+                      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <PencilLine className="w-4 h-4 text-amber-900/30 -rotate-45" strokeWidth={2} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* ② 일정 삭제 버튼 - 휴지통 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setDeleteMode((v) => !v); setCompleteMode(false); setEditMode(false); }}>
+                <div className="relative w-20 h-32 flex items-end justify-center">
+                  <div className="relative w-16 h-24">
+                    {/* 뚜껑 */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-18 h-3 rounded-t-lg border-2 border-slate-400"
+                         style={{ background: 'linear-gradient(to bottom, #94a3b8 0%, #64748b 100%)', boxShadow: 'inset 0 2px 3px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.4)' }} />
+                    {/* 몸통 */}
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-20 rounded-b-lg border-2 border-slate-500"
+                         style={{ background: 'linear-gradient(to bottom, #cbd5e1 0%, #94a3b8 50%, #64748b 100%)', boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.5), 0 6px 12px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute inset-y-2 left-1/4 w-px bg-slate-400/50" />
+                      <div className="absolute inset-y-2 right-1/4 w-px bg-slate-400/50" />
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+                        <Trash2 className="w-7 h-7 text-slate-700" strokeWidth={2} style={{ filter: 'drop-shadow(0 2px 3px rgba(0,0,0,0.3))' }} />
+                        <span className="text-slate-700 font-bold text-[9px]" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>삭제</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* ③ 일정 편집 버튼 - 연필꽂이 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setEditMode((v) => !v); setCompleteMode(false); setDeleteMode(false); }}>
+                <div className="relative w-24 h-32 flex items-end justify-center">
+                  <div className="relative w-20 h-28">
+                    {/* 통 본체 */}
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-18 h-20 rounded-b-lg border-2 border-slate-500 z-10"
+                         style={{ background: 'linear-gradient(to bottom, #e2e8f0 0%, #cbd5e1 40%, #94a3b8 100%)', boxShadow: 'inset 0 3px 8px rgba(255,255,255,0.6), 0 8px 16px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute inset-0 opacity-20 rounded-b-lg"
+                           style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 3px)' }} />
+                      <div className="absolute inset-x-0 bottom-4 flex justify-center">
+                        <span className="text-slate-700 font-bold text-[10px]" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>편집</span>
+                      </div>
+                    </div>
+                    {/* 자 */}
+                    <div className="absolute bottom-12 left-3 w-2 h-20 rotate-[-25deg] origin-bottom bg-gradient-to-r from-amber-100 to-amber-200 border border-amber-400 opacity-80"
+                         style={{ boxShadow: 'inset 1px 0 2px rgba(255,255,255,0.6), 0 2px 4px rgba(0,0,0,0.3)' }}>
+                      <div className="absolute top-2 left-0 right-0 h-px bg-amber-600/40" />
+                      <div className="absolute top-6 left-0 right-0 h-px bg-amber-600/40" />
+                      <div className="absolute top-10 left-0 right-0 h-px bg-amber-600/40" />
+                      <div className="absolute top-14 left-0 right-0 h-px bg-amber-600/40" />
+                    </div>
+                    {/* 연필 왼쪽 (노란색) */}
+                    <div className="absolute bottom-12 left-2 w-3 h-16 rotate-[-15deg] origin-bottom rounded-t-full border border-yellow-700"
+                         style={{ background: 'linear-gradient(to bottom, #fde047 0%, #facc15 50%, #eab308 100%)', boxShadow: 'inset 1px 0 3px rgba(255,255,255,0.5), 0 3px 6px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-pink-400 to-pink-500 rounded-t-full border-b border-yellow-700" />
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gradient-to-b from-stone-700 to-black" style={{ clipPath: 'polygon(50% 100%, 0 0, 100% 0)' }} />
+                    </div>
+                    {/* 펜 중앙 (파란색) */}
+                    <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-3 h-18 rounded-t-full border border-blue-800"
+                         style={{ background: 'linear-gradient(to bottom, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)', boxShadow: 'inset 1px 0 3px rgba(255,255,255,0.5), 0 3px 6px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-b from-blue-600 to-blue-700 rounded-t-full border-b border-blue-800" />
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-2 bg-gradient-to-b from-slate-700 to-black rounded-b-sm" />
+                    </div>
+                    {/* 연필 오른쪽 (주황색) */}
+                    <div className="absolute bottom-12 right-2 w-3 h-15 rotate-[15deg] origin-bottom rounded-t-full border border-orange-700"
+                         style={{ background: 'linear-gradient(to bottom, #fb923c 0%, #f97316 50%, #ea580c 100%)', boxShadow: 'inset 1px 0 3px rgba(255,255,255,0.5), 0 3px 6px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-b from-pink-400 to-pink-500 rounded-t-full border-b border-orange-700" />
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gradient-to-b from-stone-700 to-black" style={{ clipPath: 'polygon(50% 100%, 0 0, 100% 0)' }} />
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
             {/* 중앙 완료 도장 */}
             <div className="absolute left-1/2 -translate-x-1/2 bottom-0 flex flex-col items-center z-10">
               <button
