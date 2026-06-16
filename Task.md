@@ -143,73 +143,73 @@ interface Reward {
 **목표**: 하단 나무 선반 + 7개 액션 버튼 구현
 
 **가판대 구조**:
-- 선반 상단 바: `h-4`, `linear-gradient(to bottom, #704214, #5a3516)`
-- 선반 본체: `h-24`, `linear-gradient(to bottom, #5a3516, #3d2410)` + 나무 질감
-- 가판대 다리 2개: `w-6 h-12 rounded-b-lg`
+- [x] 선반 상단 바: `h-4`, `linear-gradient(to bottom, #704214, #5a3516)`
+- [x] 선반 본체: `h-24`, `linear-gradient(to bottom, #5a3516, #3d2410)` + 나무 질감
+- [x] 가판대 다리 2개: `w-6 h-12 rounded-b-lg`
 
 **버튼 레이아웃** (`.absolute -top-20`으로 선반 위에 배치):
 
 #### 중앙 — 완료 도장 버튼
-- 도장 손잡이: `w-10 h-8 rounded-t-lg`
-- 도장 몸통: `w-14 h-4`
-- 잉크 면: `w-16 h-6 rounded-b-sm` → "완료" 텍스트
-- 활성(completeMode): 빨간색 + 잉크 번짐 효과 + glow
-- 비활성: 회색(stone)
-- 클릭: `completeMode` 토글, 다른 모드 해제
+- [x] 도장 손잡이: `w-10 h-8 rounded-t-lg`
+- [x] 도장 몸통: `w-14 h-4`
+- [x] 잉크 면: `w-16 h-6 rounded-b-sm` → "완료" 텍스트
+- [x] 활성(completeMode): 빨간색 + 잉크 번짐 효과 + glow
+- [x] 비활성: 회색(stone)
+- [x] 클릭: `completeMode` 토글, 다른 모드 해제
 
 #### 왼쪽 그룹 (flex gap-4 items-end)
 
 **① 일정 추가 버튼** (종이 더미 + 연필)
-- 3장 겹친 종이 (rotate 효과로 살짝 어긋나게)
-- 줄 노트 선 4개
-- "일정 추가" 텍스트
-- 연필: `rotate-45 origin-center` — 몸통(노란색), 심, 지우개(분홍), 금속띠
-- PencilLine 아이콘 포함
-- 클릭: `showAddModal = true`
+- [x] 3장 겹친 종이 (rotate 효과로 살짝 어긋나게)
+- [x] 줄 노트 선 4개
+- [x] "일정 추가" 텍스트
+- [x] 연필: `rotate-45 origin-center` — 몸통(노란색), 심, 지우개(분홍), 금속띠
+- [x] PencilLine 아이콘 포함
+- [x] 클릭: `showAddModal = true`
 
 **② 일정 삭제 버튼** (휴지통)
-- 뚜껑: `w-18 h-3 rounded-t-lg`
-- 몸통: `w-16 h-20 rounded-b-lg` + 세로 줄무늬 2개
-- Trash2 아이콘 + "삭제" 텍스트
-- 클릭: `deleteMode` 토글, 다른 모드 해제
+- [x] 뚜껑: `w-18 h-3 rounded-t-lg`
+- [x] 몸통: `w-16 h-20 rounded-b-lg` + 세로 줄무늬 2개
+- [x] Trash2 아이콘 + "삭제" 텍스트
+- [x] 클릭: `deleteMode` 토글, 다른 모드 해제
 
 **③ 일정 편집 버튼** (연필꽂이)
-- 통 본체: `w-18 h-20 rounded-b-lg` + "편집" 텍스트
-- 연필 3자루: 왼쪽 노란색 `-15deg`, 중앙 파란색 펜, 오른쪽 주황색 `15deg`
-- 자(ruler): `rotate-[-25deg]` + 눈금 선 4개
-- 클릭: `editMode` 토글, 다른 모드 해제
+- [x] 통 본체: `w-18 h-20 rounded-b-lg` + "편집" 텍스트
+- [x] 연필 3자루: 왼쪽 노란색 `-15deg`, 중앙 파란색 펜, 오른쪽 주황색 `15deg`
+- [x] 자(ruler): `rotate-[-25deg]` + 눈금 선 4개
+- [x] 클릭: `editMode` 토글, 다른 모드 해제
 
 #### 오른쪽 그룹 (flex gap-4 items-end)
 
 **④ 보상 추가 버튼** (돈자루)
-- 상단 끈: `w-3 h-6 rounded-t-full`
-- 묶인 목: `w-14 h-8 rounded-t-full`
-- 본체: `borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%'` 불룩한 형태
-- 천 질감 오버레이 (격자 패턴)
-- 동전 빛 번짐 효과 3개 (radial-gradient + blur)
-- Coins 아이콘 + "보상 목록\n추가" 텍스트
-- 클릭: `showAddRewardModal = true`
+- [x] 상단 끈: `w-3 h-6 rounded-t-full`
+- [x] 묶인 목: `w-14 h-8 rounded-t-full`
+- [x] 본체: `borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%'` 불룩한 형태
+- [x] 천 질감 오버레이 (격자 패턴)
+- [x] 동전 빛 번짐 효과 3개 (radial-gradient + blur)
+- [x] Coins 아이콘 + "보상 목록\n추가" 텍스트
+- [x] 클릭: `showAddRewardModal = true`
 
 **⑤ 보상 제거 버튼** (망치)
-- 자루: 세로 직사각형, 나무 질감
-- 머리: 가로 직사각형 `88px × 40px`, 좌우 타격면, "보상 제거" 텍스트
-- 자루 끼움 구멍 표현
-- 클릭: `showRemoveRewardModal = true`
+- [x] 자루: 세로 직사각형, 나무 질감
+- [x] 머리: 가로 직사각형 `88px × 40px`, 좌우 타격면, "보상 제거" 텍스트
+- [x] 자루 끼움 구멍 표현
+- [x] 클릭: `showRemoveRewardModal = true`
 
 **⑥ 보상(저금통) 버튼**
-- 상자 본체: `w-32 h-36 rounded-lg border-4 border-yellow-900`
-- 상단 동전 투입구: `w-16 h-2.5`
-- 금속 질감 오버레이 + 빛 반사
-- 4 모서리 장식 (L자 형태)
-- 중앙: `totalPoints` 숫자(26px) + "pt" + "보상" 텍스트
-- 클릭: `showClaimModal = true`
+- [x] 상자 본체: `w-32 h-36 rounded-lg border-4 border-yellow-900`
+- [x] 상단 동전 투입구: `w-16 h-2.5`
+- [x] 금속 질감 오버레이 + 빛 반사
+- [x] 4 모서리 장식 (L자 형태)
+- [x] 중앙: `totalPoints` 숫자(26px) + "pt" + "보상" 텍스트
+- [x] 클릭: `showClaimModal = true`
 
 **⑦ 해결한 일 목록 버튼** (두루마리 더미)
-- 3단 두루마리: 메인 본체에 2개 구분선으로 3층 표현
-- 좌우 원형 단면
-- 각 층 말린 종이 표현 (가로 선들)
-- 문서 SVG 아이콘 + "해결한\n일 목록" 텍스트
-- 클릭: `showCompletedModal = true`
+- [x] 3단 두루마리: 메인 본체에 2개 구분선으로 3층 표현
+- [x] 좌우 원형 단면
+- [x] 각 층 말린 종이 표현 (가로 선들)
+- [x] 문서 SVG 아이콘 + "해결한\n일 목록" 텍스트
+- [x] 클릭: `showCompletedModal = true`
 
 ---
 
