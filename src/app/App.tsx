@@ -398,7 +398,84 @@ export default function App() {
             {/* 왼쪽 버튼 그룹 */}
             <div className="flex gap-4 items-end" />
             {/* 중앙 완료 도장 */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 flex flex-col items-center z-10" />
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 flex flex-col items-center z-10">
+              <button
+                onClick={() => { setCompleteMode((v) => !v); setDeleteMode(false); setEditMode(false); }}
+                className="group relative flex flex-col items-center"
+                style={{ filter: completeMode ? 'drop-shadow(0 0 12px rgba(220,38,38,0.7))' : 'none', transition: 'filter 0.3s' }}
+              >
+                {/* 도장 손잡이 */}
+                <div
+                  className="relative w-10 h-8 rounded-t-lg"
+                  style={{
+                    background: completeMode
+                      ? 'linear-gradient(to bottom, #991b1b 0%, #7f1d1d 100%)'
+                      : 'linear-gradient(to bottom, #57534e 0%, #44403c 100%)',
+                    boxShadow: completeMode
+                      ? 'inset 0 2px 4px rgba(255,100,100,0.3), inset 0 -2px 4px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.4)'
+                      : 'inset 0 2px 4px rgba(255,255,255,0.15), inset 0 -2px 4px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.4)',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <div className="absolute top-2 left-2 right-2 h-1 rounded-full" style={{ background: 'rgba(0,0,0,0.3)' }} />
+                  <div className="absolute top-4 left-2 right-2 h-1 rounded-full" style={{ background: 'rgba(0,0,0,0.3)' }} />
+                </div>
+                {/* 도장 몸통 */}
+                <div
+                  className="w-14 h-4"
+                  style={{
+                    background: completeMode
+                      ? 'linear-gradient(to bottom, #b91c1c 0%, #991b1b 100%)'
+                      : 'linear-gradient(to bottom, #78716c 0%, #57534e 100%)',
+                    boxShadow: 'inset 0 1px 3px rgba(255,255,255,0.1), 0 2px 4px rgba(0,0,0,0.4)',
+                    transition: 'all 0.2s',
+                  }}
+                />
+                {/* 도장 잉크 면 */}
+                <div
+                  className="w-16 h-6 rounded-b-sm flex items-center justify-center"
+                  style={{
+                    background: completeMode
+                      ? 'linear-gradient(to bottom, #dc2626 0%, #b91c1c 100%)'
+                      : 'linear-gradient(to bottom, #292524 0%, #1c1917 100%)',
+                    boxShadow: completeMode
+                      ? 'inset 0 2px 4px rgba(0,0,0,0.4), 0 4px 8px rgba(220,38,38,0.5)'
+                      : 'inset 0 2px 4px rgba(0,0,0,0.6), 0 4px 8px rgba(0,0,0,0.4)',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <span
+                    className="font-black tracking-widest"
+                    style={{
+                      fontFamily: 'serif',
+                      fontSize: '11px',
+                      color: completeMode ? '#fef2f2' : '#a8a29e',
+                      textShadow: completeMode ? '0 0 6px rgba(255,100,100,0.5)' : 'none',
+                    }}
+                  >
+                    완료
+                  </span>
+                </div>
+                {/* 잉크 번짐 효과 (활성화 시) */}
+                {completeMode && (
+                  <div
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-16 h-2 rounded-full"
+                    style={{ background: 'radial-gradient(ellipse, rgba(220,38,38,0.4) 0%, transparent 70%)', filter: 'blur(3px)' }}
+                  />
+                )}
+              </button>
+              <span
+                className="mt-2 text-[10px] font-bold tracking-widest"
+                style={{
+                  fontFamily: 'serif',
+                  color: completeMode ? '#fca5a5' : 'rgba(245,245,244,0.5)',
+                  textShadow: completeMode ? '0 0 8px rgba(220,38,38,0.6)' : 'none',
+                  transition: 'all 0.3s',
+                }}
+              >
+                {completeMode ? '완료 모드 ON' : '완료 도장'}
+              </span>
+            </div>
             {/* 오른쪽 버튼 그룹 */}
             <div className="flex gap-4 items-end" />
           </div>
