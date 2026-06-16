@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Edit3, PencilLine, Trash2 } from 'lucide-react';
+import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
 
 interface Task {
   id: number;
@@ -582,7 +582,132 @@ export default function App() {
               </span>
             </div>
             {/* 오른쪽 버튼 그룹 */}
-            <div className="flex gap-4 items-end" />
+            <div className="flex gap-4 items-end">
+              {/* ④ 보상 추가 버튼 - 돈자루 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowAddRewardModal(true)}>
+                <div className="relative w-24 h-36 flex items-end justify-center">
+                  <div className="relative w-20 h-32">
+                    <div className="relative w-16 h-10 mx-auto">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-6 rounded-t-full border-2 border-amber-800"
+                           style={{ background: 'linear-gradient(to bottom, #92400e 0%, #78350f 100%)', boxShadow: 'inset 0 1px 2px rgba(255,200,150,0.3), 0 2px 4px rgba(0,0,0,0.4)' }} />
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-14 h-8 rounded-t-full border-2 border-amber-900"
+                           style={{ background: 'linear-gradient(to bottom, #a16207 0%, #854d0e 100%)', boxShadow: 'inset 0 2px 4px rgba(255,200,100,0.3), 0 3px 6px rgba(0,0,0,0.4)' }}>
+                        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-amber-950/50 rounded-full" />
+                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-11 h-1 bg-amber-950/40 rounded-full" />
+                      </div>
+                    </div>
+                    <div className="relative w-20 h-24 mx-auto" style={{ borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%' }}>
+                      <div className="absolute inset-0 border-3 border-amber-900"
+                           style={{ background: 'linear-gradient(145deg, #ca8a04 0%, #a16207 30%, #854d0e 70%, #713f12 100%)', borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%', boxShadow: 'inset 0 4px 8px rgba(255,200,100,0.3), inset 0 -4px 8px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.5)' }}>
+                        <div className="absolute inset-0 opacity-30"
+                             style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px), repeating-linear-gradient(-45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px)', borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%' }} />
+                        <div className="absolute top-1/4 left-3 w-7 h-7 rounded-full" style={{ background: 'radial-gradient(circle, rgba(250,204,21,0.4) 0%, transparent 70%)', filter: 'blur(3px)' }} />
+                        <div className="absolute top-1/2 right-3 w-6 h-6 rounded-full" style={{ background: 'radial-gradient(circle, rgba(234,179,8,0.4) 0%, transparent 70%)', filter: 'blur(3px)' }} />
+                        <div className="absolute bottom-1/4 left-1/3 w-8 h-8 rounded-full" style={{ background: 'radial-gradient(circle, rgba(250,204,21,0.5) 0%, transparent 70%)', filter: 'blur(4px)' }} />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 z-10" style={{ borderRadius: '40% 40% 50% 50% / 25% 25% 75% 75%' }}>
+                          <Coins className="w-9 h-9 text-yellow-200" strokeWidth={2.5} style={{ filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.6))' }} />
+                          <span className="text-yellow-100 font-bold text-center" style={{ fontSize: '11px', lineHeight: '1.4', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>보상 목록<br/>추가</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* ⑤ 보상 제거 버튼 - 망치 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowRemoveRewardModal(true)}>
+                <div className="relative w-28 h-36 flex items-end justify-center">
+                  <div className="relative w-24 h-32">
+                    {/* 자루 */}
+                    <div
+                      className="absolute rounded-b-md"
+                      style={{ left: '50%', transform: 'translateX(-50%)', top: '36px', bottom: '0px', width: '14px', background: 'linear-gradient(to right, #a16207 0%, #ca8a04 40%, #92400e 100%)', boxShadow: 'inset 2px 0 4px rgba(255,200,100,0.25), inset -2px 0 4px rgba(0,0,0,0.45), 0 4px 8px rgba(0,0,0,0.35)' }}
+                    >
+                      <div className="absolute inset-0 opacity-25" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(0,0,0,0.25) 5px, rgba(0,0,0,0.25) 6px)' }} />
+                    </div>
+                    {/* 망치 머리 */}
+                    <div
+                      className="absolute rounded-md overflow-hidden"
+                      style={{ top: '0px', left: '50%', transform: 'translateX(-50%)', width: '88px', height: '40px', background: 'linear-gradient(to bottom, #d1d5db 0%, #9ca3af 45%, #6b7280 100%)', boxShadow: 'inset 0 3px 6px rgba(255,255,255,0.35), inset 0 -3px 6px rgba(0,0,0,0.45), 0 6px 14px rgba(0,0,0,0.5)' }}
+                    >
+                      <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255,255,255,0.08) 10px, rgba(255,255,255,0.08) 11px)' }} />
+                      <div className="absolute left-0 top-0 bottom-0 w-3 rounded-l-md" style={{ background: 'linear-gradient(to right, #374151, #4b5563)', boxShadow: 'inset 2px 0 4px rgba(0,0,0,0.5)' }} />
+                      <div className="absolute right-0 top-0 bottom-0 w-3 rounded-r-md" style={{ background: 'linear-gradient(to left, #374151, #4b5563)', boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.5)' }} />
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-3 rounded-t-sm" style={{ background: 'rgba(0,0,0,0.35)', boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.6)' }} />
+                      <div className="absolute inset-0 flex items-center justify-center pb-1">
+                        <span className="text-slate-100 font-black text-[10px] tracking-widest" style={{ textShadow: '0 1px 3px rgba(0,0,0,0.7)', fontFamily: 'serif' }}>보상 제거</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              {/* ⑥ 보상(저금통) 버튼 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowClaimModal(true)}>
+                <div className="relative w-32 h-40 flex items-center justify-center">
+                  <div className="relative w-32 h-36 rounded-lg border-4 border-yellow-900"
+                       style={{ background: 'linear-gradient(145deg, #d4a444 0%, #c9952d 30%, #b8841a 70%, #a67310 100%)', boxShadow: 'inset 0 4px 8px rgba(255,220,150,0.4), inset 0 -4px 8px rgba(0,0,0,0.4), 0 12px 24px rgba(0,0,0,0.5)' }}>
+                    <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-2.5 bg-gradient-to-b from-stone-950 to-stone-800 rounded-full border border-stone-900"
+                         style={{ boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.9)' }} />
+                    <div className="absolute inset-0 opacity-30 rounded-md"
+                         style={{ backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 30%, rgba(0,0,0,0.3) 70%, transparent 100%), repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(255,255,255,0.1) 8px, rgba(255,255,255,0.1) 9px)' }} />
+                    <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-yellow-950/60" />
+                    <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-yellow-950/60" />
+                    <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-yellow-950/60" />
+                    <div className="absolute bottom-2 right-2 w-6 h-6 border-b-2 border-r-2 border-yellow-950/60" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 z-10 pt-4">
+                      <div className="flex flex-col items-center leading-none" style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.5))' }}>
+                        <span className="text-yellow-200 font-black" style={{ fontSize: '26px', textShadow: '0 2px 6px rgba(0,0,0,0.7)' }}>{totalPoints}</span>
+                        <span className="text-yellow-300/80 font-bold" style={{ fontSize: '11px', textShadow: '0 1px 3px rgba(0,0,0,0.6)' }}>pt</span>
+                      </div>
+                      <span className="text-yellow-50 font-bold text-sm" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.6)' }}>보상</span>
+                    </div>
+                    <div className="absolute top-6 right-3 w-12 h-12 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%)', filter: 'blur(8px)' }} />
+                    <div className="absolute bottom-6 left-4 w-8 h-8 rounded-full" style={{ background: 'radial-gradient(circle, rgba(255,230,150,0.3) 0%, transparent 60%)', filter: 'blur(6px)' }} />
+                  </div>
+                </div>
+              </button>
+
+              {/* ⑦ 해결한 일 목록 버튼 - 두루마리 더미 */}
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowCompletedModal(true)}>
+                <div className="relative w-36 h-40 flex items-center justify-center">
+                  <div className="relative w-32 h-36">
+                    <div className="absolute inset-0 rounded-lg border-t-2 border-b-2 border-amber-500"
+                         style={{ background: 'linear-gradient(to bottom, #f5e6d3 0%, #f0dcc4 20%, #ebe0c9 40%, #e8d9bd 60%, #e5d4b8 80%, #e0cab0 100%)', boxShadow: 'inset 0 2px 6px rgba(255,255,255,0.6), 0 10px 20px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute inset-0 opacity-20 rounded-lg"
+                           style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(139,90,43,0.1) 1px, rgba(139,90,43,0.1) 2px)' }} />
+                      <div className="absolute bottom-[66%] left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-600/50 to-transparent" />
+                      <div className="absolute bottom-[33%] left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-600/50 to-transparent" />
+                      {[2, '36%', '70%'].map((top, i) => (
+                        <div key={i}>
+                          <div className="absolute inset-x-2 h-1 bg-amber-400/50 rounded-full" style={{ top: typeof top === 'number' ? `${top * 4}px` : top }} />
+                          <div className="absolute inset-x-3 h-1 bg-amber-400/40 rounded-full" style={{ top: typeof top === 'number' ? `${top * 4 + 8}px` : `calc(${top} + 6%)` }} />
+                        </div>
+                      ))}
+                      <div className="absolute bottom-2 inset-x-2 h-1 bg-amber-500/50 rounded-full" />
+                    </div>
+                    {/* 왼쪽 단면 */}
+                    <div className="absolute left-0 top-0 bottom-0 w-4 rounded-l-full border-2 border-amber-500"
+                         style={{ background: 'radial-gradient(ellipse at 30% 50%, #f5e6d3 0%, #e8d4b8 40%, #ddc5a5 100%)', boxShadow: 'inset 2px 0 4px rgba(255,255,255,0.4), -2px 0 6px rgba(0,0,0,0.3)' }}>
+                      <div className="absolute bottom-[66%] left-0 right-0 h-0.5 bg-amber-600/60" />
+                      <div className="absolute bottom-[33%] left-0 right-0 h-0.5 bg-amber-600/60" />
+                    </div>
+                    {/* 오른쪽 단면 */}
+                    <div className="absolute right-0 top-0 bottom-0 w-4 rounded-r-full border-2 border-amber-600"
+                         style={{ background: 'radial-gradient(ellipse at 70% 50%, #e8d4b8 0%, #ddc5a5 40%, #d2b894 100%)', boxShadow: 'inset -2px 0 4px rgba(255,255,255,0.3), 2px 0 6px rgba(0,0,0,0.4)' }}>
+                      <div className="absolute bottom-[66%] left-0 right-0 h-0.5 bg-amber-700/60" />
+                      <div className="absolute bottom-[33%] left-0 right-0 h-0.5 bg-amber-700/60" />
+                    </div>
+                    <div className="absolute inset-0 flex items-center justify-center gap-2 z-10">
+                      <svg className="w-7 h-7 text-amber-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} style={{ filter: 'drop-shadow(0 2px 3px rgba(0,0,0,0.3))' }}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      <span className="text-amber-900 font-bold text-[11px] leading-tight" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.5)' }}>해결한<br/>일 목록</span>
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
         {/* 가판대 다리 */}
