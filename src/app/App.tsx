@@ -3,6 +3,7 @@ import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
 import AddTaskModal from './components/AddTaskModal';
 import AddRewardModal from './components/AddRewardModal';
 import RewardClaimModal from './components/RewardClaimModal';
+import CompletedTasksModal from './components/CompletedTasksModal';
 
 interface Task {
   id: number;
@@ -356,6 +357,14 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* CompletedTasksModal */}
+      {showCompletedModal && (
+        <CompletedTasksModal
+          onClose={() => setShowCompletedModal(false)}
+          completedTasks={completedTasks}
+        />
+      )}
 
       {/* RewardClaimModal */}
       {showClaimModal && (
