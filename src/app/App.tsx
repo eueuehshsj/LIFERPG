@@ -353,6 +353,84 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* 하단 가판대 */}
+      <div className="relative px-8 pb-8">
+        {/* 선반 상단 바 */}
+        <div
+          className="h-4 w-full rounded-t-lg border-t-4 border-amber-950"
+          style={{
+            background: 'linear-gradient(to bottom, #704214 0%, #5a3516 100%)',
+            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.5), 0 -2px 8px rgba(0,0,0,0.4)',
+          }}
+        />
+        {/* 선반 본체 */}
+        <div
+          className="h-24 w-full relative"
+          style={{
+            background: 'linear-gradient(to bottom, #5a3516 0%, #3d2410 100%)',
+            boxShadow: `
+              inset 0 4px 8px rgba(0,0,0,0.6),
+              inset 0 -2px 4px rgba(255,255,255,0.05),
+              0 8px 20px rgba(0,0,0,0.6)
+            `,
+          }}
+        >
+          {/* 나무 질감 */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `
+                repeating-linear-gradient(90deg,
+                  rgba(90,53,22,0.8) 0px,
+                  rgba(61,36,16,0.6) 4px,
+                  rgba(90,53,22,0.8) 8px),
+                repeating-linear-gradient(0deg,
+                  transparent,
+                  transparent 20px,
+                  rgba(0,0,0,0.2) 20px,
+                  rgba(0,0,0,0.2) 22px)
+              `,
+            }}
+          />
+          {/* 버튼 영역 */}
+          <div className="absolute -top-20 left-0 right-0 flex justify-between items-end px-12">
+            {/* 왼쪽 버튼 그룹 */}
+            <div className="flex gap-4 items-end" />
+            {/* 중앙 완료 도장 */}
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-0 flex flex-col items-center z-10" />
+            {/* 오른쪽 버튼 그룹 */}
+            <div className="flex gap-4 items-end" />
+          </div>
+        </div>
+        {/* 가판대 다리 */}
+        <div className="flex justify-around px-32">
+          <div
+            className="w-6 h-12 rounded-b-lg"
+            style={{
+              background: 'linear-gradient(to bottom, #3d2410 0%, #5a3516 100%)',
+              boxShadow: `
+                inset 0 2px 4px rgba(0,0,0,0.6),
+                inset 2px 0 4px rgba(0,0,0,0.4),
+                inset -2px 0 4px rgba(0,0,0,0.4),
+                0 4px 8px rgba(0,0,0,0.5)
+              `,
+            }}
+          />
+          <div
+            className="w-6 h-12 rounded-b-lg"
+            style={{
+              background: 'linear-gradient(to bottom, #3d2410 0%, #5a3516 100%)',
+              boxShadow: `
+                inset 0 2px 4px rgba(0,0,0,0.6),
+                inset 2px 0 4px rgba(0,0,0,0.4),
+                inset -2px 0 4px rgba(0,0,0,0.4),
+                0 4px 8px rgba(0,0,0,0.5)
+              `,
+            }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
