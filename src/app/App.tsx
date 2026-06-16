@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
 import AddTaskModal from './components/AddTaskModal';
+import AddRewardModal from './components/AddRewardModal';
 
 interface Task {
   id: number;
@@ -354,6 +355,14 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* AddRewardModal */}
+      {showAddRewardModal && (
+        <AddRewardModal
+          onClose={() => setShowAddRewardModal(false)}
+          onSubmit={(reward) => { handleAddReward(reward); setShowAddRewardModal(false); }}
+        />
+      )}
 
       {/* AddTaskModal */}
       {(showAddModal || editingTask) && (
