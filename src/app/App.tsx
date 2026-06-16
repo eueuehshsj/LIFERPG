@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
 import AddTaskModal from './components/AddTaskModal';
 import AddRewardModal from './components/AddRewardModal';
@@ -33,10 +33,23 @@ export default function App() {
   const [deleteMode, setDeleteMode] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [completedTasks, setCompletedTasks] = useState<Task[]>([]);
-  const [rewards, setRewards] = useState<Reward[]>([]);
-  const [spentPoints, setSpentPoints] = useState(0);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    try { return JSON.parse(localStorage.getItem('liferpg_tasks') ?? 'null') ?? []; } catch { return []; }
+  });
+  const [completedTasks, setCompletedTasks] = useState<Task[]>(() => {
+    try { return JSON.parse(localStorage.getItem('liferpg_completedTasks') ?? 'null') ?? []; } catch { return []; }
+  });
+  const [rewards, setRewards] = useState<Reward[]>(() => {
+    try { return JSON.parse(localStorage.getItem('liferpg_rewards') ?? 'null') ?? []; } catch { return []; }
+  });
+  const [spentPoints, setSpentPoints] = useState<number>(() => {
+    try { return JSON.parse(localStorage.getItem('liferpg_spentPoints') ?? 'null') ?? 0; } catch { return 0; }
+  });
+
+  useEffect(() => { localStorage.setItem('liferpg_tasks', JSON.stringify(tasks)); }, [tasks]);
+  useEffect(() => { localStorage.setItem('liferpg_completedTasks', JSON.stringify(completedTasks)); }, [completedTasks]);
+  useEffect(() => { localStorage.setItem('liferpg_rewards', JSON.stringify(rewards)); }, [rewards]);
+  useEffect(() => { localStorage.setItem('liferpg_spentPoints', JSON.stringify(spentPoints)); }, [spentPoints]);
 
   const earnedPoints = completedTasks.reduce((sum, t) => sum + t.reward, 0);
   const totalPoints = earnedPoints - spentPoints;
