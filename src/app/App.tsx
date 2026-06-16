@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
 import AddTaskModal from './components/AddTaskModal';
 import AddRewardModal from './components/AddRewardModal';
+import RewardClaimModal from './components/RewardClaimModal';
 
 interface Task {
   id: number;
@@ -355,6 +356,16 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* RewardClaimModal */}
+      {showClaimModal && (
+        <RewardClaimModal
+          onClose={() => setShowClaimModal(false)}
+          onClaim={(reward) => { handleClaim(reward); setShowClaimModal(false); }}
+          rewards={rewards}
+          currentPoints={totalPoints}
+        />
+      )}
 
       {/* AddRewardModal */}
       {showAddRewardModal && (
