@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Coins, Edit3, PencilLine, Trash2 } from 'lucide-react';
+import AddTaskModal from './components/AddTaskModal';
 
 interface Task {
   id: number;
@@ -353,6 +354,18 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* AddTaskModal */}
+      {(showAddModal || editingTask) && (
+        <AddTaskModal
+          onClose={() => { setShowAddModal(false); setEditingTask(null); setEditMode(false); }}
+          onSubmit={(task) => {
+            if (editingTask) handleEditTask(editingTask, task);
+            else handleAddTask(task);
+          }}
+          editingTask={editingTask}
+        />
+      )}
 
       {/* 하단 가판대 */}
       <div className="relative px-8 pb-8">
