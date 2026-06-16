@@ -223,15 +223,15 @@ export default function App() {
                   }}
                 >
                   {completeMode
-                    ? '완료할 일정을 클릭하세요'
+                    ? '완료할 퀘스트를 클릭하세요'
                     : deleteMode
-                    ? '삭제할 일정을 클릭하세요'
-                    : '편집할 일정을 클릭하세요'}
+                    ? '삭제할 퀘스트를 클릭하세요'
+                    : '편집할 퀘스트를 클릭하세요'}
                 </div>
               </div>
             )}
             {tasks.length === 0 ? (
-              <p className="text-center text-amber-800/50 text-lg mt-8">할 일을 붙여보세요</p>
+              <p className="text-center text-amber-800/50 text-lg mt-8">퀘스트를 붙여보세요</p>
             ) : (
               <div className="flex flex-wrap gap-4">
                 {tasks.map((task, idx) => {
@@ -430,7 +430,7 @@ export default function App() {
           <div className="absolute -top-20 left-0 right-0 flex justify-between items-end px-12">
             {/* 왼쪽 버튼 그룹 */}
             <div className="flex gap-4 items-end">
-              {/* ① 일정 추가 버튼 - 종이더미 + 연필 */}
+              {/* ① 퀘스트 추가 버튼 - 종이더미 + 연필 */}
               <button className="group relative hover:scale-105 transition-transform" onClick={() => setShowAddModal(true)}>
                 <div className="relative w-32 h-40 flex items-end justify-center">
                   <div className="relative w-28 h-32">
@@ -448,7 +448,7 @@ export default function App() {
                       <div className="absolute top-14 left-3 right-3 h-px bg-blue-300/60" />
                       <div className="absolute top-18 left-3 right-3 h-px bg-blue-300/60" />
                       <div className="absolute bottom-3 left-0 right-0 flex justify-center">
-                        <span className="text-slate-700 font-bold text-xs" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>일정 추가</span>
+                        <span className="text-slate-700 font-bold text-xs" style={{ textShadow: '0 1px 2px rgba(255,255,255,0.8)' }}>퀘스트 추가</span>
                       </div>
                     </div>
                     {/* 연필 */}
@@ -471,7 +471,7 @@ export default function App() {
                 </div>
               </button>
 
-              {/* ② 일정 삭제 버튼 - 휴지통 */}
+              {/* ② 퀘스트 삭제 버튼 - 휴지통 */}
               <button className="group relative hover:scale-105 transition-transform" onClick={() => { setDeleteMode((v) => !v); setCompleteMode(false); setEditMode(false); }}>
                 <div className="relative w-20 h-32 flex items-end justify-center">
                   <div className="relative w-16 h-24">
@@ -492,7 +492,7 @@ export default function App() {
                 </div>
               </button>
 
-              {/* ③ 일정 편집 버튼 - 연필꽂이 */}
+              {/* ③ 퀘스트 편집 버튼 - 연필꽂이 */}
               <button className="group relative hover:scale-105 transition-transform" onClick={() => { setEditMode((v) => !v); setCompleteMode(false); setDeleteMode(false); }}>
                 <div className="relative w-24 h-32 flex items-end justify-center">
                   <div className="relative w-20 h-28">
