@@ -4,6 +4,7 @@ import AddTaskModal from './components/AddTaskModal';
 import AddRewardModal from './components/AddRewardModal';
 import RewardClaimModal from './components/RewardClaimModal';
 import CompletedTasksModal from './components/CompletedTasksModal';
+import RemoveRewardModal from './components/RemoveRewardModal';
 
 interface Task {
   id: number;
@@ -62,6 +63,10 @@ export default function App() {
 
   const handleClaim = (reward: Reward) => {
     setSpentPoints((prev) => prev + reward.points);
+  };
+
+  const handleRemoveReward = (id: number) => {
+    setRewards((prev) => prev.filter((r) => r.id !== id));
   };
 
   return (
@@ -357,6 +362,15 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* RemoveRewardModal */}
+      {showRemoveRewardModal && (
+        <RemoveRewardModal
+          onClose={() => setShowRemoveRewardModal(false)}
+          onRemove={handleRemoveReward}
+          rewards={rewards}
+        />
+      )}
 
       {/* CompletedTasksModal */}
       {showCompletedModal && (
