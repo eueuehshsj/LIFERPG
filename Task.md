@@ -109,18 +109,18 @@ interface Reward {
 
 **목표**: 나무 게시판 위에 포스트잇 형태 태스크 카드 렌더링
 
-- [ ] 게시판 외곽: `border-8 border-amber-950 rounded-2xl`
+- [x] 게시판 외곽: `border-8 border-amber-950 rounded-2xl`
   - 배경: `linear-gradient(145deg, #a0713a ... #5a3716)`
   - 나무 질감 오버레이 (absolute, opacity-40)
-- [ ] 빨간 핀 2개: `absolute top-4 left-1/4` / `right-1/4`
+- [x] 빨간 핀 2개: `absolute top-4 left-1/4` / `right-1/4`
   - `w-5 h-5 rounded-full bg-gradient-to-br from-red-500 to-red-800`
-- [ ] 게시판 내용 영역: `bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg`
-- [ ] 모드 활성 시 오버레이 표시:
+- [x] 게시판 내용 영역: `bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg`
+- [x] 모드 활성 시 오버레이 표시:
   - `completeMode`: 빨간 점선 테두리 + "완료할 일정을 클릭하세요" 뱃지
   - `deleteMode`: 슬레이트 점선 테두리 + "삭제할 일정을 클릭하세요" 뱃지
   - `editMode`: 노란 점선 테두리 + "편집할 일정을 클릭하세요" 뱃지
-- [ ] 태스크 없을 때: `"할 일을 붙여보세요"` 안내 텍스트
-- [ ] **태스크 카드** (`flex-wrap gap-4`로 배치):
+- [x] 태스크 없을 때: `"할 일을 붙여보세요"` 안내 텍스트
+- [x] **태스크 카드** (`flex-wrap gap-4`로 배치):
   - 크기: `w-44`, `border-2 rounded p-3`
   - priority별 색상: `low`=녹색, `medium`=노란색, `high`=빨간색
   - 랜덤 회전: `((idx * 137) % 9) - 4` 도
