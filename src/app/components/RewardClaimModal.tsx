@@ -161,8 +161,8 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
             <div className="flex flex-col gap-4">
               {/* 슬롯머신 디스플레이 */}
               <div
-                className="rounded-xl p-5 text-center min-h-[100px] flex flex-col items-center justify-center"
-                style={{ background: '#1c1917', boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.6)' }}
+                className="rounded-xl px-5 text-center flex flex-col items-center justify-center overflow-hidden"
+                style={{ background: '#1c1917', boxShadow: 'inset 0 4px 12px rgba(0,0,0,0.6)', height: '120px' }}
               >
                 {!isSpinning && !revealed && (
                   <>
@@ -172,7 +172,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                 )}
                 {isSpinning && affordable[spinIndex] && (
                   <>
-                    <div className="font-black text-2xl text-yellow-300" style={{ fontFamily: 'serif' }}>
+                    <div className="font-black text-2xl text-yellow-300 w-full truncate" style={{ fontFamily: 'serif' }}>
                       {affordable[spinIndex].name}
                     </div>
                     <div className="text-yellow-600 text-sm mt-1" style={{ fontFamily: 'serif' }}>
@@ -181,9 +181,9 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                   </>
                 )}
                 {revealed && claimedReward && (
-                  <div style={{ animation: 'fadeIn 0.4s ease' }}>
+                  <div className="w-full" style={{ animation: 'fadeIn 0.4s ease' }}>
                     <Star className="w-6 h-6 text-yellow-400 mx-auto mb-1" />
-                    <div className="font-black text-2xl text-yellow-300" style={{ fontFamily: 'serif' }}>
+                    <div className="font-black text-2xl text-yellow-300 w-full truncate" style={{ fontFamily: 'serif' }}>
                       {claimedReward.name}
                     </div>
                     <div className="text-yellow-600 text-sm mt-1" style={{ fontFamily: 'serif' }}>
