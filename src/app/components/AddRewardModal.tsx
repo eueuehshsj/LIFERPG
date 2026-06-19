@@ -170,10 +170,14 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
+              maxLength={50}
               placeholder="보상 이름을 입력하세요"
               className="w-full bg-transparent border-b border-dotted border-stone-300 focus:border-stone-500 outline-none pb-1 text-stone-800 placeholder-stone-300 transition-colors"
               style={{ fontFamily: "monospace", fontSize: "15px" }}
             />
+            <div className="text-right mt-0.5" style={{ fontFamily: "monospace", fontSize: "9px", color: name.length >= 45 ? "#dc2626" : "#a8a29e" }}>
+              {name.length} / 50
+            </div>
           </div>
 
           {/* 필요 포인트 */}
@@ -235,6 +239,7 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              maxLength={500}
               rows={3}
               placeholder="보상에 대한 설명을 입력하세요"
               className="w-full bg-transparent outline-none resize-none text-stone-700 placeholder-stone-300"
@@ -247,6 +252,9 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
                 backgroundAttachment: "local",
               }}
             />
+            <div className="text-right mt-0.5" style={{ fontFamily: "monospace", fontSize: "9px", color: description.length >= 450 ? "#dc2626" : "#a8a29e" }}>
+              {description.length} / 500
+            </div>
           </div>
 
           {/* 구분선 */}
