@@ -237,7 +237,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
               ) : (
                 <div className="flex gap-2">
                   <button
-                    onClick={() => { setRevealed(false); setClaimedReward(null); }}
+                    onClick={handleSpin}
                     className="flex-1 py-2.5 rounded-xl font-bold text-sm border-2 border-stone-400 text-stone-600 hover:bg-stone-100 transition-colors"
                     style={{ fontFamily: 'serif' }}
                   >
