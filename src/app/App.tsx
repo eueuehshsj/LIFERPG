@@ -335,16 +335,16 @@ export default function App() {
                       </div>
                       {/* 제목 */}
                       <div
-                        className="font-bold text-stone-800 mb-1 leading-snug"
-                        style={{ fontFamily: 'serif', fontSize: '13px' }}
+                        className="font-bold text-stone-800 mb-1 leading-snug break-words"
+                        style={{ fontFamily: 'serif', fontSize: '13px', wordBreak: 'break-word' }}
                       >
                         {task.title}
                       </div>
                       {/* 설명 */}
                       {task.description && (
                         <div
-                          className="text-stone-500 text-[11px] mb-2 leading-snug line-clamp-2"
-                          style={{ fontFamily: 'serif' }}
+                          className="text-stone-500 text-[11px] mb-2 leading-snug break-words"
+                          style={{ fontFamily: 'serif', wordBreak: 'break-word' }}
                         >
                           {task.description}
                         </div>
