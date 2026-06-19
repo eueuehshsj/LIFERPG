@@ -183,7 +183,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                 {revealed && claimedReward && (
                   <div style={{ animation: 'fadeIn 0.4s ease' }}>
                     <Star className="w-6 h-6 text-yellow-400 mx-auto mb-1" />
-                    <div className="font-black text-2xl text-yellow-300" style={{ fontFamily: 'serif' }}>
+                    <div className="font-black text-2xl text-yellow-300 break-all" style={{ fontFamily: 'serif' }}>
                       {claimedReward.name}
                     </div>
                     <div className="text-yellow-600 text-sm mt-1" style={{ fontFamily: 'serif' }}>
@@ -237,7 +237,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
               ) : (
                 <div className="flex gap-2">
                   <button
-                    onClick={() => { setRevealed(false); setClaimedReward(null); }}
+                    onClick={handleSpin}
                     className="flex-1 py-2.5 rounded-xl font-bold text-sm border-2 border-stone-400 text-stone-600 hover:bg-stone-100 transition-colors"
                     style={{ fontFamily: 'serif' }}
                   >
@@ -297,9 +297,9 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                 >
                   <div className="flex justify-between items-center">
                     <div>
-                      <div className="font-bold text-stone-800 text-sm" style={{ fontFamily: 'serif' }}>{r.name}</div>
+                      <div className="font-bold text-stone-800 text-sm break-all" style={{ fontFamily: 'serif' }}>{r.name}</div>
                       {r.description && (
-                        <div className="text-stone-500 text-xs mt-0.5" style={{ fontFamily: 'serif' }}>{r.description}</div>
+                        <div className="text-stone-500 text-xs mt-0.5 break-all" style={{ fontFamily: 'serif' }}>{r.description}</div>
                       )}
                     </div>
                     <div className="flex items-center gap-2 shrink-0 ml-3">
@@ -326,9 +326,9 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                     >
                       <div className="flex justify-between items-center">
                         <div>
-                          <div className="font-bold text-stone-700 text-sm" style={{ fontFamily: 'serif' }}>{r.name}</div>
+                          <div className="font-bold text-stone-700 text-sm break-all" style={{ fontFamily: 'serif' }}>{r.name}</div>
                           {r.description && (
-                            <div className="text-stone-500 text-xs mt-0.5" style={{ fontFamily: 'serif' }}>{r.description}</div>
+                            <div className="text-stone-500 text-xs mt-0.5 break-all" style={{ fontFamily: 'serif' }}>{r.description}</div>
                           )}
                         </div>
                         <div className="flex items-center gap-2 shrink-0 ml-3">

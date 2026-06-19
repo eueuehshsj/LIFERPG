@@ -30,7 +30,9 @@ export default function App() {
   const [showRemoveRewardModal, setShowRemoveRewardModal] = useState(false);
   const [showCompletedModal, setShowCompletedModal] = useState(false);
   const [completeMode, setCompleteMode] = useState(false);
+  const [selectedTaskIds, setSelectedTaskIds] = useState<number[]>([]);
   const [deleteMode, setDeleteMode] = useState(false);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -64,10 +66,21 @@ export default function App() {
     setEditMode(false);
   };
 
-  const handleCompleteTask = (task: Task) => {
-    setTasks((prev) => prev.filter((t) => t.id !== task.id));
-    setCompletedTasks((prev) => [...prev, task]);
+  const handleCompleteSelected = () => {
+    if (selectedTaskIds.length === 0) return;
+    setCompletedTasks((prev) => [
+      ...prev,
+      ...tasks.filter((t) => selectedTaskIds.includes(t.id)),
+    ]);
+    setTasks((prev) => prev.filter((t) => !selectedTaskIds.includes(t.id)));
+    setSelectedTaskIds([]);
     setCompleteMode(false);
+  };
+
+  const toggleSelectTask = (id: number) => {
+    setSelectedTaskIds((prev) =>
+      prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id],
+    );
   };
 
   const handleAddReward = (reward: Omit<Reward, 'id'>) => {
@@ -141,9 +154,9 @@ export default function App() {
       </div>
 
       {/* 메인 게시판 */}
-      <div className="flex-1 flex flex-col px-8 pb-4">
+      <div className="flex-1 flex flex-col px-8 pb-4 min-h-0">
         <div
-          className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950"
+          className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950 min-h-0"
           style={{
             background: 'linear-gradient(145deg, #a0713a 0%, #8b5a2b 30%, #6d451f 60%, #5a3716 100%)',
             boxShadow: `
@@ -202,7 +215,7 @@ export default function App() {
 
           {/* 게시판 내용 영역 */}
           <div
-            className="relative h-full bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-auto"
+            className="relative h-full bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-y-auto"
             style={{
               boxShadow: `
                 inset 0 4px 12px rgba(0,0,0,0.25),
@@ -261,19 +274,22 @@ export default function App() {
                   }[task.priority];
                   const labels = { low: '보통', medium: '중요', high: '긴급' };
                   const rotation = ((idx * 137) % 9) - 4;
+                  const isSelected = selectedTaskIds.includes(task.id);
                   return (
                     <div
                       key={task.id}
                       onClick={() => {
-                        if (completeMode) handleCompleteTask(task);
-                        else if (deleteMode) { setTasks((prev) => prev.filter((t) => t.id !== task.id)); setDeleteMode(false); }
+                        if (completeMode) toggleSelectTask(task.id);
+                        else if (deleteMode) setConfirmDeleteId(task.id);
                         else if (editMode) setEditingTask(task);
                       }}
                       className="relative w-44 rounded border-2 p-3 shadow-lg select-none"
                       style={{
-                        background: colors.bg,
-                        borderColor: completeMode ? '#b45309' : deleteMode ? '#64748b' : editMode ? '#ca8a04' : colors.border,
-                        boxShadow: completeMode
+                        background: isSelected ? '#fef3c7' : colors.bg,
+                        borderColor: isSelected ? '#dc2626' : completeMode ? '#b45309' : deleteMode ? '#64748b' : editMode ? '#ca8a04' : colors.border,
+                        boxShadow: isSelected
+                          ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 3px rgba(220,38,38,0.6)'
+                          : completeMode
                           ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 2px rgba(180,83,9,0.4)'
                           : deleteMode
                           ? '4px 4px 10px rgba(0,0,0,0.2), 0 0 0 2px rgba(100,116,139,0.4)'
@@ -305,7 +321,7 @@ export default function App() {
                         </div>
                       )}
                       {/* 삭제 모드 hover 오버레이 */}
-                      {deleteMode && (
+                      {deleteMode && confirmDeleteId !== task.id && (
                         <div className="absolute inset-0 rounded bg-slate-900/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                           <div
                             className="w-12 h-12 rounded-full flex items-center justify-center"
@@ -315,14 +331,57 @@ export default function App() {
                           </div>
                         </div>
                       )}
+                      {/* 삭제 확인 오버레이 */}
+                      {confirmDeleteId === task.id && (
+                        <div
+                          className="absolute inset-0 rounded flex flex-col items-center justify-center gap-1.5 z-20"
+                          style={{ background: 'rgba(15,23,42,0.88)' }}
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <p className="text-white text-[11px] font-bold text-center px-2" style={{ fontFamily: 'serif' }}>
+                            삭제하시겠습니까?
+                          </p>
+                          <div className="flex gap-1.5">
+                            <button
+                              onClick={() => setConfirmDeleteId(null)}
+                              className="px-3 py-1 rounded text-[11px] font-bold border border-stone-400 text-stone-300 hover:bg-stone-700 transition-colors"
+                              style={{ fontFamily: 'serif' }}
+                            >
+                              취소
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTasks((prev) => prev.filter((t) => t.id !== task.id));
+                                setConfirmDeleteId(null);
+                                setDeleteMode(false);
+                              }}
+                              className="px-3 py-1 rounded text-[11px] font-bold transition-colors"
+                              style={{ background: '#dc2626', color: '#fff', fontFamily: 'serif' }}
+                            >
+                              삭제
+                            </button>
+                          </div>
+                        </div>
+                      )}
                       {/* 완료 모드 hover 오버레이 */}
-                      {completeMode && (
+                      {completeMode && !isSelected && (
                         <div className="absolute inset-0 rounded bg-amber-900/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
                           <div
                             className="w-14 h-14 rounded-full border-4 border-red-700 flex items-center justify-center -rotate-12"
                             style={{ background: 'rgba(220,38,38,0.12)', boxShadow: '0 0 0 2px rgba(220,38,38,0.3)' }}
                           >
-                            <span className="text-red-700 font-black text-[11px] tracking-widest" style={{ fontFamily: 'serif' }}>완료</span>
+                            <span className="text-red-700 font-black text-[11px] tracking-widest" style={{ fontFamily: 'serif' }}>선택</span>
+                          </div>
+                        </div>
+                      )}
+                      {/* 선택됨 오버레이 */}
+                      {isSelected && (
+                        <div className="absolute inset-0 rounded flex items-center justify-center pointer-events-none">
+                          <div
+                            className="w-14 h-14 rounded-full border-4 border-red-600 flex items-center justify-center -rotate-12"
+                            style={{ background: 'rgba(220,38,38,0.18)', boxShadow: '0 0 0 3px rgba(220,38,38,0.5)' }}
+                          >
+                            <span className="text-red-700 font-black text-[11px] tracking-widest" style={{ fontFamily: 'serif' }}>✓완료</span>
                           </div>
                         </div>
                       )}
@@ -335,16 +394,16 @@ export default function App() {
                       </div>
                       {/* 제목 */}
                       <div
-                        className="font-bold text-stone-800 mb-1 leading-snug break-words"
-                        style={{ fontFamily: 'serif', fontSize: '13px', wordBreak: 'break-word' }}
+                        className="font-bold text-stone-800 mb-1 leading-snug break-all"
+                        style={{ fontFamily: 'serif', fontSize: '13px' }}
                       >
                         {task.title}
                       </div>
                       {/* 설명 */}
                       {task.description && (
                         <div
-                          className="text-stone-500 text-[11px] mb-2 leading-snug break-words"
-                          style={{ fontFamily: 'serif', wordBreak: 'break-word' }}
+                          className="text-stone-500 text-[11px] mb-2 leading-snug break-all"
+                          style={{ fontFamily: 'serif' }}
                         >
                           {task.description}
                         </div>
@@ -508,7 +567,7 @@ export default function App() {
               </button>
 
               {/* ② 퀘스트 삭제 버튼 - 휴지통 */}
-              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setDeleteMode((v) => !v); setCompleteMode(false); setEditMode(false); }}>
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setDeleteMode((v) => !v); setConfirmDeleteId(null); setCompleteMode(false); setEditMode(false); }}>
                 <div className="relative w-20 h-32 flex items-end justify-center">
                   <div className="relative w-16 h-24">
                     {/* 뚜껑 */}
@@ -529,7 +588,7 @@ export default function App() {
               </button>
 
               {/* ③ 퀘스트 편집 버튼 - 연필꽂이 */}
-              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setEditMode((v) => !v); setCompleteMode(false); setDeleteMode(false); }}>
+              <button className="group relative hover:scale-105 transition-transform" onClick={() => { setEditMode((v) => !v); setCompleteMode(false); setDeleteMode(false); setConfirmDeleteId(null); }}>
                 <div className="relative w-24 h-32 flex items-end justify-center">
                   <div className="relative w-20 h-28">
                     {/* 통 본체 */}
@@ -574,7 +633,19 @@ export default function App() {
             {/* 중앙 완료 도장 */}
             <div className="absolute left-1/2 -translate-x-1/2 bottom-0 flex flex-col items-center z-10">
               <button
-                onClick={() => { setCompleteMode((v) => !v); setDeleteMode(false); setEditMode(false); }}
+                onClick={() => {
+                  if (completeMode && selectedTaskIds.length > 0) {
+                    handleCompleteSelected();
+                  } else {
+                    setCompleteMode((v) => {
+                      if (v) setSelectedTaskIds([]);
+                      return !v;
+                    });
+                    setDeleteMode(false);
+                    setConfirmDeleteId(null);
+                    setEditMode(false);
+                  }
+                }}
                 className="group relative flex flex-col items-center"
                 style={{ filter: completeMode ? 'drop-shadow(0 0 12px rgba(220,38,38,0.7))' : 'none', transition: 'filter 0.3s' }}
               >
@@ -647,7 +718,11 @@ export default function App() {
                   transition: 'all 0.3s',
                 }}
               >
-                {completeMode ? '완료 모드 ON' : '완료 도장'}
+                {completeMode
+                  ? selectedTaskIds.length > 0
+                    ? `${selectedTaskIds.length}개 완료 확인`
+                    : '완료 모드 ON'
+                  : '완료 도장'}
               </span>
             </div>
             {/* 오른쪽 버튼 그룹 */}
