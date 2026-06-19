@@ -197,15 +197,15 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
             </div>
             <input
               type="range"
-              min={10}
+              min={1}
               max={500}
-              step={10}
+              step={1}
               value={points}
               onChange={(e) => setPoints(Number(e.target.value))}
               className="w-full accent-stone-700"
             />
             <div className="flex justify-between mt-1">
-              {[10, 125, 250, 375, 500].map((v) => (
+              {[1, 125, 250, 375, 500].map((v) => (
                 <span
                   key={v}
                   style={{
