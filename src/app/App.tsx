@@ -154,9 +154,9 @@ export default function App() {
       </div>
 
       {/* 메인 게시판 */}
-      <div className="flex-1 flex flex-col px-8 pb-4">
+      <div className="flex-1 flex flex-col px-8 pb-4 min-h-0">
         <div
-          className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950"
+          className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950 min-h-0"
           style={{
             background: 'linear-gradient(145deg, #a0713a 0%, #8b5a2b 30%, #6d451f 60%, #5a3716 100%)',
             boxShadow: `
@@ -215,7 +215,7 @@ export default function App() {
 
           {/* 게시판 내용 영역 */}
           <div
-            className="relative h-full bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-auto"
+            className="relative h-full bg-gradient-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-y-auto"
             style={{
               boxShadow: `
                 inset 0 4px 12px rgba(0,0,0,0.25),
