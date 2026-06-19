@@ -150,10 +150,14 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                 <input
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
+                  maxLength={50}
                   placeholder="퀘스트를 입력하세요"
                   className="w-full bg-transparent border-b-2 border-stone-300 focus:border-amber-700 outline-none pb-1 text-stone-800 placeholder-stone-300 transition-colors"
                   style={{ fontFamily: 'serif', fontSize: '15px' }}
                 />
+                <div className="text-right mt-0.5" style={{ fontFamily: 'monospace', fontSize: '10px', color: title.length >= 45 ? '#dc2626' : '#a8a29e' }}>
+                  {title.length} / 50
+                </div>
               </div>
 
               {/* ② 마감 기한 */}
@@ -200,6 +204,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  maxLength={500}
                   rows={4}
                   placeholder="상세 내용을 입력하세요"
                   className="w-full bg-transparent outline-none resize-none text-stone-700 placeholder-stone-300"
@@ -211,6 +216,9 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                     backgroundAttachment: 'local',
                   }}
                 />
+                <div className="text-right mt-0.5" style={{ fontFamily: 'monospace', fontSize: '10px', color: description.length >= 450 ? '#dc2626' : '#a8a29e' }}>
+                  {description.length} / 500
+                </div>
               </div>
 
               {/* ⑤ 보상 포인트 */}
@@ -248,10 +256,14 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                 <input
                   value={author}
                   onChange={(e) => setAuthor(e.target.value)}
+                  maxLength={20}
                   placeholder="이름을 입력하세요"
                   className="w-full bg-transparent border-b border-stone-300 focus:border-amber-700 outline-none pb-1 text-stone-700 italic transition-colors"
                   style={{ fontFamily: 'serif', fontSize: '14px' }}
                 />
+                <div className="text-right mt-0.5" style={{ fontFamily: 'monospace', fontSize: '10px', color: author.length >= 18 ? '#dc2626' : '#a8a29e' }}>
+                  {author.length} / 20
+                </div>
               </div>
 
               {/* 버튼 */}
