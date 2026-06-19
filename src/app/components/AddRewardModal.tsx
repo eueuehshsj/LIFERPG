@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { X } from 'lucide-react';
+import { useState } from "react";
+import { X } from "lucide-react";
 
 interface Reward {
   id: number;
@@ -10,7 +10,7 @@ interface Reward {
 
 interface Props {
   onClose: () => void;
-  onSubmit: (reward: Omit<Reward, 'id'>) => void;
+  onSubmit: (reward: Omit<Reward, "id">) => void;
 }
 
 const SERRATED_TOP = `polygon(
@@ -40,12 +40,18 @@ const SERRATED_BOTTOM = `polygon(
 )`;
 
 export default function AddRewardModal({ onClose, onSubmit }: Props) {
-  const today = new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit' });
-  const receiptNo = useState(() => String(Math.floor(Math.random() * 90000) + 10000))[0];
+  const today = new Date().toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  const receiptNo = useState(() =>
+    String(Math.floor(Math.random() * 90000) + 10000),
+  )[0];
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [points, setPoints] = useState(50);
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = () => {
@@ -60,14 +66,14 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: 'rgba(30,15,5,0.75)', backdropFilter: 'blur(4px)' }}
+      style={{ background: "rgba(30,15,5,0.75)", backdropFilter: "blur(4px)" }}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* 닫기 버튼 */}
       <button
         onClick={onClose}
         className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center transition-colors border border-stone-600 hover:bg-stone-700"
-        style={{ background: 'rgba(28,25,23,0.8)' }}
+        style={{ background: "rgba(28,25,23,0.8)" }}
       >
         <X className="w-5 h-5 text-stone-300" />
       </button>
@@ -76,37 +82,70 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
       <div
         style={{
           opacity: submitted ? 0 : 1,
-          transform: submitted ? 'scale(0.95)' : 'scale(1)',
-          transition: 'opacity 0.4s ease, transform 0.3s ease',
+          transform: submitted ? "scale(0.95)" : "scale(1)",
+          transition: "opacity 0.4s ease, transform 0.3s ease",
         }}
       >
         {/* 상단 톱니 */}
         <div
           className="w-80 h-4"
           style={{
-            background: '#fefefe',
+            background: "#fefefe",
             clipPath: SERRATED_TOP,
           }}
         />
 
         {/* 본문 */}
-        <div className="w-80 px-6 py-2" style={{ background: '#fefefe' }}>
+        <div className="w-80 px-6 py-2" style={{ background: "#fefefe" }}>
           {/* 가게 헤더 */}
           <div className="text-center mb-3">
-            <div style={{ fontFamily: 'monospace', fontSize: '11px', color: '#a8a29e', letterSpacing: '0.3em' }}>
+            <div
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "#a8a29e",
+                letterSpacing: "0.3em",
+              }}
+            >
               ✦ ✦ ✦
             </div>
-            <div className="font-black text-xl" style={{ fontFamily: 'monospace', color: '#1c1917', letterSpacing: '0.1em' }}>
+            <div
+              className="font-black text-xl"
+              style={{
+                fontFamily: "monospace",
+                color: "#1c1917",
+                letterSpacing: "0.1em",
+              }}
+            >
               투두퀘스트
             </div>
-            <div style={{ fontFamily: 'monospace', fontSize: '10px', color: '#78716c', letterSpacing: '0.25em' }}>
+            <div
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "#78716c",
+                letterSpacing: "0.25em",
+              }}
+            >
               REWARD SHOP
             </div>
             <div className="mt-1 border-t border-dashed border-stone-300 pt-1 flex justify-between">
-              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#a8a29e' }}>
+              <span
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  color: "#a8a29e",
+                }}
+              >
                 No. {receiptNo}
               </span>
-              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#a8a29e' }}>
+              <span
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  color: "#a8a29e",
+                }}
+              >
                 {today}
               </span>
             </div>
@@ -118,22 +157,41 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
           {/* 상품명 */}
           <div className="mb-4">
             <div className="flex justify-between items-end mb-1">
-              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#78716c' }}>상품명</span>
+              <span
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  color: "#78716c",
+                }}
+              >
+                상품명<span className="text-red-500">*</span>
+              </span>
             </div>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="보상 이름을 입력하세요"
               className="w-full bg-transparent border-b border-dotted border-stone-300 focus:border-stone-500 outline-none pb-1 text-stone-800 placeholder-stone-300 transition-colors"
-              style={{ fontFamily: 'monospace', fontSize: '15px' }}
+              style={{ fontFamily: "monospace", fontSize: "15px" }}
             />
           </div>
 
           {/* 필요 포인트 */}
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
-              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#78716c' }}>필요 포인트</span>
-              <span className="font-black text-stone-800" style={{ fontFamily: 'monospace', fontSize: '15px' }}>
+              <span
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  color: "#78716c",
+                }}
+              >
+                필요 포인트
+              </span>
+              <span
+                className="font-black text-stone-800"
+                style={{ fontFamily: "monospace", fontSize: "15px" }}
+              >
                 {points}pt
               </span>
             </div>
@@ -148,7 +206,14 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
             />
             <div className="flex justify-between mt-1">
               {[10, 125, 250, 375, 500].map((v) => (
-                <span key={v} style={{ fontFamily: 'monospace', fontSize: '9px', color: '#a8a29e' }}>
+                <span
+                  key={v}
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "9px",
+                    color: "#a8a29e",
+                  }}
+                >
                   {v}
                 </span>
               ))}
@@ -157,7 +222,14 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
 
           {/* 내용 */}
           <div className="mb-4">
-            <span className="block mb-1" style={{ fontFamily: 'monospace', fontSize: '10px', color: '#78716c' }}>
+            <span
+              className="block mb-1"
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "#78716c",
+              }}
+            >
               내용
             </span>
             <textarea
@@ -167,11 +239,12 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
               placeholder="보상에 대한 설명을 입력하세요"
               className="w-full bg-transparent outline-none resize-none text-stone-700 placeholder-stone-300"
               style={{
-                fontFamily: 'monospace',
-                fontSize: '12px',
-                lineHeight: '2em',
-                backgroundImage: 'repeating-linear-gradient(transparent, transparent calc(2em - 1px), rgba(180,160,120,0.3) calc(2em - 1px), rgba(180,160,120,0.3) 2em)',
-                backgroundAttachment: 'local',
+                fontFamily: "monospace",
+                fontSize: "12px",
+                lineHeight: "2em",
+                backgroundImage:
+                  "repeating-linear-gradient(transparent, transparent calc(2em - 1px), rgba(180,160,120,0.3) calc(2em - 1px), rgba(180,160,120,0.3) 2em)",
+                backgroundAttachment: "local",
               }}
             />
           </div>
@@ -182,15 +255,36 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
           {/* 합계 */}
           <div className="mb-3">
             <div className="flex justify-between items-center">
-              <span className="font-bold" style={{ fontFamily: 'monospace', fontSize: '11px', color: '#57534e' }}>
+              <span
+                className="font-bold"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "11px",
+                  color: "#57534e",
+                }}
+              >
                 합계
               </span>
-              <span className="font-black" style={{ fontFamily: 'monospace', fontSize: '16px', color: '#1c1917' }}>
+              <span
+                className="font-black"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "16px",
+                  color: "#1c1917",
+                }}
+              >
                 {points}pt
               </span>
             </div>
             {name && (
-              <div className="text-right mt-0.5" style={{ fontFamily: 'monospace', fontSize: '10px', color: '#a8a29e' }}>
+              <div
+                className="text-right mt-0.5"
+                style={{
+                  fontFamily: "monospace",
+                  fontSize: "10px",
+                  color: "#a8a29e",
+                }}
+              >
                 {name}
               </div>
             )}
@@ -201,12 +295,30 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
 
           {/* 감사 문구 */}
           <div className="text-center mb-3">
-            <div style={{ fontFamily: 'monospace', fontSize: '10px', color: '#78716c' }}>
+            <div
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "#78716c",
+              }}
+            >
               이용해 주셔서 감사합니다!
             </div>
-            <div className="mt-1 flex justify-center flex-wrap gap-x-0.5" style={{ maxWidth: '100%' }}>
+            <div
+              className="mt-1 flex justify-center flex-wrap gap-x-0.5"
+              style={{ maxWidth: "100%" }}
+            >
               {Array.from({ length: 24 }).map((_, i) => (
-                <span key={i} style={{ fontFamily: 'monospace', fontSize: '9px', color: '#d6d3d1' }}>•</span>
+                <span
+                  key={i}
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "9px",
+                    color: "#d6d3d1",
+                  }}
+                >
+                  •
+                </span>
               ))}
             </div>
           </div>
@@ -216,7 +328,7 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
             <button
               onClick={onClose}
               className="flex-1 py-2 border border-stone-300 text-stone-500 hover:bg-stone-50 transition-colors rounded text-sm font-bold"
-              style={{ fontFamily: 'monospace' }}
+              style={{ fontFamily: "monospace" }}
             >
               취소
             </button>
@@ -225,9 +337,9 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
               disabled={!name.trim()}
               className="flex-1 py-2 rounded text-white font-black text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
               style={{
-                fontFamily: 'monospace',
-                background: 'linear-gradient(135deg, #1c1917, #292524)',
-                boxShadow: name.trim() ? '0 4px 12px rgba(0,0,0,0.3)' : 'none',
+                fontFamily: "monospace",
+                background: "linear-gradient(135deg, #1c1917, #292524)",
+                boxShadow: name.trim() ? "0 4px 12px rgba(0,0,0,0.3)" : "none",
               }}
             >
               등록
@@ -239,7 +351,7 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
         <div
           className="w-80 h-4"
           style={{
-            background: '#fefefe',
+            background: "#fefefe",
             clipPath: SERRATED_BOTTOM,
           }}
         />
