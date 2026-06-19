@@ -394,7 +394,7 @@ export default function App() {
                       </div>
                       {/* 제목 */}
                       <div
-                        className="font-bold text-stone-800 mb-1 leading-snug"
+                        className="font-bold text-stone-800 mb-1 leading-snug break-all"
                         style={{ fontFamily: 'serif', fontSize: '13px' }}
                       >
                         {task.title}
@@ -402,7 +402,7 @@ export default function App() {
                       {/* 설명 */}
                       {task.description && (
                         <div
-                          className="text-stone-500 text-[11px] mb-2 leading-snug line-clamp-2"
+                          className="text-stone-500 text-[11px] mb-2 leading-snug line-clamp-2 break-all"
                           style={{ fontFamily: 'serif' }}
                         >
                           {task.description}
