@@ -522,7 +522,7 @@ export default function App() {
             }}
           />
           {/* 버튼 영역 */}
-          <div className="absolute -top-20 left-0 right-0 flex justify-between items-end px-12">
+          <div className="absolute -top-20 left-0 right-0 w-full flex flex-wrap justify-between items-end gap-4 px-4 sm:px-12">
             {/* 왼쪽 버튼 그룹 */}
             <div className="flex gap-4 items-end">
               {/* ① 퀘스트 추가 버튼 - 종이더미 + 연필 */}
