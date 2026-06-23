@@ -117,11 +117,11 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
                     style={{ background: 'rgba(255,255,255,0.6)', border: '1px solid rgba(180,150,80,0.25)' }}
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="font-bold text-stone-800 text-sm" style={{ fontFamily: 'serif' }}>
+                      <div className="font-bold text-stone-800 text-sm break-all" style={{ fontFamily: 'serif' }}>
                         {r.name}
                       </div>
                       {r.description && (
-                        <div className="text-stone-500 text-xs mt-0.5 line-clamp-1" style={{ fontFamily: 'serif' }}>
+                        <div className="text-stone-500 text-xs mt-0.5 line-clamp-1 break-all" style={{ fontFamily: 'serif' }}>
                           {r.description}
                         </div>
                       )}
