@@ -265,7 +265,7 @@ export default function App() {
             {tasks.length === 0 ? (
               <p className="text-center text-amber-800/50 text-lg mt-8">퀘스트를 붙여보세요</p>
             ) : (
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap items-start gap-4">
                 {tasks.map((task, idx) => {
                   const colors = {
                     low: { bg: '#f0fdf4', border: '#86efac', text: '#15803d', badge: '#dcfce7' },
