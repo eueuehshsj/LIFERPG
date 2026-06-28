@@ -1,0 +1,9 @@
+﻿## 변경 사항
+
+- `src/app/App.tsx`에 localStorage 초기화(lazy initializer) 및 상태 변경 시 자동 저장(`useEffect`) 로직 적용
+
+## 관련 이슈
+- closes #82
+
+## 검증
+- 퀘스트/보상 추가 후 새로고침 시 데이터 유지 확인
