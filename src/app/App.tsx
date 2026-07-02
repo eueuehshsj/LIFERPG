@@ -681,9 +681,9 @@ export default function App() {
               }}
             />
             {/* 버튼 영역 */}
-            <div className="relative z-10 flex flex-wrap items-end justify-center gap-3 sm:gap-4 lg:gap-6 xl:gap-8 pt-12 sm:pt-14 md:pt-10">
+            <div className="relative z-10 flex flex-col items-center gap-4 pt-12 sm:flex-row sm:items-end sm:justify-center sm:gap-3 sm:pt-14 md:gap-4 md:pt-10 lg:gap-6 xl:gap-8">
               {/* 왼쪽 버튼 그룹 */}
-              <div className="flex flex-wrap justify-center gap-3 sm:gap-4 items-end">
+              <div className="flex w-full flex-wrap justify-center gap-3 items-end sm:w-auto sm:gap-4">
                 {/* ① 퀘스트 추가 버튼 - 종이더미 + 연필 */}
                 <button
                   className="group relative hover:scale-105 transition-transform"
@@ -929,7 +929,7 @@ export default function App() {
                 </button>
               </div>
               {/* 중앙 완료 도장 */}
-              <div className="flex flex-col items-center justify-center z-10">
+              <div className="flex flex-col items-center justify-center z-10 shrink-0 order-first sm:order-none">
                 <button
                   onClick={() => {
                     if (completeMode && selectedTaskIds.length > 0) {
@@ -1044,7 +1044,7 @@ export default function App() {
                 </span>
               </div>
               {/* 오른쪽 버튼 그룹 */}
-              <div className="flex flex-wrap justify-center gap-3 sm:gap-4 items-end">
+              <div className="flex w-full flex-wrap justify-center gap-3 items-end sm:w-auto sm:gap-4">
                 {/* ④ 보상 추가 버튼 - 돈자루 */}
                 <button
                   className="group relative hover:scale-105 transition-transform"
