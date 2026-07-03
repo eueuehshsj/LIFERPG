@@ -1,5 +1,11 @@
 import { Edit3, Trash2 } from "lucide-react";
 import type { Task } from "../types";
+import {
+  GRADIENTS,
+  PRIORITY_LABELS,
+  PRIORITY_BADGE_COLORS,
+} from "../../styles/styleConstants";
+import { getBoardBackdropPattern } from "../../styles/styleHelpers";
 
 type TaskBoardProps = {
   tasks: Task[];
@@ -14,6 +20,60 @@ type TaskBoardProps = {
   onDeleteTask: (id: number) => void;
   onStartEditTask: (task: Task) => void;
 };
+
+// ============ 상수 정의 ============
+const PIN_GRADIENT = {
+  background: "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
+} as const;
+
+const PIN_STYLE = {
+  width: "20px",
+  height: "20px",
+  borderRadius: "50%",
+  border: "2px solid #7f1d1d",
+  ...PIN_GRADIENT,
+} as const;
+
+const MODAL_OVERLAY_STYLE = {
+  background: "rgba(15,23,42,0.88)",
+} as const;
+
+const PRIORITY_CARD_BG = {
+  low: "#f0fdf4",
+  medium: "#fffbeb",
+  high: "#fef2f2",
+} as const;
+
+const PRIORITY_CARD_STYLES = {
+  low: { bg: PRIORITY_CARD_BG.low, ...PRIORITY_BADGE_COLORS.low },
+  medium: { bg: PRIORITY_CARD_BG.medium, ...PRIORITY_BADGE_COLORS.medium },
+  high: { bg: PRIORITY_CARD_BG.high, ...PRIORITY_BADGE_COLORS.high },
+} as const;
+
+const BOARD_MODE_OVERLAY_STYLES = {
+  complete: {
+    overlayBg: "rgba(220,38,38,0.04)",
+    overlayBorder: "rgba(220,38,38,0.3)",
+    labelBg: "rgba(185,28,28,0.8)",
+    labelText: "#fef2f2",
+    message: "완료할 퀘스트를 클릭하세요",
+  },
+  delete: {
+    overlayBg: "rgba(71,85,105,0.04)",
+    overlayBorder: "rgba(71,85,105,0.3)",
+    labelBg: "rgba(51,65,85,0.8)",
+    labelText: "#f1f5f9",
+    message: "삭제할 퀘스트를 클릭하세요",
+  },
+  edit: {
+    overlayBg: "rgba(202,138,4,0.04)",
+    overlayBorder: "rgba(202,138,4,0.4)",
+    labelBg: "rgba(161,110,5,0.85)",
+    labelText: "#fefce8",
+    message: "편집할 퀘스트를 클릭하세요",
+  },
+} as const;
 
 export default function TaskBoard({
   tasks,
@@ -33,8 +93,7 @@ export default function TaskBoard({
       <div
         className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950 min-h-0"
         style={{
-          background:
-            "linear-gradient(145deg, #a0713a 0%, #8b5a2b 30%, #6d451f 60%, #5a3716 100%)",
+          background: GRADIENTS.boardBg,
           boxShadow: `
             inset 0 4px 8px rgba(0,0,0,0.4),
             inset 0 -4px 8px rgba(255,255,255,0.05),
@@ -45,51 +104,22 @@ export default function TaskBoard({
       >
         <div
           className="absolute inset-0 opacity-40 rounded-xl"
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(90deg,
-                rgba(139,90,43,0.8) 0px,
-                rgba(101,67,33,0.6) 3px,
-                rgba(74,44,15,0.7) 6px,
-                rgba(101,67,33,0.6) 9px,
-                rgba(139,90,43,0.8) 12px),
-              repeating-linear-gradient(0deg,
-                transparent,
-                transparent 60px,
-                rgba(0,0,0,0.15) 60px,
-                rgba(0,0,0,0.15) 63px),
-              radial-gradient(ellipse at 20% 30%, rgba(160,113,58,0.3) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 70%, rgba(90,55,22,0.3) 0%, transparent 50%)
-            `,
-          }}
+          style={getBoardBackdropPattern()}
         />
 
         <div
-          className="absolute top-4 left-1/4 w-5 h-5 rounded-full bg-linear-to-br from-red-500 to-red-800 border-2 border-red-950"
-          style={{
-            boxShadow: `
-              inset -2px -2px 4px rgba(0,0,0,0.5),
-              inset 2px 2px 4px rgba(255,100,100,0.3),
-              0 4px 8px rgba(0,0,0,0.6),
-              0 2px 4px rgba(0,0,0,0.4)
-            `,
-          }}
+          className="absolute top-4 left-1/4 w-5 h-5 rounded-full border-2 border-red-950"
+          style={PIN_STYLE}
         />
         <div
-          className="absolute top-4 right-1/4 w-5 h-5 rounded-full bg-linear-to-br from-red-500 to-red-800 border-2 border-red-950"
-          style={{
-            boxShadow: `
-              inset -2px -2px 4px rgba(0,0,0,0.5),
-              inset 2px 2px 4px rgba(255,100,100,0.3),
-              0 4px 8px rgba(0,0,0,0.6),
-              0 2px 4px rgba(0,0,0,0.4)
-            `,
-          }}
+          className="absolute top-4 right-1/4 w-5 h-5 rounded-full border-2 border-red-950"
+          style={PIN_STYLE}
         />
 
         <div
           className="relative h-full bg-linear-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-y-auto"
           style={{
+            background: GRADIENTS.boardContent,
             boxShadow: `
               inset 0 4px 12px rgba(0,0,0,0.25),
               inset 0 -2px 8px rgba(255,255,255,0.3),
@@ -97,48 +127,36 @@ export default function TaskBoard({
             `,
           }}
         >
-          {(completeMode || deleteMode || editMode) && tasks.length > 0 && (
-            <div
-              className="absolute inset-0 rounded-lg pointer-events-none z-10 flex items-start justify-center pt-4"
-              style={{
-                background: completeMode
-                  ? "rgba(220,38,38,0.04)"
-                  : deleteMode
-                    ? "rgba(71,85,105,0.04)"
-                    : "rgba(202,138,4,0.04)",
-                border: `2px dashed ${
-                  completeMode
-                    ? "rgba(220,38,38,0.3)"
-                    : deleteMode
-                      ? "rgba(71,85,105,0.3)"
-                      : "rgba(202,138,4,0.4)"
-                }`,
-              }}
-            >
-              <div
-                className="text-xs font-bold px-4 py-1.5 rounded-full tracking-widest shadow-lg"
-                style={{
-                  fontFamily: "serif",
-                  background: completeMode
-                    ? "rgba(185,28,28,0.8)"
-                    : deleteMode
-                      ? "rgba(51,65,85,0.8)"
-                      : "rgba(161,110,5,0.85)",
-                  color: completeMode
-                    ? "#fef2f2"
-                    : deleteMode
-                      ? "#f1f5f9"
-                      : "#fefce8",
-                }}
-              >
-                {completeMode
-                  ? "완료할 퀘스트를 클릭하세요"
-                  : deleteMode
-                    ? "삭제할 퀘스트를 클릭하세요"
-                    : "편집할 퀘스트를 클릭하세요"}
-              </div>
-            </div>
-          )}
+          {(completeMode || deleteMode || editMode) &&
+            tasks.length > 0 &&
+            (() => {
+              const mode = completeMode
+                ? "complete"
+                : deleteMode
+                  ? "delete"
+                  : "edit";
+              const modeStyle = BOARD_MODE_OVERLAY_STYLES[mode];
+              return (
+                <div
+                  className="absolute inset-0 rounded-lg pointer-events-none z-10 flex items-start justify-center pt-4"
+                  style={{
+                    background: modeStyle.overlayBg,
+                    border: `2px dashed ${modeStyle.overlayBorder}`,
+                  }}
+                >
+                  <div
+                    className="text-xs font-bold px-4 py-1.5 rounded-full tracking-widest shadow-lg"
+                    style={{
+                      fontFamily: "serif",
+                      background: modeStyle.labelBg,
+                      color: modeStyle.labelText,
+                    }}
+                  >
+                    {modeStyle.message}
+                  </div>
+                </div>
+              );
+            })()}
           {tasks.length === 0 ? (
             <p className="text-center text-amber-800/50 text-lg mt-8">
               퀘스트를 붙여보세요
@@ -146,27 +164,8 @@ export default function TaskBoard({
           ) : (
             <div className="flex flex-wrap items-start gap-4">
               {tasks.map((task, idx) => {
-                const colors = {
-                  low: {
-                    bg: "#f0fdf4",
-                    border: "#86efac",
-                    text: "#15803d",
-                    badge: "#dcfce7",
-                  },
-                  medium: {
-                    bg: "#fffbeb",
-                    border: "#fcd34d",
-                    text: "#b45309",
-                    badge: "#fef3c7",
-                  },
-                  high: {
-                    bg: "#fef2f2",
-                    border: "#fca5a5",
-                    text: "#b91c1c",
-                    badge: "#fee2e2",
-                  },
-                }[task.priority];
-                const labels = { low: "보통", medium: "중요", high: "긴급" };
+                const colors = PRIORITY_CARD_STYLES[task.priority];
+                const labels = PRIORITY_LABELS;
                 const rotation = ((idx * 137) % 9) - 4;
                 const isSelected = selectedTaskIds.includes(task.id);
                 return (
@@ -208,12 +207,7 @@ export default function TaskBoard({
                   >
                     <div
                       className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-red-900"
-                      style={{
-                        background:
-                          "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
-                        boxShadow:
-                          "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
-                      }}
+                      style={PIN_GRADIENT}
                     />
                     {editMode && (
                       <div className="absolute inset-0 rounded bg-yellow-400/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
@@ -244,7 +238,7 @@ export default function TaskBoard({
                     {confirmDeleteId === task.id && (
                       <div
                         className="absolute inset-0 rounded flex flex-col items-center justify-center gap-1.5 z-20"
-                        style={{ background: "rgba(15,23,42,0.88)" }}
+                        style={MODAL_OVERLAY_STYLE}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <p

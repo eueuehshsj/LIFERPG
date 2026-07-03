@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { COMMON_STYLES, GRADIENTS } from '../../styles/styleConstants';
 
 interface Task {
   id: number;
@@ -49,7 +50,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: 'rgba(30,15,5,0.75)', backdropFilter: 'blur(4px)' }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* 닫기 버튼 */}
@@ -281,7 +282,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                   className="px-6 py-2 rounded text-amber-50 font-black text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
                   style={{
                     fontFamily: 'serif',
-                    background: 'linear-gradient(135deg, #92400e, #78350f)',
+                    background: GRADIENTS.submitButtonBg,
                     boxShadow: title.trim() ? '0 4px 12px rgba(120,53,15,0.4)' : 'none',
                   }}
                 >

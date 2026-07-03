@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X, Hammer, Trash2 } from 'lucide-react';
+import { COMMON_STYLES, MODAL_COLORS, BUTTON_STYLES } from '../../styles/styleConstants';
 
 interface Reward {
   id: number;
@@ -25,7 +26,7 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: 'rgba(30,15,5,0.75)', backdropFilter: 'blur(4px)' }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <button
@@ -39,7 +40,7 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
       <div
         className="w-[480px] rounded-2xl border-4 border-amber-950 overflow-hidden flex flex-col"
         style={{
-          background: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
+          background: MODAL_COLORS.default,
           boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
           maxHeight: '80vh',
         }}
@@ -101,7 +102,7 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
                         className="flex-1 py-2 rounded-lg font-black text-sm text-white transition-all"
                         style={{
                           fontFamily: 'serif',
-                          background: 'linear-gradient(135deg, #dc2626, #b91c1c)',
+                          background: BUTTON_STYLES.danger.gradient,
                           boxShadow: '0 4px 12px rgba(220,38,38,0.4)',
                         }}
                       >

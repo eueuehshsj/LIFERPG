@@ -1,4 +1,5 @@
 import { Coins, PencilLine, Trash2 } from "lucide-react";
+import { SHELF_GRADIENTS } from "../../styles/styleConstants";
 
 type ActionShelfProps = {
   onOpenAddTask: () => void;
@@ -31,7 +32,7 @@ export default function ActionShelf({
         <div
           className="h-4 w-full rounded-t-lg border-t-4 border-amber-950"
           style={{
-            background: "linear-gradient(to bottom, #704214 0%, #5a3516 100%)",
+            background: SHELF_GRADIENTS.topBar,
             boxShadow:
               "inset 0 2px 4px rgba(0,0,0,0.5), 0 -2px 8px rgba(0,0,0,0.4)",
           }}
@@ -39,7 +40,7 @@ export default function ActionShelf({
         <div
           className="relative w-full min-h-52 sm:min-h-44 md:min-h-40 lg:min-h-34 px-3 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-6"
           style={{
-            background: "linear-gradient(to bottom, #5a3516 0%, #3d2410 100%)",
+            background: SHELF_GRADIENTS.body,
             boxShadow: `
               inset 0 4px 8px rgba(0,0,0,0.6),
               inset 0 -2px 4px rgba(255,255,255,0.05),
