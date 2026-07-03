@@ -1,5 +1,18 @@
 import { Edit3, Trash2 } from "lucide-react";
 import type { Task } from "../types";
+import {
+  COLORS,
+  SHADOWS,
+  GRADIENTS,
+  COMMON_STYLES,
+  TASK_CARD_COLORS,
+} from "../../styles/styleConstants";
+import {
+  getTaskCardContainerStyle,
+  getTaskCardBgStyle,
+  getBoardBackdropPattern,
+  getBoardModeOverlay,
+} from "../../styles/styleHelpers";
 
 type TaskBoardProps = {
   tasks: Task[];
@@ -14,6 +27,90 @@ type TaskBoardProps = {
   onDeleteTask: (id: number) => void;
   onStartEditTask: (task: Task) => void;
 };
+
+  // ============ 상수 정의 ============
+  const PIN_STYLE = {
+    width: "20px",
+    height: "20px",
+    borderRadius: "50%",
+    border: "2px solid #7f1d1d",
+    background: "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
+    boxShadow:
+      "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
+  } as const;
+
+  const MODAL_OVERLAY_STYLE = {
+    background: "rgba(15,23,42,0.88)",
+  } as const;
+
+  const ICON_OVERLAY_BASE = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: "0.5rem",
+  } as const;
+
+  const EDIT_OVERLAY_ICON = {
+    ...ICON_OVERLAY_BASE,
+    background: "rgba(202,138,4,0.15)",
+    border: "3px solid rgba(202,138,4,0.6)",
+  } as const;
+
+  const DELETE_OVERLAY_ICON = {
+    ...ICON_OVERLAY_BASE,
+    background: "rgba(71,85,105,0.15)",
+    border: "3px solid rgba(71,85,105,0.5)",
+  } as const;
+
+  const SELECT_BADGE = {
+    width: "56px",
+    height: "56px",
+    borderRadius: "50%",
+    border: "4px solid rgb(159, 18, 57)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "rotate(-12deg)",
+    background: "rgba(220,38,38,0.12)",
+    boxShadow: "0 0 0 2px rgba(220,38,38,0.3)",
+  } as const;
+
+  const COMPLETED_BADGE = {
+    width: "56px",
+    height: "56px",
+    borderRadius: "50%",
+    border: "4px solid rgb(153, 27, 27)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transform: "rotate(-12deg)",
+    background: "rgba(220,38,38,0.18)",
+    boxShadow: "0 0 0 3px rgba(220,38,38,0.5)",
+  } as const;
+
+  const BOARD_MODE_OVERLAY_STYLES = {
+    complete: {
+      overlayBg: "rgba(220,38,38,0.04)",
+      overlayBorder: "rgba(220,38,38,0.3)",
+      labelBg: "rgba(185,28,28,0.8)",
+      labelText: "#fef2f2",
+      message: "완료할 퀘스트를 클릭하세요",
+    },
+    delete: {
+      overlayBg: "rgba(71,85,105,0.04)",
+      overlayBorder: "rgba(71,85,105,0.3)",
+      labelBg: "rgba(51,65,85,0.8)",
+      labelText: "#f1f5f9",
+      message: "삭제할 퀘스트를 클릭하세요",
+    },
+    edit: {
+      overlayBg: "rgba(202,138,4,0.04)",
+      overlayBorder: "rgba(202,138,4,0.4)",
+      labelBg: "rgba(161,110,5,0.85)",
+      labelText: "#fefce8",
+      message: "편집할 퀘스트를 클릭하세요",
+    },
+  } as const;
 
 export default function TaskBoard({
   tasks,
@@ -33,8 +130,7 @@ export default function TaskBoard({
       <div
         className="relative flex-1 rounded-2xl p-8 border-8 border-amber-950 min-h-0"
         style={{
-          background:
-            "linear-gradient(145deg, #a0713a 0%, #8b5a2b 30%, #6d451f 60%, #5a3716 100%)",
+          background: GRADIENTS.boardBg,
           boxShadow: `
             inset 0 4px 8px rgba(0,0,0,0.4),
             inset 0 -4px 8px rgba(255,255,255,0.05),
@@ -45,51 +141,22 @@ export default function TaskBoard({
       >
         <div
           className="absolute inset-0 opacity-40 rounded-xl"
-          style={{
-            backgroundImage: `
-              repeating-linear-gradient(90deg,
-                rgba(139,90,43,0.8) 0px,
-                rgba(101,67,33,0.6) 3px,
-                rgba(74,44,15,0.7) 6px,
-                rgba(101,67,33,0.6) 9px,
-                rgba(139,90,43,0.8) 12px),
-              repeating-linear-gradient(0deg,
-                transparent,
-                transparent 60px,
-                rgba(0,0,0,0.15) 60px,
-                rgba(0,0,0,0.15) 63px),
-              radial-gradient(ellipse at 20% 30%, rgba(160,113,58,0.3) 0%, transparent 50%),
-              radial-gradient(ellipse at 80% 70%, rgba(90,55,22,0.3) 0%, transparent 50%)
-            `,
-          }}
+          style={getBoardBackdropPattern()}
         />
 
         <div
-          className="absolute top-4 left-1/4 w-5 h-5 rounded-full bg-linear-to-br from-red-500 to-red-800 border-2 border-red-950"
-          style={{
-            boxShadow: `
-              inset -2px -2px 4px rgba(0,0,0,0.5),
-              inset 2px 2px 4px rgba(255,100,100,0.3),
-              0 4px 8px rgba(0,0,0,0.6),
-              0 2px 4px rgba(0,0,0,0.4)
-            `,
-          }}
+          className="absolute top-4 left-1/4 w-5 h-5 rounded-full border-2 border-red-950"
+          style={PIN_STYLE}
         />
         <div
-          className="absolute top-4 right-1/4 w-5 h-5 rounded-full bg-linear-to-br from-red-500 to-red-800 border-2 border-red-950"
-          style={{
-            boxShadow: `
-              inset -2px -2px 4px rgba(0,0,0,0.5),
-              inset 2px 2px 4px rgba(255,100,100,0.3),
-              0 4px 8px rgba(0,0,0,0.6),
-              0 2px 4px rgba(0,0,0,0.4)
-            `,
-          }}
+          className="absolute top-4 right-1/4 w-5 h-5 rounded-full border-2 border-red-950"
+          style={PIN_STYLE}
         />
 
         <div
           className="relative h-full bg-linear-to-br from-amber-100/95 to-yellow-50/95 rounded-lg p-6 backdrop-blur-sm overflow-y-auto"
           style={{
+            background: GRADIENTS.boardContent,
             boxShadow: `
               inset 0 4px 12px rgba(0,0,0,0.25),
               inset 0 -2px 8px rgba(255,255,255,0.3),
