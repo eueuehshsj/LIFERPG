@@ -1,6 +1,10 @@
 import { Edit3, Trash2 } from "lucide-react";
 import type { Task } from "../types";
-import { GRADIENTS } from "../../styles/styleConstants";
+import {
+  GRADIENTS,
+  PRIORITY_LABELS,
+  PRIORITY_BADGE_COLORS,
+} from "../../styles/styleConstants";
 import { getBoardBackdropPattern } from "../../styles/styleHelpers";
 
 type TaskBoardProps = {
@@ -35,18 +39,17 @@ const MODAL_OVERLAY_STYLE = {
   background: "rgba(15,23,42,0.88)",
 } as const;
 
-const PRIORITY_CARD_STYLES = {
-  low: { bg: "#f0fdf4", border: "#86efac", text: "#15803d", badge: "#dcfce7" },
-  medium: {
-    bg: "#fffbeb",
-    border: "#fcd34d",
-    text: "#b45309",
-    badge: "#fef3c7",
-  },
-  high: { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c", badge: "#fee2e2" },
+const PRIORITY_CARD_BG = {
+  low: "#f0fdf4",
+  medium: "#fffbeb",
+  high: "#fef2f2",
 } as const;
 
-const PRIORITY_LABELS = { low: "보통", medium: "중요", high: "긴급" } as const;
+const PRIORITY_CARD_STYLES = {
+  low: { bg: PRIORITY_CARD_BG.low, ...PRIORITY_BADGE_COLORS.low },
+  medium: { bg: PRIORITY_CARD_BG.medium, ...PRIORITY_BADGE_COLORS.medium },
+  high: { bg: PRIORITY_CARD_BG.high, ...PRIORITY_BADGE_COLORS.high },
+} as const;
 
 const BOARD_MODE_OVERLAY_STYLES = {
   complete: {

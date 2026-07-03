@@ -258,6 +258,20 @@ export const TASK_CARD_COLORS = {
   },
 } as const;
 
+// ============ 태스크 우선순위 라벨 (TaskBoard, CompletedTasksModal 공용) ============
+export const PRIORITY_LABELS = {
+  low: "보통",
+  medium: "중요",
+  high: "긴급",
+} as const;
+
+// ============ 태스크 우선순위 뱃지 색상 (TaskBoard, CompletedTasksModal 공용) ============
+export const PRIORITY_BADGE_COLORS = {
+  low: { text: "#15803d", badge: "#dcfce7", border: "#86efac" },
+  medium: { text: "#b45309", badge: "#fef3c7", border: "#fcd34d" },
+  high: { text: "#b91c1c", badge: "#fee2e2", border: "#fca5a5" },
+} as const;
+
 // ============ 게시판 색상 조정 ============
 export const BOARD_COLORS = {
   backdrop: "#8b4513",
