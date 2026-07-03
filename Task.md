@@ -450,7 +450,7 @@ src/
 
 ---
 
-## 최적화 수정사항 1
+## 최적화 수정사항 3
 
 1. bg-gradient-to-br → bg-linear-to-br 같은 표현으로 변경해 생성되는 CSS 단순화
 2. min-h-[13rem] 같은 값을 표준 클래스 형태로 변경

@@ -1,18 +1,7 @@
 import { Edit3, Trash2 } from "lucide-react";
 import type { Task } from "../types";
-import {
-  COLORS,
-  SHADOWS,
-  GRADIENTS,
-  COMMON_STYLES,
-  TASK_CARD_COLORS,
-} from "../../styles/styleConstants";
-import {
-  getTaskCardContainerStyle,
-  getTaskCardBgStyle,
-  getBoardBackdropPattern,
-  getBoardModeOverlay,
-} from "../../styles/styleHelpers";
+import { GRADIENTS } from "../../styles/styleConstants";
+import { getBoardBackdropPattern } from "../../styles/styleHelpers";
 
 type TaskBoardProps = {
   tasks: Task[];
@@ -28,89 +17,60 @@ type TaskBoardProps = {
   onStartEditTask: (task: Task) => void;
 };
 
-  // ============ 상수 정의 ============
-  const PIN_STYLE = {
-    width: "20px",
-    height: "20px",
-    borderRadius: "50%",
-    border: "2px solid #7f1d1d",
-    background: "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
-    boxShadow:
-      "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
-  } as const;
+// ============ 상수 정의 ============
+const PIN_GRADIENT = {
+  background: "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
+  boxShadow: "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
+} as const;
 
-  const MODAL_OVERLAY_STYLE = {
-    background: "rgba(15,23,42,0.88)",
-  } as const;
+const PIN_STYLE = {
+  width: "20px",
+  height: "20px",
+  borderRadius: "50%",
+  border: "2px solid #7f1d1d",
+  ...PIN_GRADIENT,
+} as const;
 
-  const ICON_OVERLAY_BASE = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "0.5rem",
-  } as const;
+const MODAL_OVERLAY_STYLE = {
+  background: "rgba(15,23,42,0.88)",
+} as const;
 
-  const EDIT_OVERLAY_ICON = {
-    ...ICON_OVERLAY_BASE,
-    background: "rgba(202,138,4,0.15)",
-    border: "3px solid rgba(202,138,4,0.6)",
-  } as const;
+const PRIORITY_CARD_STYLES = {
+  low: { bg: "#f0fdf4", border: "#86efac", text: "#15803d", badge: "#dcfce7" },
+  medium: {
+    bg: "#fffbeb",
+    border: "#fcd34d",
+    text: "#b45309",
+    badge: "#fef3c7",
+  },
+  high: { bg: "#fef2f2", border: "#fca5a5", text: "#b91c1c", badge: "#fee2e2" },
+} as const;
 
-  const DELETE_OVERLAY_ICON = {
-    ...ICON_OVERLAY_BASE,
-    background: "rgba(71,85,105,0.15)",
-    border: "3px solid rgba(71,85,105,0.5)",
-  } as const;
+const PRIORITY_LABELS = { low: "보통", medium: "중요", high: "긴급" } as const;
 
-  const SELECT_BADGE = {
-    width: "56px",
-    height: "56px",
-    borderRadius: "50%",
-    border: "4px solid rgb(159, 18, 57)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transform: "rotate(-12deg)",
-    background: "rgba(220,38,38,0.12)",
-    boxShadow: "0 0 0 2px rgba(220,38,38,0.3)",
-  } as const;
-
-  const COMPLETED_BADGE = {
-    width: "56px",
-    height: "56px",
-    borderRadius: "50%",
-    border: "4px solid rgb(153, 27, 27)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transform: "rotate(-12deg)",
-    background: "rgba(220,38,38,0.18)",
-    boxShadow: "0 0 0 3px rgba(220,38,38,0.5)",
-  } as const;
-
-  const BOARD_MODE_OVERLAY_STYLES = {
-    complete: {
-      overlayBg: "rgba(220,38,38,0.04)",
-      overlayBorder: "rgba(220,38,38,0.3)",
-      labelBg: "rgba(185,28,28,0.8)",
-      labelText: "#fef2f2",
-      message: "완료할 퀘스트를 클릭하세요",
-    },
-    delete: {
-      overlayBg: "rgba(71,85,105,0.04)",
-      overlayBorder: "rgba(71,85,105,0.3)",
-      labelBg: "rgba(51,65,85,0.8)",
-      labelText: "#f1f5f9",
-      message: "삭제할 퀘스트를 클릭하세요",
-    },
-    edit: {
-      overlayBg: "rgba(202,138,4,0.04)",
-      overlayBorder: "rgba(202,138,4,0.4)",
-      labelBg: "rgba(161,110,5,0.85)",
-      labelText: "#fefce8",
-      message: "편집할 퀘스트를 클릭하세요",
-    },
-  } as const;
+const BOARD_MODE_OVERLAY_STYLES = {
+  complete: {
+    overlayBg: "rgba(220,38,38,0.04)",
+    overlayBorder: "rgba(220,38,38,0.3)",
+    labelBg: "rgba(185,28,28,0.8)",
+    labelText: "#fef2f2",
+    message: "완료할 퀘스트를 클릭하세요",
+  },
+  delete: {
+    overlayBg: "rgba(71,85,105,0.04)",
+    overlayBorder: "rgba(71,85,105,0.3)",
+    labelBg: "rgba(51,65,85,0.8)",
+    labelText: "#f1f5f9",
+    message: "삭제할 퀘스트를 클릭하세요",
+  },
+  edit: {
+    overlayBg: "rgba(202,138,4,0.04)",
+    overlayBorder: "rgba(202,138,4,0.4)",
+    labelBg: "rgba(161,110,5,0.85)",
+    labelText: "#fefce8",
+    message: "편집할 퀘스트를 클릭하세요",
+  },
+} as const;
 
 export default function TaskBoard({
   tasks,
@@ -164,48 +124,36 @@ export default function TaskBoard({
             `,
           }}
         >
-          {(completeMode || deleteMode || editMode) && tasks.length > 0 && (
-            <div
-              className="absolute inset-0 rounded-lg pointer-events-none z-10 flex items-start justify-center pt-4"
-              style={{
-                background: completeMode
-                  ? "rgba(220,38,38,0.04)"
-                  : deleteMode
-                    ? "rgba(71,85,105,0.04)"
-                    : "rgba(202,138,4,0.04)",
-                border: `2px dashed ${
-                  completeMode
-                    ? "rgba(220,38,38,0.3)"
-                    : deleteMode
-                      ? "rgba(71,85,105,0.3)"
-                      : "rgba(202,138,4,0.4)"
-                }`,
-              }}
-            >
-              <div
-                className="text-xs font-bold px-4 py-1.5 rounded-full tracking-widest shadow-lg"
-                style={{
-                  fontFamily: "serif",
-                  background: completeMode
-                    ? "rgba(185,28,28,0.8)"
-                    : deleteMode
-                      ? "rgba(51,65,85,0.8)"
-                      : "rgba(161,110,5,0.85)",
-                  color: completeMode
-                    ? "#fef2f2"
-                    : deleteMode
-                      ? "#f1f5f9"
-                      : "#fefce8",
-                }}
-              >
-                {completeMode
-                  ? "완료할 퀘스트를 클릭하세요"
-                  : deleteMode
-                    ? "삭제할 퀘스트를 클릭하세요"
-                    : "편집할 퀘스트를 클릭하세요"}
-              </div>
-            </div>
-          )}
+          {(completeMode || deleteMode || editMode) &&
+            tasks.length > 0 &&
+            (() => {
+              const mode = completeMode
+                ? "complete"
+                : deleteMode
+                  ? "delete"
+                  : "edit";
+              const modeStyle = BOARD_MODE_OVERLAY_STYLES[mode];
+              return (
+                <div
+                  className="absolute inset-0 rounded-lg pointer-events-none z-10 flex items-start justify-center pt-4"
+                  style={{
+                    background: modeStyle.overlayBg,
+                    border: `2px dashed ${modeStyle.overlayBorder}`,
+                  }}
+                >
+                  <div
+                    className="text-xs font-bold px-4 py-1.5 rounded-full tracking-widest shadow-lg"
+                    style={{
+                      fontFamily: "serif",
+                      background: modeStyle.labelBg,
+                      color: modeStyle.labelText,
+                    }}
+                  >
+                    {modeStyle.message}
+                  </div>
+                </div>
+              );
+            })()}
           {tasks.length === 0 ? (
             <p className="text-center text-amber-800/50 text-lg mt-8">
               퀘스트를 붙여보세요
@@ -213,27 +161,8 @@ export default function TaskBoard({
           ) : (
             <div className="flex flex-wrap items-start gap-4">
               {tasks.map((task, idx) => {
-                const colors = {
-                  low: {
-                    bg: "#f0fdf4",
-                    border: "#86efac",
-                    text: "#15803d",
-                    badge: "#dcfce7",
-                  },
-                  medium: {
-                    bg: "#fffbeb",
-                    border: "#fcd34d",
-                    text: "#b45309",
-                    badge: "#fef3c7",
-                  },
-                  high: {
-                    bg: "#fef2f2",
-                    border: "#fca5a5",
-                    text: "#b91c1c",
-                    badge: "#fee2e2",
-                  },
-                }[task.priority];
-                const labels = { low: "보통", medium: "중요", high: "긴급" };
+                const colors = PRIORITY_CARD_STYLES[task.priority];
+                const labels = PRIORITY_LABELS;
                 const rotation = ((idx * 137) % 9) - 4;
                 const isSelected = selectedTaskIds.includes(task.id);
                 return (
@@ -275,12 +204,7 @@ export default function TaskBoard({
                   >
                     <div
                       className="absolute -top-2.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-2 border-red-900"
-                      style={{
-                        background:
-                          "radial-gradient(circle at 35% 35%, #f87171, #991b1b)",
-                        boxShadow:
-                          "0 2px 6px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,150,150,0.4)",
-                      }}
+                      style={PIN_GRADIENT}
                     />
                     {editMode && (
                       <div className="absolute inset-0 rounded bg-yellow-400/5 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
@@ -311,7 +235,7 @@ export default function TaskBoard({
                     {confirmDeleteId === task.id && (
                       <div
                         className="absolute inset-0 rounded flex flex-col items-center justify-center gap-1.5 z-20"
-                        style={{ background: "rgba(15,23,42,0.88)" }}
+                        style={MODAL_OVERLAY_STYLE}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <p

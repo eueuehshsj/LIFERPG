@@ -7,94 +7,100 @@
 export const COLORS = {
   // 목재 계열
   wood: {
-    dark: '#3d2410',
-    medium: '#5a3516',
-    light: '#704214',
-    text: '#8b4513',
+    dark: "#3d2410",
+    medium: "#5a3516",
+    light: "#704214",
+    text: "#8b4513",
   },
   // 바위/돌 계열
   stone: {
-    darkest: '#1c1917',
-    dark: '#292524',
-    medium: '#78716c',
-    light: '#f5f5f4',
+    darkest: "#1c1917",
+    dark: "#292524",
+    medium: "#78716c",
+    light: "#f5f5f4",
   },
   // 황금/앰버 계열
   amber: {
-    dark: '#78350f',
-    medium: '#92400e',
-    light: '#fbbf24',
-    text: '#1f2937',
+    dark: "#78350f",
+    medium: "#92400e",
+    light: "#fbbf24",
+    text: "#1f2937",
   },
   // 상태 색상
   status: {
-    success: '#16a34a', // 녹색 (low priority)
-    warning: '#eab308', // 노란색 (medium priority)
-    danger: '#dc2626', // 빨간색 (high priority)
-    completed: '#059669',
+    success: "#16a34a", // 녹색 (low priority)
+    warning: "#eab308", // 노란색 (medium priority)
+    danger: "#dc2626", // 빨간색 (high priority)
+    completed: "#059669",
   },
 } as const;
 
 // ============ 그림자 정의 ============
 export const SHADOWS = {
   // 3D 우드 효과
-  wood3d: 'inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 -2px 8px rgba(0, 0, 0, 0.4)',
-  wood3dInverted: 'inset 0 -2px 4px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4)',
-  
+  wood3d: "inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 -2px 8px rgba(0, 0, 0, 0.4)",
+  wood3dInverted:
+    "inset 0 -2px 4px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4)",
+
   // 종이 효과
-  paperLayered: '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)',
-  paperStacked: '-2px 2px 8px rgba(0, 0, 0, 0.15), -4px 4px 12px rgba(0, 0, 0, 0.1)',
-  
+  paperLayered: "0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)",
+  paperStacked:
+    "-2px 2px 8px rgba(0, 0, 0, 0.15), -4px 4px 12px rgba(0, 0, 0, 0.1)",
+
   // 모드별 하이라이트
-  completeShadow: '0 0 20px rgba(220, 38, 38, 0.6)',
-  deleteShadow: '0 0 16px rgba(100, 116, 139, 0.5)',
-  editShadow: '0 0 16px rgba(234, 179, 8, 0.5)',
-  
+  completeShadow: "0 0 20px rgba(220, 38, 38, 0.6)",
+  deleteShadow: "0 0 16px rgba(100, 116, 139, 0.5)",
+  editShadow: "0 0 16px rgba(234, 179, 8, 0.5)",
+
   // 일반 그림자
-  sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
-  md: '0 4px 6px rgba(0, 0, 0, 0.1)',
-  lg: '0 10px 15px rgba(0, 0, 0, 0.1)',
-  xl: '0 20px 25px rgba(0, 0, 0, 0.1)',
+  sm: "0 1px 2px rgba(0, 0, 0, 0.05)",
+  md: "0 4px 6px rgba(0, 0, 0, 0.1)",
+  lg: "0 10px 15px rgba(0, 0, 0, 0.1)",
+  xl: "0 20px 25px rgba(0, 0, 0, 0.1)",
 } as const;
 
 // ============ 그라데이션 정의 ============
 export const GRADIENTS = {
   // 목판 헤더
-  woodenSignBg: 'linear-gradient(135deg, #8b4513 0%, #654321 50%, #4a2c0f 100%)',
-  
+  woodenSignBg:
+    "linear-gradient(135deg, #8b4513 0%, #654321 50%, #4a2c0f 100%)",
+
   // 가판대
-  shelfTopBar: 'linear-gradient(to bottom, #704214, #5a3516)',
-  shelfBody: 'linear-gradient(to bottom, #5a3516, #3d2410)',
-  
+  shelfTopBar: "linear-gradient(to bottom, #704214, #5a3516)",
+  shelfBody: "linear-gradient(to bottom, #5a3516, #3d2410)",
+
   // 게시판
-  boardBg: 'linear-gradient(145deg, #a0713a 0%, #7a5328 50%, #5a3716 100%)',
-  boardContent: 'linear-gradient(to br, rgba(251, 191, 36, 0.95) 0%, rgba(254, 243, 199, 0.95) 100%)',
-  
+  boardBg: "linear-gradient(145deg, #a0713a 0%, #7a5328 50%, #5a3716 100%)",
+  boardContent:
+    "linear-gradient(to br, rgba(251, 191, 36, 0.95) 0%, rgba(254, 243, 199, 0.95) 100%)",
+
   // 태스크 카드 - Priority별
-  cardPriorityLow: 'linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)',
-  cardPriorityMedium: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-  cardPriorityHigh: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)',
-  
+  cardPriorityLow: "linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%)",
+  cardPriorityMedium: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)",
+  cardPriorityHigh: "linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)",
+
   // 모드별 오버레이 배경
-  modeLabelBg: 'linear-gradient(135deg, rgba(220, 38, 38, 0.95), rgba(220, 38, 38, 0.85))',
-  
+  modeLabelBg:
+    "linear-gradient(135deg, rgba(220, 38, 38, 0.95), rgba(220, 38, 38, 0.85))",
+
   // 모달 배경
-  modalBg: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
-  rewardClaimBg: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
-  
+  modalBg: "linear-gradient(160deg, #fdf6e3, #faf0d7)",
+  rewardClaimBg: "linear-gradient(160deg, #fdf6e3, #faf0d7)",
+
   // 도장 잉크
-  stampInk: 'linear-gradient(135deg, #dc2626, #991b1b)',
-  
+  stampInk: "linear-gradient(135deg, #dc2626, #991b1b)",
+
   // 버튼 배경
-  submitButtonBg: 'linear-gradient(135deg, #92400e, #78350f)',
-  hammerHeadBg: 'linear-gradient(90deg, #92400e 0%, #78350f 50%, #92400e 100%)',
+  submitButtonBg: "linear-gradient(135deg, #92400e, #78350f)",
+  hammerHeadBg: "linear-gradient(90deg, #92400e 0%, #78350f 50%, #92400e 100%)",
 } as const;
 
 // ============ 배경 이미지 (텍스처) ============
 export const TEXTURES = {
   // 목재 줄무늬
-  woodGrain: 'repeating-linear-gradient(90deg, rgba(90, 53, 22, 0.8) 0px, transparent 1px, transparent 2px, rgba(90, 53, 22, 0.4) 3px)',
-  
+  woodGrain:
+    "repeating-linear-gradient(90deg, rgba(90, 53, 22, 0.8) 0px, transparent 1px, transparent 2px, rgba(90, 53, 22, 0.4) 3px)",
+
   // 줄 노트 패턴
   linedPaper: `repeating-linear-gradient(
     0deg,
@@ -103,7 +109,7 @@ export const TEXTURES = {
     #d1d5db 24px,
     #d1d5db 25px
   )`,
-  
+
   // 격자 패턴 (돈자루 천 질감)
   gridPattern: `repeating-linear-gradient(
     0deg,
@@ -119,7 +125,7 @@ export const TEXTURES = {
     rgba(139, 69, 19, 0.15) 8px,
     rgba(139, 69, 19, 0.15) 9px
   )`,
-  
+
   // 종이 질감 (노이즈 효과)
   paperNoise: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' result='noise' /%3E%3C/filter%3E%3Crect width='400' height='400' fill='%23f5f3f0' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E")`,
 } as const;
@@ -127,27 +133,27 @@ export const TEXTURES = {
 // ============ 테두리 반경 ============
 export const BORDER_RADIUS = {
   // 정사각형 (모서리 직각)
-  none: '0',
-  
+  none: "0",
+
   // 약한 둥글기
-  sm: '0.125rem',
-  
+  sm: "0.125rem",
+
   // 보통 둥글기
-  md: '0.375rem',
-  lg: '0.5rem',
-  
+  md: "0.375rem",
+  lg: "0.5rem",
+
   // 강한 둥글기
-  xl: '0.75rem',
-  '2xl': '1rem',
-  '3xl': '1.5rem',
-  
+  xl: "0.75rem",
+  "2xl": "1rem",
+  "3xl": "1.5rem",
+
   // 완전 원형
-  full: '9999px',
-  
+  full: "9999px",
+
   // 비표준 형태
-  topOnly: '0.5rem 0.5rem 0 0',
-  bottomOnly: '0 0 0.5rem 0.5rem',
-  paperLike: '40% 40% 50% 50% / 25% 25% 75% 75%',
+  topOnly: "0.5rem 0.5rem 0 0",
+  bottomOnly: "0 0 0.5rem 0.5rem",
+  paperLike: "40% 40% 50% 50% / 25% 25% 75% 75%",
 } as const;
 
 // ============ Clip Path 정의 ============
@@ -162,7 +168,7 @@ export const CLIP_PATHS = {
     80% 0%, 82% 8%, 84% 0%, 86% 8%, 88% 0%, 90% 8%, 92% 0%, 94% 8%, 
     96% 0%, 98% 8%, 100% 0%, 100% 100%, 0% 100%
   )`,
-  
+
   // 영수증 톱니 (하단)
   receiptSerratedBottom: `polygon(
     0% 0%, 100% 0%, 100% 100%, 98% 92%, 96% 100%, 94% 92%, 92% 100%, 90% 92%, 
@@ -179,31 +185,31 @@ export const CLIP_PATHS = {
 export const COMMON_STYLES = {
   // 모달 배경 오버레이
   modalOverlay: {
-    backgroundColor: 'rgba(30, 15, 5, 0.75)',
-    backdropFilter: 'blur(4px)',
+    backgroundColor: "rgba(30, 15, 5, 0.75)",
+    backdropFilter: "blur(4px)",
   },
-  
+
   // 종이 기본 스타일
   paperBase: {
-    backgroundColor: '#faf6ed',
+    backgroundColor: "#faf6ed",
     backgroundImage: TEXTURES.paperNoise,
-    fontFamily: 'serif',
+    fontFamily: "serif",
   },
-  
+
   // 영수증 기본 스타일
   receiptBase: {
-    backgroundColor: '#fefefe',
-    fontFamily: 'monospace',
-    fontSize: '13px',
+    backgroundColor: "#fefefe",
+    fontFamily: "monospace",
+    fontSize: "13px",
   },
-  
+
   // 슬롯머신 디스플레이
   slotMachineDisplay: {
-    backgroundColor: '#1c1917',
-    color: '#fbbf24',
-    fontFamily: 'monospace',
-    fontSize: '18px',
-    fontWeight: 'bold',
+    backgroundColor: "#1c1917",
+    color: "#fbbf24",
+    fontFamily: "monospace",
+    fontSize: "18px",
+    fontWeight: "bold",
   },
 } as const;
 
@@ -219,126 +225,127 @@ export const Z_INDEX = {
 
 // ============ 전환 효과 ============
 export const TRANSITIONS = {
-  fast: 'all 150ms ease-in-out',
-  base: 'all 200ms ease-in-out',
-  slow: 'all 300ms ease-in-out',
-  
+  fast: "all 150ms ease-in-out",
+  base: "all 200ms ease-in-out",
+  slow: "all 300ms ease-in-out",
+
   // 특정 속성
-  colorTransition: 'color 200ms ease-in-out, background-color 200ms ease-in-out',
-  transformTransition: 'transform 200ms ease-in-out, opacity 200ms ease-in-out',
-  shadowTransition: 'box-shadow 200ms ease-in-out',
+  colorTransition:
+    "color 200ms ease-in-out, background-color 200ms ease-in-out",
+  transformTransition: "transform 200ms ease-in-out, opacity 200ms ease-in-out",
+  shadowTransition: "box-shadow 200ms ease-in-out",
 } as const;
 
 // ============ 태스크 카드 우선순위별 색상 ============
 export const TASK_CARD_COLORS = {
   low: {
-    bg: '#dcfce7',
+    bg: "#dcfce7",
     border: COLORS.status.success,
-    text: '#166534',
-    hover: '#bbf7d0',
+    text: "#166534",
+    hover: "#bbf7d0",
   },
   medium: {
-    bg: '#fef3c7',
+    bg: "#fef3c7",
     border: COLORS.status.warning,
-    text: '#92400e',
-    hover: '#fde68a',
+    text: "#92400e",
+    hover: "#fde68a",
   },
   high: {
-    bg: '#fee2e2',
+    bg: "#fee2e2",
     border: COLORS.status.danger,
-    text: '#991b1b',
-    hover: '#fecaca',
+    text: "#991b1b",
+    hover: "#fecaca",
   },
 } as const;
 
 // ============ 게시판 색상 조정 ============
 export const BOARD_COLORS = {
-  backdrop: '#8b4513',
-  backdropDark: '#704214',
-  backdropLight: '#a0713a',
-  contentBg: '#fbf4e7',
-  contentBgAlt: '#f5ede0',
-  contentBorder: '#d4a574',
-  overlayPattern: 'rgba(139, 69, 19, 0.03)',
+  backdrop: "#8b4513",
+  backdropDark: "#704214",
+  backdropLight: "#a0713a",
+  contentBg: "#fbf4e7",
+  contentBgAlt: "#f5ede0",
+  contentBorder: "#d4a574",
+  overlayPattern: "rgba(139, 69, 19, 0.03)",
 } as const;
 
 // ============ 모드별 그림자 ============
 export const TASK_SHADOWS_BY_MODE = {
   complete: {
     shadow: SHADOWS.completeShadow,
-    bgColor: 'rgba(220, 38, 38, 0.15)',
-    borderColor: 'rgba(220, 38, 38, 0.5)',
+    bgColor: "rgba(220, 38, 38, 0.15)",
+    borderColor: "rgba(220, 38, 38, 0.5)",
   },
   delete: {
     shadow: SHADOWS.deleteShadow,
-    bgColor: 'rgba(100, 116, 139, 0.15)',
-    borderColor: 'rgba(100, 116, 139, 0.5)',
+    bgColor: "rgba(100, 116, 139, 0.15)",
+    borderColor: "rgba(100, 116, 139, 0.5)",
   },
   edit: {
     shadow: SHADOWS.editShadow,
-    bgColor: 'rgba(234, 179, 8, 0.15)',
-    borderColor: 'rgba(234, 179, 8, 0.5)',
+    bgColor: "rgba(234, 179, 8, 0.15)",
+    borderColor: "rgba(234, 179, 8, 0.5)",
   },
 } as const;
 
 // ============ 선반 관련 그라데이션 ============
 export const SHELF_GRADIENTS = {
-  topBar: 'linear-gradient(to bottom, #704214, #5a3516)',
-  body: 'linear-gradient(to bottom, #5a3516, #3d2410)',
-  bodyAlt: 'linear-gradient(135deg, #5a3516 0%, #4a2c0f 100%)',
-  edge: 'linear-gradient(90deg, #3d2410, #5a3516, #3d2410)',
-  innerShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.5)',
+  topBar: "linear-gradient(to bottom, #704214, #5a3516)",
+  body: "linear-gradient(to bottom, #5a3516, #3d2410)",
+  bodyAlt: "linear-gradient(135deg, #5a3516 0%, #4a2c0f 100%)",
+  edge: "linear-gradient(90deg, #3d2410, #5a3516, #3d2410)",
+  innerShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.5)",
 } as const;
 
 // ============ 버튼별 기본 스타일 ============
 export const BUTTON_STYLES = {
   primary: {
-    bg: '#92400e',
-    bgHover: '#78350f',
-    bgActive: '#5a2606',
-    text: '#ffffff',
-    gradient: 'linear-gradient(135deg, #92400e, #78350f)',
+    bg: "#92400e",
+    bgHover: "#78350f",
+    bgActive: "#5a2606",
+    text: "#ffffff",
+    gradient: "linear-gradient(135deg, #92400e, #78350f)",
   },
   secondary: {
-    bg: '#d1d5db',
-    bgHover: '#9ca3af',
-    bgActive: '#6b7280',
-    text: '#1f2937',
-    gradient: 'linear-gradient(135deg, #d1d5db, #9ca3af)',
+    bg: "#d1d5db",
+    bgHover: "#9ca3af",
+    bgActive: "#6b7280",
+    text: "#1f2937",
+    gradient: "linear-gradient(135deg, #d1d5db, #9ca3af)",
   },
   danger: {
-    bg: '#dc2626',
-    bgHover: '#b91c1c',
-    bgActive: '#991b1b',
-    text: '#ffffff',
-    gradient: 'linear-gradient(135deg, #dc2626, #b91c1c)',
+    bg: "#dc2626",
+    bgHover: "#b91c1c",
+    bgActive: "#991b1b",
+    text: "#ffffff",
+    gradient: "linear-gradient(135deg, #dc2626, #b91c1c)",
   },
   success: {
-    bg: '#16a34a',
-    bgHover: '#15803d',
-    bgActive: '#166534',
-    text: '#ffffff',
-    gradient: 'linear-gradient(135deg, #16a34a, #15803d)',
+    bg: "#16a34a",
+    bgHover: "#15803d",
+    bgActive: "#166534",
+    text: "#ffffff",
+    gradient: "linear-gradient(135deg, #16a34a, #15803d)",
   },
 } as const;
 
 // ============ 종이 레이어별 색상 ============
 export const PAPER_COLORS = {
-  layer1: '#faf6ed',
-  layer2: '#f5ede0',
-  layer3: '#f0e6d3',
-  text: '#2d2416',
-  textLight: '#5a4a3a',
-  highlight: '#fef3c7',
-  border: '#d1c4b0',
+  layer1: "#faf6ed",
+  layer2: "#f5ede0",
+  layer3: "#f0e6d3",
+  text: "#2d2416",
+  textLight: "#5a4a3a",
+  highlight: "#fef3c7",
+  border: "#d1c4b0",
 } as const;
 
 // ============ 모달별 배경색 ============
 export const MODAL_COLORS = {
-  default: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
-  addTask: 'linear-gradient(160deg, #fef3c7, #fce68a)',
-  addReward: 'linear-gradient(160deg, #fef3c7, #fce68a)',
-  removeReward: 'linear-gradient(160deg, #fee2e2, #fecaca)',
-  completedTasks: 'linear-gradient(160deg, #dcfce7, #bbf7d0)',
-  claimReward: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
+  default: "linear-gradient(160deg, #fdf6e3, #faf0d7)",
+  addTask: "linear-gradient(160deg, #fef3c7, #fce68a)",
+  addReward: "linear-gradient(160deg, #fef3c7, #fce68a)",
+  removeReward: "linear-gradient(160deg, #fee2e2, #fecaca)",
+  completedTasks: "linear-gradient(160deg, #dcfce7, #bbf7d0)",
+  claimReward: "linear-gradient(160deg, #fdf6e3, #faf0d7)",
 } as const;

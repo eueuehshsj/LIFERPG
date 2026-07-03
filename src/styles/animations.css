@@ -80,7 +80,8 @@
 
 /* 펄스 (깜빡임) */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -176,7 +177,8 @@
 
 /* 흔들림 */
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
   25% {
@@ -228,7 +230,8 @@
 
 /* 점프 애니메이션 */
 @keyframes jump {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -238,7 +241,8 @@
 
 /* 핑크 글로우 */
 @keyframes glowPink {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0px rgba(236, 72, 153, 0);
   }
   50% {
@@ -248,7 +252,8 @@
 
 /* 황금 글로우 */
 @keyframes glowGold {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0px rgba(251, 191, 36, 0);
   }
   50% {
@@ -258,7 +263,8 @@
 
 /* 빨간 글로우 */
 @keyframes glowRed {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0px rgba(220, 38, 38, 0);
   }
   50% {

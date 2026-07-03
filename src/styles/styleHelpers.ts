@@ -3,7 +3,7 @@
  * 상태, props에 따라 변하는 스타일을 계산하는 유틸리티
  */
 
-import React from 'react';
+import React from "react";
 import {
   COLORS,
   SHADOWS,
@@ -16,90 +16,92 @@ import {
   PAPER_COLORS,
   MODAL_COLORS,
   TRANSITIONS,
-} from './styleConstants';
+} from "./styleConstants";
 
 // ============ 태스크 카드 스타일 ============
 export const getTaskCardStyle = (rotation: number) => ({
   transform: `rotate(${rotation}deg)`,
-  transition: 'all 150ms ease-in-out',
+  transition: "all 150ms ease-in-out",
 });
 
-export const getTaskCardBorderStyle = (priority: 'low' | 'medium' | 'high') => {
+export const getTaskCardBorderStyle = (priority: "low" | "medium" | "high") => {
   const borderColorMap = {
     low: COLORS.status.success,
     medium: COLORS.status.warning,
     high: COLORS.status.danger,
   };
-  
+
   return {
     borderColor: borderColorMap[priority],
-    borderWidth: '2px',
+    borderWidth: "2px",
   };
 };
 
 export const getTaskCardModeOverlay = (
-  mode: 'complete' | 'delete' | 'edit' | null
+  mode: "complete" | "delete" | "edit" | null,
 ) => {
-  if (!mode) return { display: 'none' };
-  
+  if (!mode) return { display: "none" };
+
   const styleMap = {
     complete: {
       boxShadow: SHADOWS.completeShadow,
       backgroundColor: `rgba(220, 38, 38, 0.15)`,
-      borderColor: 'rgba(220, 38, 38, 0.5)',
+      borderColor: "rgba(220, 38, 38, 0.5)",
     },
     delete: {
       boxShadow: SHADOWS.deleteShadow,
       backgroundColor: `rgba(100, 116, 139, 0.15)`,
-      borderColor: 'rgba(100, 116, 139, 0.5)',
+      borderColor: "rgba(100, 116, 139, 0.5)",
     },
     edit: {
       boxShadow: SHADOWS.editShadow,
       backgroundColor: `rgba(234, 179, 8, 0.15)`,
-      borderColor: 'rgba(234, 179, 8, 0.5)',
+      borderColor: "rgba(234, 179, 8, 0.5)",
     },
   };
-  
+
   return {
     ...styleMap[mode],
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute' as const,
-    inset: '0',
-    borderRadius: '0.5rem',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "absolute" as const,
+    inset: "0",
+    borderRadius: "0.5rem",
     zIndex: 10,
-    cursor: 'pointer',
-    transition: 'all 150ms ease-in-out',
+    cursor: "pointer",
+    transition: "all 150ms ease-in-out",
   };
 };
 
 // ============ 게시판 모드 표시 스타일 ============
-export const getBoardModeLabel = (mode: 'complete' | 'delete' | 'edit' | null) => {
-  if (!mode) return { display: 'none' };
-  
+export const getBoardModeLabel = (
+  mode: "complete" | "delete" | "edit" | null,
+) => {
+  if (!mode) return { display: "none" };
+
   const labelMap = {
-    complete: '완료할 일정을 클릭하세요',
-    delete: '삭제할 일정을 클릭하세요',
-    edit: '편집할 일정을 클릭하세요',
+    complete: "완료할 일정을 클릭하세요",
+    delete: "삭제할 일정을 클릭하세요",
+    edit: "편집할 일정을 클릭하세요",
   };
-  
+
   const colorMap = {
     complete: COLORS.status.danger,
     delete: COLORS.stone.medium,
     edit: COLORS.status.warning,
   };
-  
+
   return {
     background: GRADIENTS.modeLabelBg,
-    color: '#ffffff',
-    padding: '6px 12px',
-    borderRadius: '0.375rem',
-    fontSize: '12px',
-    fontWeight: '600',
+    color: "#ffffff",
+    padding: "6px 12px",
+    borderRadius: "0.375rem",
+    fontSize: "12px",
+    fontWeight: "600",
     zIndex: 20,
-    borderStyle: 'dashed',
-    borderWidth: '2px',
+    borderStyle: "dashed",
+    borderWidth: "2px",
     borderColor: colorMap[mode],
   };
 };
@@ -107,95 +109,100 @@ export const getBoardModeLabel = (mode: 'complete' | 'delete' | 'edit' | null) =
 // ============ 완료 도장 스타일 ============
 export const getStampStyle = (isActive: boolean) => ({
   backgroundColor: isActive ? COLORS.status.danger : COLORS.stone.medium,
-  boxShadow: isActive ? SHADOWS.completeShadow : 'none',
-  transition: 'all 200ms ease-in-out',
+  boxShadow: isActive ? SHADOWS.completeShadow : "none",
+  transition: "all 200ms ease-in-out",
 });
 
 export const getStampInkStyle = (isActive: boolean) => ({
-  background: isActive ? GRADIENTS.stampInk : 'linear-gradient(135deg, #9ca3af, #6b7280)',
-  filter: isActive ? 'drop-shadow(0 0 8px rgba(220, 38, 38, 0.4))' : 'none',
+  background: isActive
+    ? GRADIENTS.stampInk
+    : "linear-gradient(135deg, #9ca3af, #6b7280)",
+  filter: isActive ? "drop-shadow(0 0 8px rgba(220, 38, 38, 0.4))" : "none",
 });
 
 // ============ 모달 제출 애니메이션 ============
 export const getSubmittedModalStyle = (submitted: boolean) => ({
-  transform: submitted ? 'scale(0.95)' : 'scale(1)',
+  transform: submitted ? "scale(0.95)" : "scale(1)",
   opacity: submitted ? 0 : 1,
-  transition: 'all 300ms ease-in-out',
-  pointerEvents: submitted ? 'none' : 'auto' as const,
+  transition: "all 300ms ease-in-out",
+  pointerEvents: submitted ? "none" : ("auto" as const),
 });
 
 // ============ 보상 선택 상태 스타일 ============
 export const getRewardSelectStyle = (isSelected: boolean) => ({
-  borderColor: isSelected ? COLORS.amber.medium : '#d1d5db',
-  borderWidth: '2px',
-  transform: isSelected ? 'scale(1.02)' : 'scale(1)',
-  boxShadow: isSelected
-    ? `0 0 12px ${COLORS.amber.medium}40`
-    : 'none',
-  backgroundColor: isSelected ? `${COLORS.amber.light}15` : '#f9fafb',
-  transition: 'all 150ms ease-in-out',
+  borderColor: isSelected ? COLORS.amber.medium : "#d1d5db",
+  borderWidth: "2px",
+  transform: isSelected ? "scale(1.02)" : "scale(1)",
+  boxShadow: isSelected ? `0 0 12px ${COLORS.amber.medium}40` : "none",
+  backgroundColor: isSelected ? `${COLORS.amber.light}15` : "#f9fafb",
+  transition: "all 150ms ease-in-out",
 });
 
 export const getRewardCheckMark = (isSelected: boolean) => ({
-  display: isSelected ? 'flex' : 'none',
-  alignItems: 'center',
-  justifyContent: 'center',
-  position: 'absolute' as const,
-  width: '24px',
-  height: '24px',
+  display: isSelected ? "flex" : "none",
+  alignItems: "center",
+  justifyContent: "center",
+  position: "absolute" as const,
+  width: "24px",
+  height: "24px",
   backgroundColor: COLORS.amber.medium,
-  borderRadius: '50%',
-  color: 'white',
-  fontWeight: 'bold',
-  top: '8px',
-  right: '8px',
+  borderRadius: "50%",
+  color: "white",
+  fontWeight: "bold",
+  top: "8px",
+  right: "8px",
   zIndex: 10,
 });
 
 // ============ 슬롯머신 애니메이션 스타일 ============
 export const getSlotSpinStyle = (isSpinning: boolean, revealed: boolean) => ({
   opacity: revealed ? 1 : 0.5,
-  transform: `translateY(${isSpinning ? '0' : '0'})`,
-  transition: isSpinning ? 'none' : 'all 300ms ease-in-out',
+  transform: `translateY(${isSpinning ? "0" : "0"})`,
+  transition: isSpinning ? "none" : "all 300ms ease-in-out",
 });
 
 export const getSlotRevealedStyle = (revealed: boolean) => ({
   opacity: revealed ? 1 : 0,
-  transform: revealed ? 'scale(1)' : 'scale(0.9)',
-  animation: revealed ? 'fadeIn 300ms ease-in-out' : 'none',
+  transform: revealed ? "scale(1)" : "scale(0.9)",
+  animation: revealed ? "fadeIn 300ms ease-in-out" : "none",
 });
 
 // ============ 삭제 확인 상태 스타일 ============
 export const getDeleteConfirmStyle = (isConfirming: boolean) => ({
-  borderColor: isConfirming ? COLORS.status.danger : '#d1d5db',
-  borderWidth: '2px',
-  backgroundColor: isConfirming ? 'rgba(254, 226, 226, 0.5)' : '#f9fafb',
-  transition: 'all 150ms ease-in-out',
+  borderColor: isConfirming ? COLORS.status.danger : "#d1d5db",
+  borderWidth: "2px",
+  backgroundColor: isConfirming ? "rgba(254, 226, 226, 0.5)" : "#f9fafb",
+  transition: "all 150ms ease-in-out",
 });
 
 // ============ 비활성 상태 스타일 (포인트 부족) ============
 export const getDisabledRewardStyle = (isDisabled: boolean) => ({
   opacity: isDisabled ? 0.4 : 1,
-  pointerEvents: isDisabled ? 'none' : 'auto' as const,
-  borderStyle: isDisabled ? 'dashed' : 'solid',
-  transition: 'all 150ms ease-in-out',
+  pointerEvents: isDisabled ? "none" : ("auto" as const),
+  borderStyle: isDisabled ? "dashed" : "solid",
+  transition: "all 150ms ease-in-out",
 });
 
 // ============ Floating Label 스타일 ============
-export const getFloatingLabelStyle = (isFocused: boolean, hasValue: boolean) => {
+export const getFloatingLabelStyle = (
+  isFocused: boolean,
+  hasValue: boolean,
+) => {
   const isActive = isFocused || hasValue;
   return {
-    transform: isActive ? 'translateY(-1.5rem) scale(0.875)' : 'translateY(0) scale(1)',
+    transform: isActive
+      ? "translateY(-1.5rem) scale(0.875)"
+      : "translateY(0) scale(1)",
     opacity: isActive ? 1 : 0.7,
     color: isFocused ? COLORS.amber.medium : COLORS.stone.medium,
-    transition: 'all 200ms ease-in-out',
+    transition: "all 200ms ease-in-out",
   };
 };
 
 // ============ 구분선 스타일 ============
-export const getDashedDividerStyle = (color: string = '#d1d5db') => ({
+export const getDashedDividerStyle = (color: string = "#d1d5db") => ({
   borderTop: `2px dashed ${color}`,
-  margin: '12px 0',
+  margin: "12px 0",
   opacity: 0.6,
 });
 
@@ -208,13 +215,13 @@ export const getDashedDividerStyle = (color: string = '#d1d5db') => ({
  */
 export const getTaskCardContainerStyle = (
   rotation: number,
-  mode: 'complete' | 'delete' | 'edit' | null = null
+  mode: "complete" | "delete" | "edit" | null = null,
 ): React.CSSProperties => {
   const modeStyle = mode && TASK_SHADOWS_BY_MODE[mode];
-  
+
   return {
     transform: `rotate(${rotation}deg)`,
-    boxShadow: modeStyle?.shadow || 'none',
+    boxShadow: modeStyle?.shadow || "none",
     transition: TRANSITIONS.base,
   };
 };
@@ -228,19 +235,19 @@ export const getTaskCardContainerStyle = (
  * @returns CSS 스타일 객체
  */
 export const getTaskCardBgStyle = (
-  priority: 'low' | 'medium' | 'high' = 'medium',
+  priority: "low" | "medium" | "high" = "medium",
   isSelected: boolean = false,
-  mode: 'complete' | 'delete' | 'edit' | null = null
+  mode: "complete" | "delete" | "edit" | null = null,
 ): React.CSSProperties => {
   const priorityColors = TASK_CARD_COLORS[priority];
   const modeStyle = mode && TASK_SHADOWS_BY_MODE[mode];
-  
+
   return {
     backgroundColor: modeStyle?.bgColor || priorityColors.bg,
     borderColor: modeStyle?.borderColor || priorityColors.border,
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    transform: isSelected ? 'scale(1.02)' : 'scale(1)',
+    borderWidth: "2px",
+    borderStyle: "solid",
+    transform: isSelected ? "scale(1.02)" : "scale(1)",
     transition: TRANSITIONS.fast,
   };
 };
@@ -267,7 +274,7 @@ export const getBoardBackdropPattern = (): React.CSSProperties => ({
       rgba(0, 0, 0, 0.1) 3px
     )
   `,
-  boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.5)',
+  boxShadow: "inset 0 2px 4px rgba(0, 0, 0, 0.5)",
 });
 
 // ============ 게시판 모드 오버레이 ============
@@ -277,22 +284,22 @@ export const getBoardBackdropPattern = (): React.CSSProperties => ({
  * @returns CSS 스타일 객체
  */
 export const getBoardModeOverlay = (
-  mode: 'complete' | 'delete' | 'edit' | null
+  mode: "complete" | "delete" | "edit" | null,
 ): React.CSSProperties => {
   if (!mode) {
-    return { display: 'none' };
+    return { display: "none" };
   }
-  
+
   const modeStyle = TASK_SHADOWS_BY_MODE[mode];
-  
+
   return {
-    position: 'absolute',
+    position: "absolute",
     inset: 0,
     backgroundColor: modeStyle.bgColor,
     borderColor: modeStyle.borderColor,
-    borderWidth: '2px',
-    borderStyle: 'solid',
-    borderRadius: '0.5rem',
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderRadius: "0.5rem",
     boxShadow: modeStyle.shadow,
     opacity: 0.8,
     zIndex: 5,
@@ -310,26 +317,26 @@ export const getPaperStackStyle = (layer: 1 | 2 | 3): React.CSSProperties => {
   const layerMap = {
     1: {
       backgroundColor: PAPER_COLORS.layer1,
-      transform: 'translateY(0px) translateX(0px)',
+      transform: "translateY(0px) translateX(0px)",
       zIndex: 30,
     },
     2: {
       backgroundColor: PAPER_COLORS.layer2,
-      transform: 'translateY(2px) translateX(2px)',
+      transform: "translateY(2px) translateX(2px)",
       zIndex: 20,
     },
     3: {
       backgroundColor: PAPER_COLORS.layer3,
-      transform: 'translateY(4px) translateX(4px)',
+      transform: "translateY(4px) translateX(4px)",
       zIndex: 10,
     },
   };
-  
+
   return {
     ...layerMap[layer],
     borderColor: PAPER_COLORS.border,
-    borderWidth: '1px',
-    borderStyle: 'solid',
+    borderWidth: "1px",
+    borderStyle: "solid",
     transition: TRANSITIONS.fast,
   };
 };
@@ -342,9 +349,9 @@ export const getPaperStackStyle = (layer: 1 | 2 | 3): React.CSSProperties => {
  */
 export const getPencilStyle = (angle: number = 0): React.CSSProperties => ({
   transform: `rotate(${angle}deg)`,
-  transformOrigin: 'center',
+  transformOrigin: "center",
   transition: TRANSITIONS.fast,
-  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15))',
+  filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15))",
 });
 
 // ============ 망치 활성화 스타일 ============
@@ -355,9 +362,9 @@ export const getPencilStyle = (angle: number = 0): React.CSSProperties => ({
  */
 export const getHammerStyle = (isActive: boolean): React.CSSProperties => ({
   opacity: isActive ? 1 : 0.6,
-  transform: isActive ? 'scale(1.1)' : 'scale(1)',
-  filter: isActive ? `drop-shadow(0 0 8px ${COLORS.status.danger})` : 'none',
-  cursor: isActive ? 'pointer' : 'default',
+  transform: isActive ? "scale(1.1)" : "scale(1)",
+  filter: isActive ? `drop-shadow(0 0 8px ${COLORS.status.danger})` : "none",
+  cursor: isActive ? "pointer" : "default",
   transition: TRANSITIONS.fast,
 });
 
@@ -369,9 +376,9 @@ export const getHammerStyle = (isActive: boolean): React.CSSProperties => ({
  */
 export const getCoinStyle = (isActive: boolean): React.CSSProperties => ({
   opacity: isActive ? 1 : 0.5,
-  transform: isActive ? 'scale(1.15) rotate(0deg)' : 'scale(1) rotate(-20deg)',
-  filter: isActive ? `drop-shadow(0 0 12px ${COLORS.amber.medium})` : 'none',
-  cursor: isActive ? 'pointer' : 'default',
+  transform: isActive ? "scale(1.15) rotate(0deg)" : "scale(1) rotate(-20deg)",
+  filter: isActive ? `drop-shadow(0 0 12px ${COLORS.amber.medium})` : "none",
+  cursor: isActive ? "pointer" : "default",
   transition: TRANSITIONS.base,
 });
 
@@ -382,7 +389,7 @@ export const getCoinStyle = (isActive: boolean): React.CSSProperties => ({
  * @returns CSS 스타일 객체
  */
 export const getReceiptSerrationStyle = (
-  position: 'top' | 'bottom' = 'top'
+  position: "top" | "bottom" = "top",
 ): React.CSSProperties => {
   const serrationMap = {
     top: `polygon(
@@ -404,7 +411,7 @@ export const getReceiptSerrationStyle = (
       8% 100%, 6% 92%, 4% 100%, 2% 92%, 0% 100%
     )`,
   };
-  
+
   return {
     clipPath: serrationMap[position],
   } as React.CSSProperties;
@@ -418,23 +425,23 @@ export const getReceiptSerrationStyle = (
  * @returns CSS 스타일 객체
  */
 export const getModeButtonStyle = (
-  mode: 'add' | 'remove',
-  isActive: boolean
+  mode: "add" | "remove",
+  isActive: boolean,
 ): React.CSSProperties => {
   const colorMap = {
     add: BUTTON_STYLES.success,
     remove: BUTTON_STYLES.danger,
   };
-  
+
   const color = colorMap[mode];
-  
+
   return {
     backgroundColor: isActive ? color.bg : color.bgActive,
     color: color.text,
     border: `2px solid ${isActive ? color.bg : color.bgActive}`,
-    transform: isActive ? 'scale(1.05)' : 'scale(1)',
-    boxShadow: isActive ? `0 0 12px ${color.bg}40` : 'none',
-    cursor: 'pointer',
+    transform: isActive ? "scale(1.05)" : "scale(1)",
+    boxShadow: isActive ? `0 0 12px ${color.bg}40` : "none",
+    cursor: "pointer",
     transition: TRANSITIONS.fast,
   };
 };
@@ -448,16 +455,16 @@ export const getModeButtonStyle = (
  */
 export const getRewardItemStyle = (
   isAffordable: boolean,
-  isSelected: boolean
+  isSelected: boolean,
 ): React.CSSProperties => ({
   opacity: isAffordable ? 1 : 0.4,
-  borderColor: isSelected ? COLORS.amber.medium : '#d1d5db',
-  borderWidth: '2px',
-  borderStyle: 'solid',
-  transform: isSelected ? 'scale(1.02)' : 'scale(1)',
-  backgroundColor: isSelected ? `${COLORS.amber.light}15` : '#f9fafb',
-  boxShadow: isSelected ? `0 0 12px ${COLORS.amber.medium}40` : 'none',
-  cursor: isAffordable ? 'pointer' : 'not-allowed',
-  pointerEvents: isAffordable ? 'auto' : 'none',
+  borderColor: isSelected ? COLORS.amber.medium : "#d1d5db",
+  borderWidth: "2px",
+  borderStyle: "solid",
+  transform: isSelected ? "scale(1.02)" : "scale(1)",
+  backgroundColor: isSelected ? `${COLORS.amber.light}15` : "#f9fafb",
+  boxShadow: isSelected ? `0 0 12px ${COLORS.amber.medium}40` : "none",
+  cursor: isAffordable ? "pointer" : "not-allowed",
+  pointerEvents: isAffordable ? "auto" : "none",
   transition: TRANSITIONS.fast,
 });
