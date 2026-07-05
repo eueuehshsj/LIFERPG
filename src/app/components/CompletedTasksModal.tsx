@@ -166,19 +166,19 @@ export default function CompletedTasksModal({
                             className="rounded-2xl border border-rose-300/70 bg-rose-50/80 px-3 py-2 text-right"
                             style={{ fontFamily: "serif" }}
                           >
-                            <div className="text-rose-800 text-[12px] font-semibold">
+                            <div className="text-rose-800 text-xs font-semibold">
                               정말 삭제하겠습니까?
                             </div>
                             <div className="mt-1 flex items-center gap-2 justify-end">
                               <button
                                 onClick={() => handleDeleteClick(task.id)}
-                                className="rounded-full bg-red-700 px-3 py-1 text-[12px] font-bold text-white transition hover:bg-red-800"
+                                className="rounded-full bg-red-700 px-3 py-1 text-xs font-bold text-white transition hover:bg-red-800"
                               >
                                 예
                               </button>
                               <button
                                 onClick={() => setConfirmDeleteId(null)}
-                                className="rounded-full border border-stone-700 bg-white px-3 py-1 text-[12px] font-bold text-stone-700 transition hover:bg-stone-100"
+                                className="rounded-full border border-stone-700 bg-white px-3 py-1 text-xs font-bold text-stone-700 transition hover:bg-stone-100"
                               >
                                 아니오
                               </button>
