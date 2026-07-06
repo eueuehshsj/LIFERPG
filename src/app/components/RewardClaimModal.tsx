@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Coins, Shuffle, Hand, Star, Gift } from 'lucide-react';
+import { COMMON_STYLES, MODAL_COLORS, GRADIENTS } from '../../styles/styleConstants';
 
 interface Reward {
   id: number;
@@ -63,7 +64,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: 'rgba(30,15,5,0.75)', backdropFilter: 'blur(4px)' }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <button
@@ -77,10 +78,10 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
       <div
         className="w-[540px] rounded-2xl border-4 border-amber-950 overflow-hidden"
         style={{
-          background: 'linear-gradient(160deg, #fdf6e3, #faf0d7)',
+          background: MODAL_COLORS.default,
           boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
           backgroundImage: `
-            linear-gradient(160deg, #fdf6e3, #faf0d7),
+            ${MODAL_COLORS.default},
             repeating-linear-gradient(transparent, transparent calc(1.5em - 1px), rgba(180,150,80,0.15) calc(1.5em - 1px), rgba(180,150,80,0.15) 1.5em)
           `,
         }}
@@ -107,7 +108,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
               className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg font-bold text-sm transition-all"
               style={{
                 fontFamily: 'serif',
-                background: mode === 'random' ? 'linear-gradient(135deg, #92400e, #78350f)' : 'rgba(255,255,255,0.5)',
+                background: mode === 'random' ? GRADIENTS.submitButtonBg : 'rgba(255,255,255,0.5)',
                 color: mode === 'random' ? '#fef3c7' : '#78716c',
                 border: mode === 'random' ? 'none' : '1px solid rgba(180,150,80,0.3)',
                 boxShadow: mode === 'random' ? '0 4px 12px rgba(120,53,15,0.4)' : 'none',
@@ -227,7 +228,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
                   className="w-full py-3 rounded-xl font-black text-base disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   style={{
                     fontFamily: 'serif',
-                    background: 'linear-gradient(135deg, #92400e, #78350f)',
+                    background: GRADIENTS.submitButtonBg,
                     color: '#fef3c7',
                     boxShadow: '0 6px 16px rgba(120,53,15,0.4)',
                   }}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { COMMON_STYLES, GRADIENTS } from '../../styles/styleConstants';
 
 interface Task {
   id: number;
@@ -49,7 +50,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: 'rgba(30,15,5,0.75)', backdropFilter: 'blur(4px)' }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* 닫기 버튼 */}
@@ -98,7 +99,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
         >
           {/* 종이 질감 노이즈 오버레이 */}
           <div
-            className="absolute inset-0 pointer-events-none opacity-[0.15] rounded-lg"
+            className="absolute inset-0 pointer-events-none opacity-15 rounded-lg"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E")`,
             }}
@@ -281,7 +282,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
                   className="px-6 py-2 rounded text-amber-50 font-black text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
                   style={{
                     fontFamily: 'serif',
-                    background: 'linear-gradient(135deg, #92400e, #78350f)',
+                    background: GRADIENTS.submitButtonBg,
                     boxShadow: title.trim() ? '0 4px 12px rgba(120,53,15,0.4)' : 'none',
                   }}
                 >

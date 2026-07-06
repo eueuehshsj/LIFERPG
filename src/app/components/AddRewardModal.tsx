@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import { COMMON_STYLES } from "../../styles/styleConstants";
 
 interface Reward {
   id: number;
@@ -66,7 +67,7 @@ export default function AddRewardModal({ onClose, onSubmit }: Props) {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: "rgba(30,15,5,0.75)", backdropFilter: "blur(4px)" }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       {/* 닫기 버튼 */}

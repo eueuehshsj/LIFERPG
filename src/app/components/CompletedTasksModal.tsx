@@ -1,5 +1,12 @@
 import { useState } from "react";
 import { X, CheckCircle } from "lucide-react";
+import {
+  COMMON_STYLES,
+  MODAL_COLORS,
+  GRADIENTS,
+  PRIORITY_LABELS,
+  PRIORITY_BADGE_COLORS,
+} from "../../styles/styleConstants";
 
 interface Task {
   id: number;
@@ -16,13 +23,6 @@ interface Props {
   completedTasks: Task[];
   onDeleteTask: (id: number) => void;
 }
-
-const PRIORITY_LABEL = { low: "보통", medium: "중요", high: "긴급" } as const;
-const PRIORITY_STYLE = {
-  low: { color: "#15803d", background: "#dcfce7", border: "#86efac" },
-  medium: { color: "#b45309", background: "#fef3c7", border: "#fcd34d" },
-  high: { color: "#b91c1c", background: "#fee2e2", border: "#fca5a5" },
-} as const;
 
 export default function CompletedTasksModal({
   onClose,
@@ -44,7 +44,7 @@ export default function CompletedTasksModal({
   return (
     <div
       className="fixed inset-0 flex items-center justify-center z-50"
-      style={{ background: "rgba(30,15,5,0.75)", backdropFilter: "blur(4px)" }}
+      style={COMMON_STYLES.modalOverlay}
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
       <button
@@ -58,7 +58,7 @@ export default function CompletedTasksModal({
       <div
         className="w-[520px] rounded-2xl border-4 border-amber-950 overflow-hidden flex flex-col"
         style={{
-          background: "linear-gradient(160deg, #fdf6e3, #faf0d7)",
+          background: MODAL_COLORS.default,
           boxShadow: "0 24px 64px rgba(0,0,0,0.5)",
           maxHeight: "80vh",
         }}
@@ -135,7 +135,7 @@ export default function CompletedTasksModal({
           ) : (
             <div className="flex flex-col gap-3">
               {completedTasks.map((task, idx) => {
-                const ps = PRIORITY_STYLE[task.priority];
+                const ps = PRIORITY_BADGE_COLORS[task.priority];
                 return (
                   <div
                     key={task.id}
@@ -166,19 +166,19 @@ export default function CompletedTasksModal({
                             className="rounded-2xl border border-rose-300/70 bg-rose-50/80 px-3 py-2 text-right"
                             style={{ fontFamily: "serif" }}
                           >
-                            <div className="text-rose-800 text-[12px] font-semibold">
+                            <div className="text-rose-800 text-xs font-semibold">
                               정말 삭제하겠습니까?
                             </div>
                             <div className="mt-1 flex items-center gap-2 justify-end">
                               <button
                                 onClick={() => handleDeleteClick(task.id)}
-                                className="rounded-full bg-red-700 px-3 py-1 text-[12px] font-bold text-white transition hover:bg-red-800"
+                                className="rounded-full bg-red-700 px-3 py-1 text-xs font-bold text-white transition hover:bg-red-800"
                               >
                                 예
                               </button>
                               <button
                                 onClick={() => setConfirmDeleteId(null)}
-                                className="rounded-full border border-stone-700 bg-white px-3 py-1 text-[12px] font-bold text-stone-700 transition hover:bg-stone-100"
+                                className="rounded-full border border-stone-700 bg-white px-3 py-1 text-xs font-bold text-stone-700 transition hover:bg-stone-100"
                               >
                                 아니오
                               </button>
@@ -200,8 +200,7 @@ export default function CompletedTasksModal({
                         <div
                           className="shrink-0 w-6 h-6 rounded-full flex items-center justify-center font-black text-xs text-white mt-0.5"
                           style={{
-                            background:
-                              "linear-gradient(135deg, #92400e, #78350f)",
+                            background: GRADIENTS.submitButtonBg,
                             fontSize: "10px",
                           }}
                         >
@@ -214,13 +213,13 @@ export default function CompletedTasksModal({
                             <span
                               className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border"
                               style={{
-                                color: ps.color,
-                                background: ps.background,
+                                color: ps.text,
+                                background: ps.badge,
                                 borderColor: ps.border,
                                 fontFamily: "serif",
                               }}
                             >
-                              {PRIORITY_LABEL[task.priority]}
+                              {PRIORITY_LABELS[task.priority]}
                             </span>
                             <CheckCircle
                               className="w-3.5 h-3.5 text-green-500"
