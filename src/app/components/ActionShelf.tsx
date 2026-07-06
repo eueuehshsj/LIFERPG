@@ -64,7 +64,7 @@ export default function ActionShelf({
               `,
             }}
           />
-          <div className="relative z-10 flex w-full flex-col items-center gap-4 pt-12 sm:flex-row sm:items-end sm:justify-between sm:gap-3 sm:pt-14 md:gap-4 md:pt-10 lg:gap-6 xl:gap-8">
+          <div className="relative z-10 flex w-full flex-col items-center gap-4 pt-1 sm:flex-row sm:items-end sm:justify-between sm:gap-3 sm:pt-2 md:gap-4 md:pt-1 lg:gap-6 lg:pt-0 xl:gap-8">
             <div className="flex w-full flex-wrap justify-center gap-3 items-end sm:flex-1 sm:justify-start sm:gap-4">
               <button
                 className="group relative hover:scale-105 transition-transform"
