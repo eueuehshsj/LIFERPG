@@ -52,6 +52,22 @@ export default function App() {
       return 0;
     }
   });
+  const [earnedPoints, setEarnedPoints] = useState<number>(() => {
+    try {
+      const stored = localStorage.getItem("liferpg_earnedPoints");
+      if (stored !== null) return JSON.parse(stored) ?? 0;
+      // 마이그레이션: 기존 사용자는 completedTasks 합계로 초기값을 구한다.
+      const legacyCompleted =
+        JSON.parse(localStorage.getItem("liferpg_completedTasks") ?? "null") ??
+        [];
+      return legacyCompleted.reduce(
+        (sum: number, t: Task) => sum + t.reward,
+        0,
+      );
+    } catch {
+      return 0;
+    }
+  });
 
   useEffect(() => {
     localStorage.setItem("liferpg_tasks", JSON.stringify(tasks));
@@ -68,8 +84,10 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("liferpg_spentPoints", JSON.stringify(spentPoints));
   }, [spentPoints]);
+  useEffect(() => {
+    localStorage.setItem("liferpg_earnedPoints", JSON.stringify(earnedPoints));
+  }, [earnedPoints]);
 
-  const earnedPoints = completedTasks.reduce((sum, t) => sum + t.reward, 0);
   const totalPoints = earnedPoints - spentPoints;
 
   const handleAddTask = (task: Omit<Task, "id">) => {
@@ -86,10 +104,11 @@ export default function App() {
 
   const handleCompleteSelected = () => {
     if (selectedTaskIds.length === 0) return;
-    setCompletedTasks((prev) => [
-      ...prev,
-      ...tasks.filter((t) => selectedTaskIds.includes(t.id)),
-    ]);
+    const selectedTasks = tasks.filter((t) => selectedTaskIds.includes(t.id));
+    setCompletedTasks((prev) => [...prev, ...selectedTasks]);
+    setEarnedPoints(
+      (prev) => prev + selectedTasks.reduce((sum, t) => sum + t.reward, 0),
+    );
     setTasks((prev) => prev.filter((t) => !selectedTaskIds.includes(t.id)));
     setSelectedTaskIds([]);
     setCompleteMode(false);
