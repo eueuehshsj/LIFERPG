@@ -1,4 +1,4 @@
-import { GRADIENTS, TEXTURES, SHADOWS } from '../../styles/styleConstants';
+import { GRADIENTS } from '../../styles/styleConstants';
 
 const NAIL_SHADOW = 'inset 0 2px 3px rgba(0,0,0,0.8), 0 1px 2px rgba(0,0,0,0.5)';
 const TITLE_SHADOW = '3px 3px 6px rgba(0,0,0,0.8), 1px 1px 2px rgba(0,0,0,0.9)';
