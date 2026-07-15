@@ -454,3 +454,31 @@ src/
 
 1. bg-gradient-to-br → bg-linear-to-br 같은 표현으로 변경해 생성되는 CSS 단순화
 2. min-h-[13rem] 같은 값을 표준 클래스 형태로 변경
+
+---
+
+## 개선사항 및 추가 기능 아이디어 (2026-07-15 점검)
+
+### 개발 인프라 (우선순위 높음)
+
+1. [ ] ESLint가 `.ts`/`.tsx`를 검사하지 않는 문제 수정
+   - `eslint.config.js`의 `files`가 `**/*.{js,jsx}`로만 한정되어 있고 `typescript-eslint`도 미설치라, `src/` 전체(.tsx)가 린트 대상에서 빠져 있음. `pnpm lint`가 사실상 아무것도 검사하지 않는 상태.
+2. [ ] 빌드 시 타입 체크 추가
+   - `package.json`의 `build` 스크립트가 `vite build`뿐이라 타입 에러가 있어도 빌드가 성공함. `tsc -b && vite build`로 변경 필요.
+3. [ ] 테스트 및 CI 도입
+   - 유닛/컴포넌트 테스트가 전무하고 `.github/workflows` 등 CI 설정도 없음. 포인트 계산(`earnedPoints - spentPoints`), 완료/삭제 로직처럼 회귀가 잦았던 부분부터 테스트로 고정 권장.
+
+### 코드 품질
+
+4. [ ] `id: Date.now()` 충돌 위험 개선
+   - `handleAddTask`/`handleAddReward`에서 같은 밀리초에 호출되면 ID가 겹칠 수 있음. `crypto.randomUUID()` 등으로 교체.
+5. [ ] `Task` 타입 중복 정의 정리
+   - `CompletedTasksModal.tsx`가 `src/app/types.ts`의 `Task`를 import하지 않고 동일한 인터페이스를 자체 선언 중. 공용 타입 import로 통일.
+
+### 기능 추가 아이디어
+
+6. [ ] 연속 완료(스트릭) / 레벨 시스템 — RPG 테마에 맞는 게이미피케이션 요소 추가
+7. [ ] 완료 취소(되돌리기) 기능 — 완료 목록에서 완전 삭제 외에 "미완료로 되돌리기" 지원
+8. [ ] 데이터 백업/초기화 — localStorage만 사용하므로 JSON export/import 또는 초기화 버튼 필요
+9. [ ] 퀘스트 정렬/필터 — 마감일순 정렬, 우선순위 필터 등
+10. [ ] 접근성 개선 — 아이콘 기반 커스텀 버튼에 `aria-label` 추가
