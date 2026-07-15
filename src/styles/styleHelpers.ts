@@ -11,10 +11,8 @@ import {
   TASK_CARD_COLORS,
   BOARD_COLORS,
   TASK_SHADOWS_BY_MODE,
-  SHELF_GRADIENTS,
   BUTTON_STYLES,
   PAPER_COLORS,
-  MODAL_COLORS,
   TRANSITIONS,
 } from "./styleConstants";
 
@@ -79,12 +77,6 @@ export const getBoardModeLabel = (
   mode: "complete" | "delete" | "edit" | null,
 ) => {
   if (!mode) return { display: "none" };
-
-  const labelMap = {
-    complete: "완료할 일정을 클릭하세요",
-    delete: "삭제할 일정을 클릭하세요",
-    edit: "편집할 일정을 클릭하세요",
-  };
 
   const colorMap = {
     complete: COLORS.status.danger,
