@@ -464,8 +464,10 @@ src/
 1. [x] ESLint가 `.ts`/`.tsx`를 검사하지 않는 문제 수정
    - `eslint.config.js`의 `files`가 `**/*.{js,jsx}`로만 한정되어 있고 `typescript-eslint`도 미설치라, `src/` 전체(.tsx)가 린트 대상에서 빠져 있었음. `pnpm lint`가 사실상 아무것도 검사하지 않는 상태였음.
    - `typescript-eslint` 설치, 대상을 `**/*.{ts,tsx}`로 변경, 로컬 참고용 `Example/`은 린트 제외. 활성화 후 드러난 실제 위반(미사용 import/변수, `react-hooks/purity`)도 함께 정리.
-2. [ ] 빌드 시 타입 체크 추가
-   - `package.json`의 `build` 스크립트가 `vite build`뿐이라 타입 에러가 있어도 빌드가 성공함. `tsc -b && vite build`로 변경 필요.
+2. [x] 빌드 시 타입 체크 추가
+   - `package.json`의 `build` 스크립트가 `vite build`뿐이라 타입 에러가 있어도 빌드가 성공하던 문제를 `tsc -b && vite build`로 변경.
+   - 타입 체크를 켜면서 드러난 문제(`@types/node` 누락, `vite-env.d.ts` 누락, `baseUrl` deprecated, `getElementById` null 미처리)를 함께 수정.
+   - 특히 `ActionShelf`가 `totalPoints` prop을 선언·사용하지 않아 저금통 버튼에 항상 `0pt`로 표시되던 실제 버그를 발견해 수정.
 3. [ ] 테스트 및 CI 도입
    - 유닛/컴포넌트 테스트가 전무하고 `.github/workflows` 등 CI 설정도 없음. 포인트 계산(`earnedPoints - spentPoints`), 완료/삭제 로직처럼 회귀가 잦았던 부분부터 테스트로 고정 권장.
 

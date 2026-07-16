@@ -12,6 +12,7 @@ type ActionShelfProps = {
   onCompleteSelected: () => void;
   completeMode: boolean;
   selectedTaskIds: number[];
+  totalPoints: number;
 };
 
 export default function ActionShelf({
@@ -25,6 +26,7 @@ export default function ActionShelf({
   onCompleteSelected,
   completeMode,
   selectedTaskIds,
+  totalPoints,
 }: ActionShelfProps) {
   return (
     <div className="relative w-full px-4 pb-8 sm:px-8">
@@ -627,7 +629,7 @@ export default function ActionShelf({
                             textShadow: "0 2px 6px rgba(0,0,0,0.7)",
                           }}
                         >
-                          {0}
+                          {totalPoints}
                         </span>
                         <span
                           className="text-yellow-300/80 font-bold"
