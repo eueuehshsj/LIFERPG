@@ -468,8 +468,10 @@ src/
    - `package.json`의 `build` 스크립트가 `vite build`뿐이라 타입 에러가 있어도 빌드가 성공하던 문제를 `tsc -b && vite build`로 변경.
    - 타입 체크를 켜면서 드러난 문제(`@types/node` 누락, `vite-env.d.ts` 누락, `baseUrl` deprecated, `getElementById` null 미처리)를 함께 수정.
    - 특히 `ActionShelf`가 `totalPoints` prop을 선언·사용하지 않아 저금통 버튼에 항상 `0pt`로 표시되던 실제 버그를 발견해 수정.
-3. [ ] 테스트 및 CI 도입
-   - 유닛/컴포넌트 테스트가 전무하고 `.github/workflows` 등 CI 설정도 없음. 포인트 계산(`earnedPoints - spentPoints`), 완료/삭제 로직처럼 회귀가 잦았던 부분부터 테스트로 고정 권장.
+3. [x] 테스트 및 CI 도입
+   - 유닛/컴포넌트 테스트가 전무하고 `.github/workflows` 등 CI 설정도 없던 문제를 Vitest + React Testing Library, `.github/workflows/ci.yml`(lint → test → build)로 해결.
+   - 회귀가 잦았던 포인트 계산/완료/삭제 흐름을 `src/app/App.test.tsx`에 통합 테스트로 고정 (퀘스트 추가, 완료 시 포인트 획득, 완료 목록 삭제 시 포인트 미차감, 보상 수령 시 포인트 차감).
+   - 테스트를 작성하며 "해결한 일 목록" 버튼에 텍스트/아이콘 라벨이 아예 빠져 있던 버그를 발견해 복원, 액션 버튼 8개에 `aria-label` 추가.
 
 ### 코드 품질
 
