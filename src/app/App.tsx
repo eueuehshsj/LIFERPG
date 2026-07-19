@@ -12,9 +12,9 @@ export default function App() {
   const [showRemoveRewardModal, setShowRemoveRewardModal] = useState(false);
   const [showCompletedModal, setShowCompletedModal] = useState(false);
   const [completeMode, setCompleteMode] = useState(false);
-  const [selectedTaskIds, setSelectedTaskIds] = useState<number[]>([]);
+  const [selectedTaskIds, setSelectedTaskIds] = useState<string[]>([]);
   const [deleteMode, setDeleteMode] = useState(false);
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [tasks, setTasks] = useState<Task[]>(() => {
@@ -91,7 +91,7 @@ export default function App() {
   const totalPoints = earnedPoints - spentPoints;
 
   const handleAddTask = (task: Omit<Task, "id">) => {
-    setTasks((prev) => [...prev, { ...task, id: Date.now() }]);
+    setTasks((prev) => [...prev, { ...task, id: crypto.randomUUID() }]);
   };
 
   const handleEditTask = (task: Task, updated: Omit<Task, "id">) => {
@@ -114,25 +114,25 @@ export default function App() {
     setCompleteMode(false);
   };
 
-  const toggleSelectTask = (id: number) => {
+  const toggleSelectTask = (id: string) => {
     setSelectedTaskIds((prev) =>
       prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id],
     );
   };
 
   const handleAddReward = (reward: Omit<Reward, "id">) => {
-    setRewards((prev) => [...prev, { ...reward, id: Date.now() }]);
+    setRewards((prev) => [...prev, { ...reward, id: crypto.randomUUID() }]);
   };
 
   const handleClaim = (reward: Reward) => {
     setSpentPoints((prev) => prev + reward.points);
   };
 
-  const handleRemoveReward = (id: number) => {
+  const handleRemoveReward = (id: string) => {
     setRewards((prev) => prev.filter((r) => r.id !== id));
   };
 
-  const handleDeleteCompletedTask = (id: number) => {
+  const handleDeleteCompletedTask = (id: string) => {
     setCompletedTasks((prev) => prev.filter((task) => task.id !== id));
   };
 

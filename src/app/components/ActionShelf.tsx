@@ -11,7 +11,7 @@ type ActionShelfProps = {
   onOpenCompletedTasks: () => void;
   onCompleteSelected: () => void;
   completeMode: boolean;
-  selectedTaskIds: number[];
+  selectedTaskIds: string[];
   totalPoints: number;
 };
 

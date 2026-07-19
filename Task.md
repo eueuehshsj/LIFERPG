@@ -475,8 +475,9 @@ src/
 
 ### 코드 품질
 
-4. [ ] `id: Date.now()` 충돌 위험 개선
-   - `handleAddTask`/`handleAddReward`에서 같은 밀리초에 호출되면 ID가 겹칠 수 있음. `crypto.randomUUID()` 등으로 교체.
+4. [x] `id: Date.now()` 충돌 위험 개선
+   - `handleAddTask`/`handleAddReward`에서 같은 밀리초에 호출되면 ID가 겹칠 수 있음. `crypto.randomUUID()`로 교체.
+   - `id`가 `number`에서 `string`으로 바뀌면서 `Task`/`Reward`의 `id`를 참조하는 모든 곳(`App.tsx`의 `selectedTaskIds`/`confirmDeleteId`, `TaskBoard`/`ActionShelf`/각 모달의 관련 prop·상태 타입)을 함께 수정.
 5. [ ] `Task` 타입 중복 정의 정리
    - `CompletedTasksModal.tsx`가 `src/app/types.ts`의 `Task`를 import하지 않고 동일한 인터페이스를 자체 선언 중. 공용 타입 import로 통일.
 
