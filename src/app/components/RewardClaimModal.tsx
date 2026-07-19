@@ -3,7 +3,7 @@ import { X, Coins, Shuffle, Hand, Star, Gift } from 'lucide-react';
 import { COMMON_STYLES, MODAL_COLORS, GRADIENTS } from '../../styles/styleConstants';
 
 interface Reward {
-  id: number;
+  id: string;
   name: string;
   points: number;
   description: string;
@@ -20,7 +20,7 @@ type Mode = 'select' | 'random' | 'pick';
 
 export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoints }: Props) {
   const [mode, setMode] = useState<Mode>('select');
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinIndex, setSpinIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);

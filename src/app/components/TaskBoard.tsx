@@ -12,12 +12,12 @@ type TaskBoardProps = {
   completeMode: boolean;
   deleteMode: boolean;
   editMode: boolean;
-  selectedTaskIds: number[];
-  confirmDeleteId: number | null;
-  onToggleSelectTask: (id: number) => void;
-  onConfirmDeleteTask: (id: number) => void;
+  selectedTaskIds: string[];
+  confirmDeleteId: string | null;
+  onToggleSelectTask: (id: string) => void;
+  onConfirmDeleteTask: (id: string) => void;
   onCancelDelete: () => void;
-  onDeleteTask: (id: number) => void;
+  onDeleteTask: (id: string) => void;
   onStartEditTask: (task: Task) => void;
 };
 

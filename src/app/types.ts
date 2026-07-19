@@ -1,5 +1,5 @@
 export interface Task {
-  id: number;
+  id: string;
   title: string;
   description: string;
   dueDate: string;
@@ -9,7 +9,7 @@ export interface Task {
 }
 
 export interface Reward {
-  id: number;
+  id: string;
   name: string;
   points: number;
   description: string;

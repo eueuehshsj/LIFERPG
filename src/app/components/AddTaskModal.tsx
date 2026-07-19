@@ -3,7 +3,7 @@ import { X } from 'lucide-react';
 import { COMMON_STYLES, GRADIENTS } from '../../styles/styleConstants';
 
 interface Task {
-  id: number;
+  id: string;
   title: string;
   description: string;
   dueDate: string;

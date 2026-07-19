@@ -3,7 +3,7 @@ import { X } from "lucide-react";
 import { COMMON_STYLES } from "../../styles/styleConstants";
 
 interface Reward {
-  id: number;
+  id: string;
   name: string;
   points: number;
   description: string;
