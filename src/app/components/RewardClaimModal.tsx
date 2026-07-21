@@ -1,13 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Coins, Shuffle, Hand, Star, Gift } from 'lucide-react';
 import { COMMON_STYLES, MODAL_COLORS, GRADIENTS } from '../../styles/styleConstants';
-
-interface Reward {
-  id: string;
-  name: string;
-  points: number;
-  description: string;
-}
+import type { Reward } from '../types';
 
 interface Props {
   onClose: () => void;

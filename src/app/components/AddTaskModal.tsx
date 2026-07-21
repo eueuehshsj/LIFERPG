@@ -1,16 +1,7 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { COMMON_STYLES, GRADIENTS } from '../../styles/styleConstants';
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  priority: 'low' | 'medium' | 'high';
-  reward: number;
-  author: string;
-}
+import type { Task } from '../types';
 
 interface Props {
   onClose: () => void;

@@ -7,16 +7,7 @@ import {
   PRIORITY_LABELS,
   PRIORITY_BADGE_COLORS,
 } from "../../styles/styleConstants";
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-  priority: "low" | "medium" | "high";
-  reward: number;
-  author: string;
-}
+import type { Task } from "../types";
 
 interface Props {
   onClose: () => void;

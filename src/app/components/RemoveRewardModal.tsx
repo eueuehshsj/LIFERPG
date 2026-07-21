@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import { X, Hammer, Trash2 } from 'lucide-react';
 import { COMMON_STYLES, MODAL_COLORS, BUTTON_STYLES } from '../../styles/styleConstants';
-
-interface Reward {
-  id: string;
-  name: string;
-  points: number;
-  description: string;
-}
+import type { Reward } from '../types';
 
 interface Props {
   onClose: () => void;
