@@ -107,4 +107,91 @@ describe("App", () => {
 
     await waitFor(() => expect(getTotalPoints()).toBe(0));
   });
+
+  it("전체 초기화를 실행하면 퀘스트와 포인트가 모두 사라진다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await addTask(user, "청소하기", 30);
+    await completeTask(user, "청소하기");
+    expect(getTotalPoints()).toBe(30);
+
+    await user.click(screen.getByRole("button", { name: "데이터 관리" }));
+    await user.click(screen.getByText("전체 초기화"));
+    await user.click(screen.getByRole("button", { name: "초기화" }));
+
+    await waitFor(() =>
+      expect(screen.queryByText("데이터 관리")).not.toBeInTheDocument(),
+    );
+    expect(screen.getByText("퀘스트를 붙여보세요")).toBeInTheDocument();
+    expect(getTotalPoints()).toBe(0);
+  });
+
+  it("백업 파일을 가져오면 기존 데이터가 대체된다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await addTask(user, "기존 퀘스트");
+
+    const backupFile = new File(
+      [
+        JSON.stringify({
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          tasks: [
+            {
+              id: "backup-1",
+              title: "가져온 퀘스트",
+              description: "",
+              dueDate: "",
+              priority: "low",
+              reward: 15,
+              author: "",
+            },
+          ],
+          completedTasks: [],
+          rewards: [],
+          spentPoints: 0,
+          earnedPoints: 0,
+        }),
+      ],
+      "backup.json",
+      { type: "application/json" },
+    );
+
+    await user.click(screen.getByRole("button", { name: "데이터 관리" }));
+    const fileInput = document.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
+    await user.upload(fileInput, backupFile);
+
+    await waitFor(() =>
+      expect(screen.queryByText("데이터 관리")).not.toBeInTheDocument(),
+    );
+    expect(screen.getByText("가져온 퀘스트")).toBeInTheDocument();
+    expect(screen.queryByText("기존 퀘스트")).not.toBeInTheDocument();
+  });
+
+  it("형식이 올바르지 않은 파일을 가져오면 오류 메시지를 보여준다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const invalidFile = new File(
+      [JSON.stringify({ foo: "bar" })],
+      "invalid.json",
+      { type: "application/json" },
+    );
+
+    await user.click(screen.getByRole("button", { name: "데이터 관리" }));
+    const fileInput = document.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
+    await user.upload(fileInput, invalidFile);
+
+    await waitFor(() =>
+      expect(
+        screen.getByText("백업 파일 형식이 올바르지 않습니다."),
+      ).toBeInTheDocument(),
+    );
+  });
 });

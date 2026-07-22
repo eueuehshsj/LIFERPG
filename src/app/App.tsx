@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { Settings } from "lucide-react";
 import ActionShelf from "./components/ActionShelf";
 import AppModals from "./components/AppModals";
 import WoodenHeader from "./components/WoodenHeader";
 import TaskBoard from "./components/TaskBoard";
-import type { Reward, Task } from "./types";
+import DataBackupModal from "./components/DataBackupModal";
+import type { BackupData, Reward, Task } from "./types";
 
 export default function App() {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -11,6 +13,7 @@ export default function App() {
   const [showClaimModal, setShowClaimModal] = useState(false);
   const [showRemoveRewardModal, setShowRemoveRewardModal] = useState(false);
   const [showCompletedModal, setShowCompletedModal] = useState(false);
+  const [showDataModal, setShowDataModal] = useState(false);
   const [completeMode, setCompleteMode] = useState(false);
   const [selectedTaskIds, setSelectedTaskIds] = useState<string[]>([]);
   const [deleteMode, setDeleteMode] = useState(false);
@@ -136,8 +139,58 @@ export default function App() {
     setCompletedTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const handleExportData = () => {
+    const backup: BackupData = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      tasks,
+      completedTasks,
+      rewards,
+      spentPoints,
+      earnedPoints,
+    };
+    const blob = new Blob([JSON.stringify(backup, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `todoquest-backup-${new Date().toISOString().split("T")[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportData = (data: BackupData) => {
+    setTasks(data.tasks);
+    setCompletedTasks(data.completedTasks);
+    setRewards(data.rewards);
+    setSpentPoints(data.spentPoints);
+    setEarnedPoints(data.earnedPoints);
+    setSelectedTaskIds([]);
+    setConfirmDeleteId(null);
+  };
+
+  const handleResetData = () => {
+    setTasks([]);
+    setCompletedTasks([]);
+    setRewards([]);
+    setSpentPoints(0);
+    setEarnedPoints(0);
+    setSelectedTaskIds([]);
+    setConfirmDeleteId(null);
+  };
+
   return (
-    <div className="size-full flex flex-col bg-linear-to-br from-stone-700 via-stone-600 to-stone-800">
+    <div className="relative size-full flex flex-col bg-linear-to-br from-stone-700 via-stone-600 to-stone-800">
+      <button
+        aria-label="데이터 관리"
+        onClick={() => setShowDataModal(true)}
+        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center border border-stone-600 hover:bg-stone-700 transition-colors"
+        style={{ background: "rgba(28,25,23,0.6)" }}
+      >
+        <Settings className="w-5 h-5 text-stone-300" />
+      </button>
+
       <WoodenHeader />
       <TaskBoard
         tasks={tasks}
@@ -191,6 +244,15 @@ export default function App() {
         onCloseCompletedModal={() => setShowCompletedModal(false)}
         onDeleteCompletedTask={handleDeleteCompletedTask}
       />
+
+      {showDataModal && (
+        <DataBackupModal
+          onClose={() => setShowDataModal(false)}
+          onExport={handleExportData}
+          onImport={handleImportData}
+          onReset={handleResetData}
+        />
+      )}
 
       <ActionShelf
         onOpenAddTask={() => setShowAddModal(true)}
