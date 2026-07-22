@@ -14,3 +14,13 @@ export interface Reward {
   points: number;
   description: string;
 }
+
+export interface BackupData {
+  version: 1;
+  exportedAt: string;
+  tasks: Task[];
+  completedTasks: Task[];
+  rewards: Reward[];
+  spentPoints: number;
+  earnedPoints: number;
+}
