@@ -22,9 +22,9 @@ interface AppModalsProps {
   onCloseClaimModal: () => void;
   onClaimReward: (reward: Reward) => void;
   onCloseRemoveRewardModal: () => void;
-  onRemoveReward: (id: number) => void;
+  onRemoveReward: (id: string) => void;
   onCloseCompletedModal: () => void;
-  onDeleteCompletedTask: (id: number) => void;
+  onDeleteCompletedTask: (id: string) => void;
 }
 
 export default function AppModals({

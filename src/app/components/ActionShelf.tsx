@@ -11,7 +11,8 @@ type ActionShelfProps = {
   onOpenCompletedTasks: () => void;
   onCompleteSelected: () => void;
   completeMode: boolean;
-  selectedTaskIds: number[];
+  selectedTaskIds: string[];
+  totalPoints: number;
 };
 
 export default function ActionShelf({
@@ -25,6 +26,7 @@ export default function ActionShelf({
   onCompleteSelected,
   completeMode,
   selectedTaskIds,
+  totalPoints,
 }: ActionShelfProps) {
   return (
     <div className="relative w-full px-4 pb-8 sm:px-8">
@@ -67,6 +69,7 @@ export default function ActionShelf({
           <div className="relative z-10 flex w-full flex-col items-center gap-4 pt-1 sm:flex-row sm:items-end sm:justify-between sm:gap-3 sm:pt-2 md:gap-4 md:pt-1 lg:gap-6 lg:pt-0 xl:gap-8">
             <div className="flex w-full flex-wrap justify-center gap-3 items-end sm:flex-1 sm:justify-start sm:gap-4">
               <button
+                aria-label="퀘스트 추가"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onOpenAddTask}
               >
@@ -148,6 +151,7 @@ export default function ActionShelf({
               </button>
 
               <button
+                aria-label="퀘스트 삭제"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onToggleDeleteMode}
               >
@@ -196,6 +200,7 @@ export default function ActionShelf({
               </button>
 
               <button
+                aria-label="퀘스트 편집"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onToggleEditMode}
               >
@@ -289,6 +294,7 @@ export default function ActionShelf({
 
             <div className="flex flex-col items-center justify-center z-10 shrink-0 order-first sm:order-0">
               <button
+                aria-label="퀘스트 완료 도장"
                 onClick={onCompleteSelected}
                 className="group relative flex flex-col items-center"
                 style={{
@@ -388,6 +394,7 @@ export default function ActionShelf({
 
             <div className="flex w-full flex-wrap justify-center gap-3 items-end sm:flex-1 sm:justify-end sm:gap-4">
               <button
+                aria-label="보상 목록 추가"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onOpenAddReward}
               >
@@ -497,6 +504,7 @@ export default function ActionShelf({
               </button>
 
               <button
+                aria-label="보상 제거"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onOpenRemoveReward}
               >
@@ -585,6 +593,7 @@ export default function ActionShelf({
               </button>
 
               <button
+                aria-label="보상 수령"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onOpenClaimReward}
               >
@@ -627,7 +636,7 @@ export default function ActionShelf({
                             textShadow: "0 2px 6px rgba(0,0,0,0.7)",
                           }}
                         >
-                          {0}
+                          {totalPoints}
                         </span>
                         <span
                           className="text-yellow-300/80 font-bold"
@@ -667,11 +676,25 @@ export default function ActionShelf({
               </button>
 
               <button
+                aria-label="해결한 일 목록"
                 className="group relative hover:scale-105 transition-transform"
                 onClick={onOpenCompletedTasks}
               >
                 <div className="relative w-36 h-40 flex items-center justify-center">
                   <div className="relative w-32 h-36">
+                    <div className="absolute inset-0 z-20 flex items-center justify-center">
+                      <span
+                        className="text-amber-900 font-bold text-center"
+                        style={{
+                          fontSize: "11px",
+                          lineHeight: "1.4",
+                          textShadow: "0 1px 2px rgba(255,255,255,0.6)",
+                        }}
+                      >
+                        해결한
+                        <br />일 목록
+                      </span>
+                    </div>
                     <div
                       className="absolute inset-0 rounded-lg border-t-2 border-b-2 border-amber-500"
                       style={{

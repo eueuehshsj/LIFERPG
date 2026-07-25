@@ -1,24 +1,18 @@
 import { useState } from 'react';
 import { X, Hammer, Trash2 } from 'lucide-react';
 import { COMMON_STYLES, MODAL_COLORS, BUTTON_STYLES } from '../../styles/styleConstants';
-
-interface Reward {
-  id: number;
-  name: string;
-  points: number;
-  description: string;
-}
+import type { Reward } from '../types';
 
 interface Props {
   onClose: () => void;
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
   rewards: Reward[];
 }
 
 export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props) {
-  const [confirmId, setConfirmId] = useState<number | null>(null);
+  const [confirmId, setConfirmId] = useState<string | null>(null);
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: string) => {
     onRemove(id);
     setConfirmId(null);
   };

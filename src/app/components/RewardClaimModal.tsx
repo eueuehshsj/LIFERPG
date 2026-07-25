@@ -1,13 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Coins, Shuffle, Hand, Star, Gift } from 'lucide-react';
 import { COMMON_STYLES, MODAL_COLORS, GRADIENTS } from '../../styles/styleConstants';
-
-interface Reward {
-  id: number;
-  name: string;
-  points: number;
-  description: string;
-}
+import type { Reward } from '../types';
 
 interface Props {
   onClose: () => void;
@@ -20,7 +14,7 @@ type Mode = 'select' | 'random' | 'pick';
 
 export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoints }: Props) {
   const [mode, setMode] = useState<Mode>('select');
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [spinIndex, setSpinIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
@@ -38,6 +32,7 @@ export default function RewardClaimModal({ onClose, onClaim, rewards, currentPoi
     setRevealed(false);
     setClaimedReward(null);
 
+    // eslint-disable-next-line react-hooks/purity -- 클릭 핸들러 내부에서만 실행되는 랜덤 스핀 횟수 계산, 렌더 중 호출되지 않음
     const count = Math.floor(Math.random() * 11) + 20;
     let i = 0;
     spinRef.current = setInterval(() => {

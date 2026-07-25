@@ -7,21 +7,12 @@ import {
   PRIORITY_LABELS,
   PRIORITY_BADGE_COLORS,
 } from "../../styles/styleConstants";
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  dueDate: string;
-  priority: "low" | "medium" | "high";
-  reward: number;
-  author: string;
-}
+import type { Task } from "../types";
 
 interface Props {
   onClose: () => void;
   completedTasks: Task[];
-  onDeleteTask: (id: number) => void;
+  onDeleteTask: (id: string) => void;
 }
 
 export default function CompletedTasksModal({
@@ -29,10 +20,10 @@ export default function CompletedTasksModal({
   completedTasks,
   onDeleteTask,
 }: Props) {
-  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const totalPoints = completedTasks.reduce((sum, t) => sum + t.reward, 0);
 
-  const handleDeleteClick = (id: number) => {
+  const handleDeleteClick = (id: string) => {
     if (confirmDeleteId === id) {
       onDeleteTask(id);
       setConfirmDeleteId(null);

@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import { COMMON_STYLES } from "../../styles/styleConstants";
-
-interface Reward {
-  id: number;
-  name: string;
-  points: number;
-  description: string;
-}
+import type { Reward } from "../types";
 
 interface Props {
   onClose: () => void;
