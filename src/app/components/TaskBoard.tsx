@@ -1,4 +1,5 @@
-import { Edit3, Trash2 } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Edit3, Trash2, ArrowUpDown } from "lucide-react";
 import type { Task } from "../types";
 import {
   GRADIENTS,
@@ -51,6 +52,22 @@ const PRIORITY_CARD_STYLES = {
   high: { bg: PRIORITY_CARD_BG.high, ...PRIORITY_BADGE_COLORS.high },
 } as const;
 
+type PriorityFilter = "all" | Task["priority"];
+type SortOption = "default" | "dueDate";
+
+const FILTER_OPTIONS: {
+  value: PriorityFilter;
+  label: string;
+  text: string;
+  badge: string;
+  border: string;
+}[] = [
+  { value: "all", label: "전체", text: "#44403c", badge: "#e7e5e4", border: "#a8a29e" },
+  { value: "low", label: "보통", ...PRIORITY_BADGE_COLORS.low },
+  { value: "medium", label: "중요", ...PRIORITY_BADGE_COLORS.medium },
+  { value: "high", label: "긴급", ...PRIORITY_BADGE_COLORS.high },
+];
+
 const BOARD_MODE_OVERLAY_STYLES = {
   complete: {
     overlayBg: "rgba(220,38,38,0.04)",
@@ -88,6 +105,22 @@ export default function TaskBoard({
   onDeleteTask,
   onStartEditTask,
 }: TaskBoardProps) {
+  const [priorityFilter, setPriorityFilter] = useState<PriorityFilter>("all");
+  const [sortBy, setSortBy] = useState<SortOption>("default");
+
+  const displayedTasks = useMemo(() => {
+    const filtered =
+      priorityFilter === "all"
+        ? tasks
+        : tasks.filter((task) => task.priority === priorityFilter);
+    if (sortBy !== "dueDate") return filtered;
+    return [...filtered].sort((a, b) => {
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return a.dueDate.localeCompare(b.dueDate);
+    });
+  }, [tasks, priorityFilter, sortBy]);
+
   return (
     <div className="flex-1 flex flex-col px-8 pb-4 min-h-0">
       <div
@@ -157,13 +190,60 @@ export default function TaskBoard({
                 </div>
               );
             })()}
+          {tasks.length > 0 && (
+            <div className="relative z-10 flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div className="flex flex-wrap gap-1.5">
+                {FILTER_OPTIONS.map(({ value, label, text, badge, border }) => {
+                  const active = priorityFilter === value;
+                  return (
+                    <button
+                      key={value}
+                      onClick={() => setPriorityFilter(value)}
+                      className="text-[10px] font-bold px-2.5 py-1 rounded-full border transition-colors"
+                      style={{
+                        fontFamily: "serif",
+                        color: active ? text : "#a8a29e",
+                        background: active ? badge : "rgba(255,255,255,0.5)",
+                        borderColor: active ? border : "rgba(180,150,80,0.3)",
+                      }}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+              <button
+                onClick={() =>
+                  setSortBy((prev) => (prev === "dueDate" ? "default" : "dueDate"))
+                }
+                className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full border transition-colors"
+                style={{
+                  fontFamily: "serif",
+                  color: sortBy === "dueDate" ? "#92400e" : "#a8a29e",
+                  background:
+                    sortBy === "dueDate" ? "#fef3c7" : "rgba(255,255,255,0.5)",
+                  borderColor:
+                    sortBy === "dueDate"
+                      ? "#fcd34d"
+                      : "rgba(180,150,80,0.3)",
+                }}
+              >
+                <ArrowUpDown className="w-3 h-3" />
+                마감일순
+              </button>
+            </div>
+          )}
           {tasks.length === 0 ? (
             <p className="text-center text-amber-800/50 text-lg mt-8">
               퀘스트를 붙여보세요
             </p>
+          ) : displayedTasks.length === 0 ? (
+            <p className="text-center text-amber-800/50 text-lg mt-8">
+              조건에 맞는 퀘스트가 없습니다
+            </p>
           ) : (
             <div className="flex flex-wrap items-start gap-4">
-              {tasks.map((task, idx) => {
+              {displayedTasks.map((task, idx) => {
                 const colors = PRIORITY_CARD_STYLES[task.priority];
                 const labels = PRIORITY_LABELS;
                 const rotation = ((idx * 137) % 9) - 4;

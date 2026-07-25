@@ -12,6 +12,7 @@ async function addTask(
   user: ReturnType<typeof userEvent.setup>,
   title: string,
   reward?: number,
+  options?: { priorityLabel?: "보통" | "중요" | "긴급"; dueDate?: string },
 ) {
   await user.click(screen.getByRole("button", { name: "퀘스트 추가" }));
   await user.type(
@@ -22,6 +23,18 @@ async function addTask(
     fireEvent.change(screen.getByRole("slider"), {
       target: { value: String(reward) },
     });
+  }
+  if (options?.priorityLabel) {
+    const priorityButtons = screen.getAllByRole("button", {
+      name: options.priorityLabel,
+    });
+    await user.click(priorityButtons[priorityButtons.length - 1]);
+  }
+  if (options?.dueDate) {
+    const dateInput = document.querySelector(
+      'input[type="date"]',
+    ) as HTMLInputElement;
+    fireEvent.change(dateInput, { target: { value: options.dueDate } });
   }
   await user.click(screen.getByRole("button", { name: "접수" }));
   await waitFor(() => expect(screen.getByText(title)).toBeInTheDocument(), {
@@ -193,5 +206,37 @@ describe("App", () => {
         screen.getByText("백업 파일 형식이 올바르지 않습니다."),
       ).toBeInTheDocument(),
     );
+  });
+
+  it("우선순위 필터를 적용하면 해당 우선순위 퀘스트만 보인다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await addTask(user, "긴급 퀘스트", undefined, { priorityLabel: "긴급" });
+    await addTask(user, "보통 퀘스트", undefined, { priorityLabel: "보통" });
+
+    await user.click(screen.getByRole("button", { name: "긴급" }));
+
+    expect(screen.getByText("긴급 퀘스트")).toBeInTheDocument();
+    expect(screen.queryByText("보통 퀘스트")).not.toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "전체" }));
+    expect(screen.getByText("보통 퀘스트")).toBeInTheDocument();
+  });
+
+  it("마감일순 정렬을 적용하면 마감일이 빠른 순으로 카드가 정렬된다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await addTask(user, "늦은 마감", undefined, { dueDate: "2026-08-10" });
+    await addTask(user, "빠른 마감", undefined, { dueDate: "2026-08-01" });
+    await addTask(user, "마감 없음");
+
+    await user.click(screen.getByRole("button", { name: "마감일순" }));
+
+    const titles = screen
+      .getAllByText(/^(늦은 마감|빠른 마감|마감 없음)$/)
+      .map((el) => el.textContent);
+    expect(titles).toEqual(["빠른 마감", "늦은 마감", "마감 없음"]);
   });
 });
