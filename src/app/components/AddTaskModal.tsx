@@ -47,6 +47,7 @@ export default function AddTaskModal({ onClose, onSubmit, editingTask }: Props) 
       {/* 닫기 버튼 */}
       <button
         onClick={onClose}
+        aria-label="닫기"
         className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center transition-colors border border-stone-600 hover:bg-stone-700"
         style={{ background: 'rgba(28,25,23,0.8)' }}
       >
