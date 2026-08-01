@@ -40,6 +40,7 @@ export default function CompletedTasksModal({
     >
       <button
         onClick={onClose}
+        aria-label="해결한 퀘스트 목록 닫기"
         className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center border border-stone-600 hover:bg-stone-700 transition-colors"
         style={{ background: "rgba(28,25,23,0.8)" }}
       >

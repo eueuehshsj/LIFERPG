@@ -25,6 +25,7 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
     >
       <button
         onClick={onClose}
+        aria-label="보상 제거 닫기"
         className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center border border-stone-600 hover:bg-stone-700 transition-colors"
         style={{ background: 'rgba(28,25,23,0.8)' }}
       >
@@ -126,6 +127,7 @@ export default function RemoveRewardModal({ onClose, onRemove, rewards }: Props)
                     </span>
                     <button
                       onClick={() => setConfirmId(r.id)}
+                      aria-label={`${r.name} 삭제`}
                       className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center hover:bg-red-50 transition-colors"
                       style={{ border: '1px solid rgba(220,38,38,0.2)' }}
                     >
