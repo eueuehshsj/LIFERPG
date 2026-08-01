@@ -8,6 +8,12 @@ const claimButton = () => screen.getByRole("button", { name: "보상 수령" });
 const getTotalPoints = () =>
   Number(within(claimButton()).getByText(/^\d+$/).textContent);
 
+const getStreak = () =>
+  Number(within(screen.getByLabelText("연속 기록")).getByText(/^\d+$/).textContent);
+
+const getLevelLabel = () =>
+  within(screen.getByLabelText("레벨")).getByText(/^Lv\.\d+$/).textContent;
+
 async function addTask(
   user: ReturnType<typeof userEvent.setup>,
   title: string,
@@ -71,10 +77,26 @@ describe("App", () => {
 
     await addTask(user, "빨래 개기", 10);
     expect(getTotalPoints()).toBe(0);
+    expect(getStreak()).toBe(0);
 
     await completeTask(user, "빨래 개기");
 
     expect(getTotalPoints()).toBe(10);
+    expect(getStreak()).toBe(1);
+    expect(getLevelLabel()).toBe("Lv.1");
+  });
+
+  it("누적 포인트가 100을 넘으면 레벨이 오른다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await addTask(user, "기획하기", 60);
+    await completeTask(user, "기획하기");
+    await addTask(user, "디자인하기", 60);
+    await completeTask(user, "디자인하기");
+
+    expect(getTotalPoints()).toBe(120);
+    expect(getLevelLabel()).toBe("Lv.2");
   });
 
   it("완료한 퀘스트를 목록에서 삭제해도 포인트는 차감되지 않는다", async () => {
@@ -138,6 +160,8 @@ describe("App", () => {
     );
     expect(screen.getByText("퀘스트를 붙여보세요")).toBeInTheDocument();
     expect(getTotalPoints()).toBe(0);
+    expect(getStreak()).toBe(0);
+    expect(getLevelLabel()).toBe("Lv.1");
   });
 
   it("백업 파일을 가져오면 기존 데이터가 대체된다", async () => {
@@ -183,6 +207,44 @@ describe("App", () => {
     );
     expect(screen.getByText("가져온 퀘스트")).toBeInTheDocument();
     expect(screen.queryByText("기존 퀘스트")).not.toBeInTheDocument();
+    // completedDates가 없는(구버전) 백업이라도 에러 없이 스트릭 0으로 처리된다.
+    expect(getStreak()).toBe(0);
+  });
+
+  it("completedDates가 포함된 백업을 가져오면 스트릭에 반영된다", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    const today = new Date();
+    const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+
+    const backupFile = new File(
+      [
+        JSON.stringify({
+          version: 1,
+          exportedAt: new Date().toISOString(),
+          tasks: [],
+          completedTasks: [],
+          rewards: [],
+          spentPoints: 0,
+          earnedPoints: 50,
+          completedDates: [todayStr],
+        }),
+      ],
+      "backup.json",
+      { type: "application/json" },
+    );
+
+    await user.click(screen.getByRole("button", { name: "데이터 관리" }));
+    const fileInput = document.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
+    await user.upload(fileInput, backupFile);
+
+    await waitFor(() =>
+      expect(screen.queryByText("데이터 관리")).not.toBeInTheDocument(),
+    );
+    expect(getStreak()).toBe(1);
   });
 
   it("형식이 올바르지 않은 파일을 가져오면 오류 메시지를 보여준다", async () => {

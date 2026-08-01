@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Settings } from "lucide-react";
 import ActionShelf from "./components/ActionShelf";
 import AppModals from "./components/AppModals";
@@ -6,6 +6,11 @@ import WoodenHeader from "./components/WoodenHeader";
 import TaskBoard from "./components/TaskBoard";
 import DataBackupModal from "./components/DataBackupModal";
 import type { BackupData, Reward, Task } from "./types";
+import {
+  calculateLevel,
+  calculateStreak,
+  recordCompletionDate,
+} from "./lib/streakLevel";
 
 export default function App() {
   const [showAddModal, setShowAddModal] = useState(false);
@@ -71,6 +76,16 @@ export default function App() {
       return 0;
     }
   });
+  const [completedDates, setCompletedDates] = useState<string[]>(() => {
+    try {
+      return (
+        JSON.parse(localStorage.getItem("liferpg_completedDates") ?? "null") ??
+        []
+      );
+    } catch {
+      return [];
+    }
+  });
 
   useEffect(() => {
     localStorage.setItem("liferpg_tasks", JSON.stringify(tasks));
@@ -90,8 +105,28 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("liferpg_earnedPoints", JSON.stringify(earnedPoints));
   }, [earnedPoints]);
+  useEffect(() => {
+    localStorage.setItem(
+      "liferpg_completedDates",
+      JSON.stringify(completedDates),
+    );
+  }, [completedDates]);
 
   const totalPoints = earnedPoints - spentPoints;
+  const streak = calculateStreak(completedDates);
+  const levelInfo = calculateLevel(earnedPoints);
+
+  const [justLeveledUp, setJustLeveledUp] = useState(false);
+  const prevLevelRef = useRef(levelInfo.level);
+  useEffect(() => {
+    if (levelInfo.level > prevLevelRef.current) {
+      setJustLeveledUp(true);
+      const timer = setTimeout(() => setJustLeveledUp(false), 1500);
+      prevLevelRef.current = levelInfo.level;
+      return () => clearTimeout(timer);
+    }
+    prevLevelRef.current = levelInfo.level;
+  }, [levelInfo.level]);
 
   const handleAddTask = (task: Omit<Task, "id">) => {
     setTasks((prev) => [...prev, { ...task, id: crypto.randomUUID() }]);
@@ -112,6 +147,7 @@ export default function App() {
     setEarnedPoints(
       (prev) => prev + selectedTasks.reduce((sum, t) => sum + t.reward, 0),
     );
+    setCompletedDates((prev) => recordCompletionDate(prev));
     setTasks((prev) => prev.filter((t) => !selectedTaskIds.includes(t.id)));
     setSelectedTaskIds([]);
     setCompleteMode(false);
@@ -148,6 +184,7 @@ export default function App() {
       rewards,
       spentPoints,
       earnedPoints,
+      completedDates,
     };
     const blob = new Blob([JSON.stringify(backup, null, 2)], {
       type: "application/json",
@@ -166,6 +203,7 @@ export default function App() {
     setRewards(data.rewards);
     setSpentPoints(data.spentPoints);
     setEarnedPoints(data.earnedPoints);
+    setCompletedDates(data.completedDates ?? []);
     setSelectedTaskIds([]);
     setConfirmDeleteId(null);
   };
@@ -176,6 +214,7 @@ export default function App() {
     setRewards([]);
     setSpentPoints(0);
     setEarnedPoints(0);
+    setCompletedDates([]);
     setSelectedTaskIds([]);
     setConfirmDeleteId(null);
   };
@@ -191,7 +230,14 @@ export default function App() {
         <Settings className="w-5 h-5 text-stone-300" />
       </button>
 
-      <WoodenHeader />
+      <WoodenHeader
+        streak={streak}
+        level={levelInfo.level}
+        levelProgress={levelInfo.progress}
+        pointsIntoLevel={levelInfo.pointsIntoLevel}
+        pointsForNextLevel={levelInfo.pointsForNextLevel}
+        justLeveledUp={justLeveledUp}
+      />
       <TaskBoard
         tasks={tasks}
         completeMode={completeMode}

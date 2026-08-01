@@ -23,4 +23,5 @@ export interface BackupData {
   rewards: Reward[];
   spentPoints: number;
   earnedPoints: number;
+  completedDates: string[];
 }
